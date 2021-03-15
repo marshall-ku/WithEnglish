@@ -1,0 +1,7 @@
+.memorize__hidden {
+    opacity: 0;
+}
+
+.memorize__hidden.reveal {
+    opacity: 1;
+}

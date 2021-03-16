@@ -19,6 +19,10 @@
     border: 1px solid var(--border-color);
 }
 
+.table > div.aware {
+    background: rgba(89, 255, 0, 0.2);
+}
+
 .table li {
     list-style: inside decimal;
 }

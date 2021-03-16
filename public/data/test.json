@@ -1,20 +1,22 @@
 [
     {
-        "word": "male",
-        "meaning": ["남자, 남자의"]
+        "word": "museum",
+        "meaning": ["박물관, 미술관"],
+        "example": "The museum has been closed for renovation."
     },
     {
-        "word": "many",
-        "meaning": ["많은", "대부분의 사람들"]
+        "word": "musician",
+        "meaning": ["음악가(연주자·작곡가), 뮤지션"],
+        "example": "He had been a talented musician in his youth."
     },
     {
-        "word": "maintain",
-        "meaning": ["유지하다", "지키다"],
-        "example": "The government struggled to maintain law and order."
+        "word": "mustache",
+        "meaning": ["콧수염"],
+        "example": "The man with the mustache is my brother."
     },
     {
-        "word": "match",
-        "meaning": ["성냥", "경기, 시합", "어울리다"],
-        "example": "It was only a friendly match."
+        "word": "mysterious",
+        "meaning": ["이해하기 힘든, 기이한, 불가사의한"],
+        "example": "A mysterious young woman is living next door."
     }
 ]

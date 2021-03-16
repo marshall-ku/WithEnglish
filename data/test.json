@@ -1,0 +1,20 @@
+[
+    {
+        "word": "male",
+        "meaning": ["남자, 남자의"]
+    },
+    {
+        "word": "many",
+        "meaning": ["많은", "대부분의 사람들"]
+    },
+    {
+        "word": "maintain",
+        "meaning": ["유지하다", "지키다"],
+        "example": "The government struggled to maintain law and order."
+    },
+    {
+        "word": "match",
+        "meaning": ["성냥", "경기, 시합", "어울리다"],
+        "example": "It was only a friendly match."
+    }
+]

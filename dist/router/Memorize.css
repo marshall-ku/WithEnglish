@@ -1,0 +1,21 @@
+.memorize__hidden {
+    opacity: 0;
+}
+
+.memorize__hidden.reveal {
+    opacity: 1;
+}
+
+.memorize__word {
+    font-size: 2.5rem;
+    padding: 5px 10px;
+    line-height: 2;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 10px;
+}
+
+.memorize__meaning > li {
+    padding: 5px;
+    list-style: inside decimal;
+    font-size: 1.5rem;
+}

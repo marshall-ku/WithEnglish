@@ -104,12 +104,13 @@ a {
 }
 
 :root {
+    --background-color: #121212;
     --text-color: #bbb;
     --border-color: #787878;
 }
 
 html {
-    background: #121212;
+    background: var(--background-color);
     color: var(--text-color);
 }
 

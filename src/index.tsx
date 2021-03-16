@@ -3,13 +3,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import FrontPage from "./router/FrontPage";
+import Words from "./router/Words";
 import Memorize from "./router/Memorize";
 import "./index.css";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
             <Route exact path={"/"} component={FrontPage} />
+            <Route path={"/words"} component={Words} />
             <Route path={"/memorize"} component={Memorize} />
         </BrowserRouter>
     </React.StrictMode>,

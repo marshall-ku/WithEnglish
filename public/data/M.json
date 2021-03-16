@@ -1,5 +1,17 @@
 [
     {
+        "word": "male",
+        "meaning": ["남자, 남자의"]
+    },
+    {
+        "word": "many",
+        "meaning": ["많은", "대부분의 사람들"]
+    },
+    {
+        "word": "main",
+        "meaning": ["중요한, 주된"]
+    },
+    {
         "word": "mutual",
         "meaning": ["상호간의", "서로의"],
         "example": "They soon discovered a mutual interest in music."

@@ -116,7 +116,7 @@
       ]
     },
     "dist/router/Words.css": {
-      "bytes": 629,
+      "bytes": 652,
       "imports": []
     },
     "dist/router/Words.js": {
@@ -341,13 +341,13 @@
           "bytesInOutput": 716
         },
         "dist/router/Words.css": {
-          "bytesInOutput": 588
+          "bytesInOutput": 609
         },
         "dist/components/SelectTable.css": {
           "bytesInOutput": 161
         }
       },
-      "bytes": 4369
+      "bytes": 4390
     }
   }
 }

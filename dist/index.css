@@ -113,7 +113,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -264,6 +264,7 @@ html.aware .memorize__aware > svg {
 .table__title {
   background: var(--text-color);
   color: var(--background-color);
+  font-weight: bold;
 }
 .table > div {
   padding: 10px;
@@ -279,7 +280,7 @@ html.aware .memorize__aware > svg {
 .table button {
   display: inline-flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 10px;
   transform: translateY(0.45rem);
 }
 .table svg {

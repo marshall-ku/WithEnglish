@@ -9098,7 +9098,7 @@ function MemorizeWords(props) {
   const [reveal, setReveal] = useState(false);
   const {data, setData} = props;
   const {length} = data;
-  const wordSwapInterval = 4e3;
+  const wordSwapInterval = 3e3;
   const wordRevealInterval = wordSwapInterval - 1e3;
   useEffect(() => {
     const timer = index2 === length - 1 ? setTimeout(() => setDone(true), wordSwapInterval) : setTimeout(() => {

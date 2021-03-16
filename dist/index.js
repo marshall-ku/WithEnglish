@@ -8942,6 +8942,7 @@ function SelectTable(props) {
 function speak(message) {
   const msg = new SpeechSynthesisUtterance();
   msg.text = message;
+  msg.lang = "en";
   window.speechSynthesis.speak(msg);
 }
 

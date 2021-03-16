@@ -86,7 +86,7 @@
       ]
     },
     "dist/components/speaker.js": {
-      "bytes": 148,
+      "bytes": 167,
       "imports": []
     },
     "dist/components/Loader.js": {
@@ -277,7 +277,7 @@
           "bytesInOutput": 865
         },
         "dist/components/speaker.js": {
-          "bytesInOutput": 133
+          "bytesInOutput": 152
         },
         "dist/components/Loader.js": {
           "bytesInOutput": 1356
@@ -307,7 +307,7 @@
           "bytesInOutput": 623
         }
       },
-      "bytes": 279410
+      "bytes": 279429
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],

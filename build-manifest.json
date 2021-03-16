@@ -85,6 +85,10 @@
         }
       ]
     },
+    "dist/components/speaker.js": {
+      "bytes": 148,
+      "imports": []
+    },
     "dist/components/Loader.js": {
       "bytes": 1421,
       "imports": [
@@ -94,12 +98,21 @@
         }
       ]
     },
+    "dist/components/Icons.js": {
+      "bytes": 2831,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "dist/router/Words.css": {
-      "bytes": 366,
+      "bytes": 566,
       "imports": []
     },
     "dist/router/Words.js": {
-      "bytes": 2067,
+      "bytes": 2537,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -110,20 +123,19 @@
           "kind": "import-statement"
         },
         {
+          "path": "dist/components/speaker.js",
+          "kind": "import-statement"
+        },
+        {
           "path": "dist/components/Loader.js",
           "kind": "import-statement"
         },
         {
-          "path": "dist/router/Words.css",
+          "path": "dist/components/Icons.js",
           "kind": "import-statement"
-        }
-      ]
-    },
-    "dist/components/Icons.js": {
-      "bytes": 1797,
-      "imports": [
+        },
         {
-          "path": "_snowpack/pkg/react.js",
+          "path": "dist/router/Words.css",
           "kind": "import-statement"
         }
       ]
@@ -183,7 +195,7 @@
       ]
     },
     "dist/index.css": {
-      "bytes": 2517,
+      "bytes": 2550,
       "imports": []
     },
     "dist/index.js": {
@@ -264,17 +276,20 @@
         "dist/components/SelectTable.js": {
           "bytesInOutput": 865
         },
+        "dist/components/speaker.js": {
+          "bytesInOutput": 133
+        },
         "dist/components/Loader.js": {
           "bytesInOutput": 1356
+        },
+        "dist/components/Icons.js": {
+          "bytesInOutput": 2329
         },
         "dist/router/Words.css": {
           "bytesInOutput": 0
         },
         "dist/router/Words.js": {
-          "bytesInOutput": 1855
-        },
-        "dist/components/Icons.js": {
-          "bytesInOutput": 1726
+          "bytesInOutput": 2228
         },
         "dist/router/Memorize.css": {
           "bytesInOutput": 0
@@ -292,13 +307,13 @@
           "bytesInOutput": 623
         }
       },
-      "bytes": 278270
+      "bytes": 279410
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/index.css": {
-          "bytesInOutput": 2372
+          "bytesInOutput": 2402
         },
         "dist/router/FrontPage.css": {
           "bytesInOutput": 348
@@ -307,13 +322,13 @@
           "bytesInOutput": 325
         },
         "dist/router/Words.css": {
-          "bytesInOutput": 342
+          "bytesInOutput": 528
         },
         "dist/components/SelectTable.css": {
           "bytesInOutput": 161
         }
       },
-      "bytes": 3702
+      "bytes": 3918
     }
   }
 }

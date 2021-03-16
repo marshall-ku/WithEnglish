@@ -7,13 +7,13 @@ export default function FrontPage() {
         <div className="front">
             <h1 className="front__title">With English</h1>
             <div className="front__buttons">
-                <Link className="large-button" to={"/lecture"}>
+                <Link className="large-button" to="/lecture">
                     📖 Lecture
                 </Link>
-                <Link className="large-button" to={"/memorize"}>
+                <Link className="large-button" to="/memorize">
                     🤯 Memorize
                 </Link>
-                <Link className="large-button" to={"/quiz"}>
+                <Link className="large-button" to="/quiz">
                     🤔 Quiz
                 </Link>
             </div>

@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import SelectTable from "../components/SelectTable";
+import { shuffleArray } from "../utils";
+import Loader from "../components/Loader";
+
+import { ListIcon, HomeIcon, RenewIcon } from "../components/Icons";
+
 import "./Memorize.css";
 
 function MemorizeWords(props: MemorizeWordsProps) {
@@ -6,13 +13,12 @@ function MemorizeWords(props: MemorizeWordsProps) {
     const [done, setDone] = useState(false);
     const [reveal, setReveal] = useState(false);
 
-    const { data } = props;
+    const { data, setData } = props;
     const { length } = data;
     const wordSwapInterval = 4000;
     const wordRevealInterval = wordSwapInterval - 1000;
 
     useEffect(() => {
-        console.log(index, length);
         const timer =
             index === length - 1
                 ? setTimeout(() => setDone(true), wordSwapInterval)
@@ -29,9 +35,36 @@ function MemorizeWords(props: MemorizeWordsProps) {
     }, [index, setIndex]);
 
     if (done) {
-        return <h2>Done</h2>;
+        return (
+            <div className="center-container done">
+                <h2 className="done__title">Done 🎉</h2>
+                <div className="done__buttons">
+                    <button
+                        className="done__button"
+                        onClick={() => setData(undefined)}
+                    >
+                        <ListIcon />
+                    </button>
+                    <Link className="done__button" to="/">
+                        <HomeIcon />
+                    </Link>
+                    <button
+                        className="done__button"
+                        onClick={() => {
+                            shuffleArray(data);
+                            setIndex(0);
+                            setReveal(false);
+                            setDone(false);
+                        }}
+                    >
+                        <RenewIcon />
+                    </button>
+                </div>
+            </div>
+        );
     } else {
         const currentWord = data[index];
+
         return (
             <div className="memorize">
                 <h2 className="memorize__word">{currentWord.word}</h2>
@@ -47,48 +80,6 @@ function MemorizeWords(props: MemorizeWordsProps) {
             </div>
         );
     }
-}
-
-function SelectTable(props: SelectTableProps) {
-    const { list, setData } = props;
-
-    const fetchData = (list: string) => {
-        fetch(`/data/${list}.json`)
-            .then((response) => {
-                try {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error("Couldn't fetch data");
-                    }
-                } catch (error) {
-                    throw new Error("Couldn't parse data");
-                }
-            })
-            .then((response: word[]) => {
-                setData(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-    return (
-        <ul>
-            {list.map((item, index) => {
-                return (
-                    <li
-                        onClick={() => {
-                            fetchData(item);
-                        }}
-                        key={index}
-                    >
-                        {item}
-                    </li>
-                );
-            })}
-        </ul>
-    );
 }
 
 export default function Memorize() {
@@ -121,10 +112,14 @@ export default function Memorize() {
     }, []);
 
     if (data) {
-        return <MemorizeWords data={data} />;
+        return <MemorizeWords data={data} setData={setData} />;
     } else if (list) {
-        return <SelectTable list={list} setData={setData} />;
+        return <SelectTable list={list} shuffle={true} setData={setData} />;
     } else {
-        return <div>Loading...</div>;
+        return (
+            <div className="center-container">
+                <Loader />
+            </div>
+        );
     }
 }

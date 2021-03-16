@@ -22,3 +22,15 @@
 .table li {
     list-style: inside decimal;
 }
+
+.table button {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+    transform: translateY(0.45rem);
+}
+
+.table svg {
+    fill: var(--text-color);
+    pointer-events: none;
+}

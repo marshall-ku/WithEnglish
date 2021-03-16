@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import SelectTable from "../components/SelectTable";
+import speak from "../components/speaker";
 import Loader from "../components/Loader";
+import { VolumeUpIcon } from "../components/Icons";
 import "./Words.css";
 
 function WordsList(props: WordsListProps) {
     const { data, setData } = props;
+
+    const handleClick = (e: React.MouseEvent) => {
+        const target = e.target as HTMLButtonElement;
+
+        console.log("hi");
+        console.log(target);
+        speak(target.dataset.message?.replace(/\(.*\)/, "") || "");
+    };
 
     return (
         <div className="words">
@@ -16,7 +26,16 @@ function WordsList(props: WordsListProps) {
                 {data.map((word) => {
                     return (
                         <>
-                            <div>{word.word}</div>
+                            <div>
+                                {word.word}
+                                <button
+                                    className=""
+                                    data-message={word.word}
+                                    onClick={handleClick}
+                                >
+                                    <VolumeUpIcon />
+                                </button>
+                            </div>
                             <div>
                                 {word.meaning.map((meaning) => {
                                     return <li>{meaning}</li>;

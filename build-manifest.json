@@ -64,12 +64,16 @@
       "bytes": 191,
       "imports": []
     },
+    "dist/db.js": {
+      "bytes": 637,
+      "imports": []
+    },
     "dist/components/SelectTable.css": {
       "bytes": 174,
       "imports": []
     },
     "dist/components/SelectTable.js": {
-      "bytes": 998,
+      "bytes": 1693,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -77,6 +81,10 @@
         },
         {
           "path": "dist/utils.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/db.js",
           "kind": "import-statement"
         },
         {
@@ -99,7 +107,7 @@
       ]
     },
     "dist/components/Icons.js": {
-      "bytes": 2831,
+      "bytes": 3315,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -108,11 +116,11 @@
       ]
     },
     "dist/router/Words.css": {
-      "bytes": 566,
+      "bytes": 629,
       "imports": []
     },
     "dist/router/Words.js": {
-      "bytes": 2537,
+      "bytes": 3148,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -135,17 +143,21 @@
           "kind": "import-statement"
         },
         {
+          "path": "dist/db.js",
+          "kind": "import-statement"
+        },
+        {
           "path": "dist/router/Words.css",
           "kind": "import-statement"
         }
       ]
     },
     "dist/router/Memorize.css": {
-      "bytes": 348,
+      "bytes": 768,
       "imports": []
     },
     "dist/router/Memorize.js": {
-      "bytes": 3518,
+      "bytes": 5490,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -161,6 +173,10 @@
         },
         {
           "path": "dist/utils.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/db.js",
           "kind": "import-statement"
         },
         {
@@ -270,11 +286,14 @@
         "dist/utils.js": {
           "bytesInOutput": 184
         },
+        "dist/db.js": {
+          "bytesInOutput": 623
+        },
         "dist/components/SelectTable.css": {
           "bytesInOutput": 0
         },
         "dist/components/SelectTable.js": {
-          "bytesInOutput": 865
+          "bytesInOutput": 1528
         },
         "dist/components/speaker.js": {
           "bytesInOutput": 152
@@ -283,19 +302,19 @@
           "bytesInOutput": 1356
         },
         "dist/components/Icons.js": {
-          "bytesInOutput": 2329
+          "bytesInOutput": 3223
         },
         "dist/router/Words.css": {
           "bytesInOutput": 0
         },
         "dist/router/Words.js": {
-          "bytesInOutput": 2228
+          "bytesInOutput": 2791
         },
         "dist/router/Memorize.css": {
           "bytesInOutput": 0
         },
         "dist/router/Memorize.js": {
-          "bytesInOutput": 3136
+          "bytesInOutput": 5058
         },
         "dist/router/Quiz.js": {
           "bytesInOutput": 1458
@@ -307,7 +326,7 @@
           "bytesInOutput": 623
         }
       },
-      "bytes": 279429
+      "bytes": 284109
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
@@ -319,16 +338,16 @@
           "bytesInOutput": 348
         },
         "dist/router/Memorize.css": {
-          "bytesInOutput": 325
+          "bytesInOutput": 716
         },
         "dist/router/Words.css": {
-          "bytesInOutput": 528
+          "bytesInOutput": 588
         },
         "dist/components/SelectTable.css": {
           "bytesInOutput": 161
         }
       },
-      "bytes": 3918
+      "bytes": 4369
     }
   }
 }

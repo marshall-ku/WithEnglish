@@ -8902,9 +8902,43 @@ function shuffleArray(array) {
   }
 }
 
+// dist/db.js
+function setDB(name, data, hard) {
+  const stored = getDB(name);
+  if (hard) {
+    localStorage.setItem(name, JSON.stringify(data));
+  } else if (stored) {
+    const parsed = JSON.parse(stored);
+    const merged = [];
+    parsed.forEach((item) => {
+      if (!data.includes(item)) {
+        merged.push(item);
+      }
+    });
+    data.forEach((item) => {
+      if (!merged.includes(item)) {
+        merged.push(item);
+      }
+    });
+    localStorage.setItem(name, JSON.stringify(merged));
+  } else {
+    localStorage.setItem(name, JSON.stringify(data));
+  }
+}
+function getDB(name) {
+  return localStorage.getItem(name);
+}
+
 // dist/components/SelectTable.js
 function SelectTable(props) {
-  const {list, shuffle, setData} = props;
+  const {
+    list,
+    shuffle,
+    removeAware,
+    setData,
+    setAndCheckData,
+    setTitle
+  } = props;
   const fetchData = (list2) => {
     fetch(`/data/${list2}.json`).then((response) => {
       try {
@@ -8917,10 +8951,33 @@ function SelectTable(props) {
         throw new Error("Couldn't parse data");
       }
     }).then((response) => {
+      const stored = getDB(list2);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (removeAware) {
+          response = response.filter((word) => {
+            return !parsed.includes(word.word);
+          });
+        } else {
+          response.map((word) => {
+            if (parsed.includes(word.word)) {
+              word.aware = true;
+            }
+            return word;
+          });
+        }
+      }
       if (shuffle) {
         shuffleArray(response);
       }
-      setData(response);
+      if (setTitle) {
+        setTitle(list2);
+      }
+      if (setData) {
+        setData(response);
+      } else if (setAndCheckData) {
+        setAndCheckData(response);
+      }
     }).catch((error) => {
       console.log(error);
     });
@@ -9039,6 +9096,20 @@ function RenewIcon() {
     d: "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"
   }));
 }
+function DoneIcon() {
+  return /* @__PURE__ */ react.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24px",
+    viewBox: "0 0 24 24",
+    width: "24px",
+    fill: "#FFFFFF"
+  }, /* @__PURE__ */ react.createElement("path", {
+    d: "M0 0h24v24H0V0z",
+    fill: "none"
+  }), /* @__PURE__ */ react.createElement("path", {
+    d: "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+  }));
+}
 function VolumeUpIcon() {
   return /* @__PURE__ */ react.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -9053,15 +9124,36 @@ function VolumeUpIcon() {
     d: "M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"
   }));
 }
+function ClearIcon() {
+  return /* @__PURE__ */ react.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24px",
+    viewBox: "0 0 24 24",
+    width: "24px",
+    fill: "#FFFFFF"
+  }, /* @__PURE__ */ react.createElement("path", {
+    d: "M0 0h24v24H0V0z",
+    fill: "none"
+  }), /* @__PURE__ */ react.createElement("path", {
+    d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+  }));
+}
 
 // dist/router/Words.js
 function WordsList(props) {
-  const {data, setData} = props;
+  const {data, title, setData} = props;
   const handleClick = (e2) => {
     const target = e2.target;
-    console.log("hi");
-    console.log(target);
     speak(target.dataset.message?.replace(/\(.*\)/, "") || "");
+  };
+  const removeWord = (e2) => {
+    const target = e2.target;
+    const stored = JSON.parse(getDB(title) || "");
+    const filtered = stored.filter((word) => word !== target.dataset.word);
+    console.log(filtered);
+    setDB(title, filtered, true);
+    target.parentElement?.classList.remove("aware");
+    target.remove();
   };
   return /* @__PURE__ */ react.createElement("div", {
     className: "words"
@@ -9074,8 +9166,12 @@ function WordsList(props) {
   }, "\uB73B"), /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
   }, "\uC608\uBB38"), data.map((word) => {
-    return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement("div", null, word.word, /* @__PURE__ */ react.createElement("button", {
-      className: "",
+    return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement("div", {
+      className: word.aware ? "aware" : ""
+    }, word.word, word.aware && /* @__PURE__ */ react.createElement("button", {
+      "data-word": word.word,
+      onClick: removeWord
+    }, /* @__PURE__ */ react.createElement(ClearIcon, null)), /* @__PURE__ */ react.createElement("button", {
       "data-message": word.word,
       onClick: handleClick
     }, /* @__PURE__ */ react.createElement(VolumeUpIcon, null))), /* @__PURE__ */ react.createElement("div", null, word.meaning.map((meaning) => {
@@ -9085,6 +9181,7 @@ function WordsList(props) {
 }
 function Words() {
   const [list, setList] = useState();
+  const [title, setTitle] = useState("");
   const [data, setData] = useState();
   const fetchList = () => {
     fetch("/data/list.json").then((response) => {
@@ -9109,11 +9206,13 @@ function Words() {
   if (data) {
     return /* @__PURE__ */ react.createElement(WordsList, {
       data,
+      title,
       setData
     });
   } else if (list) {
     return /* @__PURE__ */ react.createElement(SelectTable, {
       list,
+      setTitle,
       setData
     });
   } else {
@@ -9124,26 +9223,48 @@ function Words() {
 }
 
 // dist/router/Memorize.js
+var memorizedWords = new Set();
 function MemorizeWords(props) {
   const [index2, setIndex] = useState(0);
   const [done, setDone] = useState(false);
   const [reveal, setReveal] = useState(false);
-  const {data, setData} = props;
-  const {length} = data;
+  const [words, setWords] = useState(props.data);
+  const [complete, setComplete] = useState(false);
+  const {setData, title} = props;
+  let {length} = words;
   const wordSwapInterval = 3e3;
   const wordRevealInterval = wordSwapInterval - 1e3;
+  const handleAware = () => {
+    const {word} = words[index2];
+    document.documentElement.classList.add("aware");
+    memorizedWords.add(word);
+    console.log(word);
+  };
+  const handleDone = () => {
+    const memorizedWordsArr = [...memorizedWords.values()];
+    setDone(true);
+    if (memorizedWordsArr.length) {
+      memorizedWords.clear();
+      setDB(title, memorizedWordsArr);
+    }
+  };
   useEffect(() => {
-    const timer = index2 === length - 1 ? setTimeout(() => setDone(true), wordSwapInterval) : setTimeout(() => {
+    const timer = index2 === length - 1 ? setTimeout(() => handleDone(), wordSwapInterval) : setTimeout(() => {
       setIndex(index2 + 1);
       setReveal(false);
     }, wordSwapInterval);
     const reveal2 = setTimeout(() => setReveal(true), wordRevealInterval);
+    document.documentElement.classList.remove("aware");
     return () => {
       clearTimeout(timer);
       clearTimeout(reveal2);
     };
   }, [index2, setIndex]);
-  if (done) {
+  if (complete) {
+    return /* @__PURE__ */ react.createElement("div", {
+      className: "center-container"
+    }, /* @__PURE__ */ react.createElement("h2", null, "Wow! You memorized every words!"));
+  } else if (done) {
     return /* @__PURE__ */ react.createElement("div", {
       className: "center-container done"
     }, /* @__PURE__ */ react.createElement("h2", {
@@ -9159,14 +9280,29 @@ function MemorizeWords(props) {
     }, /* @__PURE__ */ react.createElement(HomeIcon, null)), /* @__PURE__ */ react.createElement("button", {
       className: "done__button",
       onClick: () => {
-        shuffleArray(data);
+        const stored = getDB(title);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          const wordsToStudy = words.filter((word) => {
+            return !parsed.includes(word.word);
+          });
+          length = wordsToStudy.length;
+          if (length) {
+            shuffleArray(wordsToStudy);
+            setWords(wordsToStudy);
+          } else {
+            setComplete(true);
+          }
+        } else {
+          shuffleArray(words);
+        }
         setIndex(0);
         setReveal(false);
         setDone(false);
       }
     }, /* @__PURE__ */ react.createElement(RenewIcon, null))));
   } else {
-    const currentWord = data[index2];
+    const currentWord = words[index2];
     return /* @__PURE__ */ react.createElement("div", {
       className: "memorize"
     }, /* @__PURE__ */ react.createElement("h2", {
@@ -9177,12 +9313,17 @@ function MemorizeWords(props) {
       return /* @__PURE__ */ react.createElement("li", {
         key: index22
       }, meaning);
-    })));
+    })), /* @__PURE__ */ react.createElement("button", {
+      className: "memorize__aware",
+      onClick: handleAware
+    }, /* @__PURE__ */ react.createElement(DoneIcon, null), " I know this"));
   }
 }
 function Memorize() {
   const [list, setList] = useState();
   const [data, setData] = useState();
+  const [title, setTitle] = useState("");
+  const [done, setDone] = useState(false);
   const fetchList = () => {
     fetch("/data/list.json").then((response) => {
       try {
@@ -9200,19 +9341,33 @@ function Memorize() {
       console.log(error);
     });
   };
+  const setAndCheckData = (words) => {
+    if (!words.length) {
+      setDone(true);
+    } else {
+      setData(words);
+    }
+  };
   useEffect(() => {
     fetchList();
   }, []);
-  if (data) {
+  if (done) {
+    return /* @__PURE__ */ react.createElement("div", {
+      className: "center-container"
+    }, /* @__PURE__ */ react.createElement("h2", null, "Wow! You memorized every words!"));
+  } else if (data) {
     return /* @__PURE__ */ react.createElement(MemorizeWords, {
       data,
+      title,
       setData
     });
   } else if (list) {
     return /* @__PURE__ */ react.createElement(SelectTable, {
       list,
       shuffle: true,
-      setData
+      removeAware: true,
+      setAndCheckData,
+      setTitle
     });
   } else {
     return /* @__PURE__ */ react.createElement("div", {

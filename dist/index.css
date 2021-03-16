@@ -232,6 +232,25 @@ h6 {
   list-style: inside decimal;
   font-size: 1.5rem;
 }
+.memorize__aware {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  transform: translate3d(-50%, 0, 0);
+}
+.memorize__aware > svg {
+  display: block;
+  margin-right: 5px;
+}
+html.aware .memorize__aware > svg {
+  fill: greenyellow;
+}
 
 /* dist/router/Words.css */
 .words {
@@ -250,6 +269,9 @@ h6 {
   padding: 10px;
   line-height: 2;
   border: 1px solid var(--border-color);
+}
+.table > div.aware {
+  background: rgba(89, 255, 0, 0.2);
 }
 .table li {
   list-style: inside decimal;

@@ -15,7 +15,7 @@ function MemorizeWords(props: MemorizeWordsProps) {
 
     const { data, setData } = props;
     const { length } = data;
-    const wordSwapInterval = 4000;
+    const wordSwapInterval = 3000;
     const wordRevealInterval = wordSwapInterval - 1000;
 
     useEffect(() => {

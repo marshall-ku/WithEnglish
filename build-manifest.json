@@ -44,7 +44,7 @@
       "imports": []
     },
     "dist/router/FrontPage.js": {
-      "bytes": 795,
+      "bytes": 680,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -253,7 +253,7 @@
           "bytesInOutput": 0
         },
         "dist/router/FrontPage.js": {
-          "bytesInOutput": 642
+          "bytesInOutput": 527
         },
         "dist/utils.js": {
           "bytesInOutput": 184
@@ -292,7 +292,7 @@
           "bytesInOutput": 623
         }
       },
-      "bytes": 278385
+      "bytes": 278270
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],

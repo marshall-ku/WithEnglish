@@ -8891,10 +8891,7 @@ function FrontPage() {
   }, "\u{1F4D6} Words"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/memorize"
-  }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
-    className: "large-button",
-    to: "/quiz"
-  }, "\u{1F914} Quiz")));
+  }, "\u{1F92F} Memorize")));
 }
 
 // dist/utils.js

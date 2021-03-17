@@ -28,7 +28,6 @@ function MemorizeWords(props: MemorizeWordsProps) {
 
         document.documentElement.classList.add("aware");
         memorizedWords.add(word);
-        console.log(word);
     };
 
     const handleDone = () => {

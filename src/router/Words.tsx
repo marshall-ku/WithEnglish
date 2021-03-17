@@ -23,8 +23,6 @@ function WordsList(props: WordsListProps) {
             (word: string) => word !== target.dataset.word
         );
 
-        console.log(filtered);
-
         setDB(title, filtered, true);
 
         target.parentElement?.classList.remove("aware");

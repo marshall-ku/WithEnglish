@@ -13,8 +13,8 @@ export default function FrontPage() {
                 <Link className="large-button" to="/memorize">
                     🤯 Memorize
                 </Link>
-                <Link className="large-button" to="/quiz">
-                    🤔 Quiz
+                <Link className="large-button" to="/test">
+                    🤔 Test
                 </Link>
             </div>
         </div>

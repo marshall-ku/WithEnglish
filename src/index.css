@@ -103,6 +103,13 @@ a {
     text-decoration: none;
 }
 
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    scrollbar-width: thin;
+}
+
 :root {
     --background-color: #121212;
     --text-color: #bbb;
@@ -184,6 +191,14 @@ h6 {
     margin-bottom: 5vh;
     font-family: "Dancing Script", cursive;
     font-size: 2.5rem;
+}
+
+.done__info {
+    margin-top: -2.5vh;
+    margin-bottom: 2.5vh;
+    line-height: 1.7;
+    font-size: 1.3rem;
+    text-align: center;
 }
 
 .done__buttons {

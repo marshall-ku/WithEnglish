@@ -5,7 +5,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import FrontPage from "./router/FrontPage";
 import Words from "./router/Words";
 import Memorize from "./router/Memorize";
-import Quiz from "./router/Quiz";
+import Test from "./router/Test";
 import "./index.css";
 
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
             <Route exact path={"/"} component={FrontPage} />
             <Route path={"/words"} component={Words} />
             <Route path={"/memorize"} component={Memorize} />
-            <Route path={"/quiz"} component={Quiz} />
+            <Route path={"/test"} component={Test} />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")

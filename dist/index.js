@@ -8891,7 +8891,10 @@ function FrontPage() {
   }, "\u{1F4D6} Words"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/memorize"
-  }, "\u{1F92F} Memorize")));
+  }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
+    className: "large-button",
+    to: "/test"
+  }, "\u{1F914} Test")));
 }
 
 // dist/utils.js
@@ -9150,7 +9153,6 @@ function WordsList(props) {
     const target = e2.target;
     const stored = JSON.parse(getDB(title) || "");
     const filtered = stored.filter((word) => word !== target.dataset.word);
-    console.log(filtered);
     setDB(title, filtered, true);
     target.parentElement?.classList.remove("aware");
     target.remove();
@@ -9238,7 +9240,6 @@ function MemorizeWords(props) {
     const {word} = words[index2];
     document.documentElement.classList.add("aware");
     memorizedWords.add(word);
-    console.log(word);
   };
   const handleDone = () => {
     const memorizedWordsArr = [...memorizedWords.values()];
@@ -9376,22 +9377,66 @@ function Memorize() {
   }
 }
 
-// dist/router/Quiz.js
-function SpeedQuiz(props) {
+// dist/router/Test.js
+function WordTest(props) {
   const {data, setData} = props;
-  const spokenWords = [];
-  const recognition = new SpeechRecognition();
-  const speechRecognitionList = new SpeechGrammarList();
-  useEffect(() => {
-    recognition.grammars = speechRecognitionList;
-    recognition.continuous = false;
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-  }, []);
-  return /* @__PURE__ */ react.createElement("div", null);
+  const [index2, setIndex] = useState(0);
+  const [done, setDone] = useState(false);
+  const [incorrect, setIncorrect] = useState(0);
+  const [start, _] = useState(new Date().getTime());
+  const {length} = data;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const target = event.target;
+    const input = target.firstChild;
+    const answer = input.value;
+    if (answer.toLocaleLowerCase() === data[index2].word.toLocaleLowerCase()) {
+      if (index2 !== length - 1) {
+        setIndex(index2 + 1);
+        input.value = "";
+      } else {
+        setDone(true);
+      }
+    } else {
+      setIncorrect(incorrect + 1);
+      target.classList.add("wrong");
+      setTimeout(() => {
+        target.classList.remove("wrong");
+      }, 300);
+    }
+  };
+  if (done) {
+    return /* @__PURE__ */ react.createElement("div", {
+      className: "center-container done"
+    }, /* @__PURE__ */ react.createElement("h2", {
+      className: "done__title"
+    }, "Congratulations! \u{1F389}"), /* @__PURE__ */ react.createElement("div", {
+      className: "done__info"
+    }, /* @__PURE__ */ react.createElement("h3", null, "\uC18C\uC694 \uC2DC\uAC04 :", " ", Math.round((new Date().getTime() - start) / 1e3), "\uCD08"), /* @__PURE__ */ react.createElement("h3", null, "\uC624\uB2F5\uC218 : ", incorrect)), /* @__PURE__ */ react.createElement("div", {
+      className: "done__buttons"
+    }, /* @__PURE__ */ react.createElement("button", {
+      className: "done__button",
+      onClick: () => setData(void 0)
+    }, /* @__PURE__ */ react.createElement(ListIcon, null)), /* @__PURE__ */ react.createElement(Link, {
+      className: "done__button",
+      to: "/"
+    }, /* @__PURE__ */ react.createElement(HomeIcon, null))));
+  }
+  return /* @__PURE__ */ react.createElement("div", {
+    className: "question"
+  }, /* @__PURE__ */ react.createElement("ul", {
+    className: "question__meaning"
+  }, data[index2].meaning.map((meaning) => {
+    return /* @__PURE__ */ react.createElement("li", null, meaning);
+  })), /* @__PURE__ */ react.createElement("form", {
+    className: "question__input-wrap",
+    onSubmit: handleSubmit
+  }, /* @__PURE__ */ react.createElement("input", {
+    type: "text",
+    className: "question__input"
+  })));
 }
-function Quiz() {
+function Test() {
   const [list, setList] = useState();
   const [data, setData] = useState();
   const fetchList = () => {
@@ -9415,7 +9460,7 @@ function Quiz() {
     fetchList();
   }, []);
   if (data) {
-    return /* @__PURE__ */ react.createElement(SpeedQuiz, {
+    return /* @__PURE__ */ react.createElement(WordTest, {
       data,
       setData
     });
@@ -9447,8 +9492,8 @@ react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, n
   path: "/memorize",
   component: Memorize
 }), /* @__PURE__ */ react.createElement(Route, {
-  path: "/quiz",
-  component: Quiz
+  path: "/test",
+  component: Test
 }))), document.getElementById("root"));
 if (void 0) {
   (void 0).accept();

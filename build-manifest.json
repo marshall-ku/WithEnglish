@@ -44,7 +44,7 @@
       "imports": []
     },
     "dist/router/FrontPage.js": {
-      "bytes": 680,
+      "bytes": 795,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -120,7 +120,7 @@
       "imports": []
     },
     "dist/router/Words.js": {
-      "bytes": 3148,
+      "bytes": 3121,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -157,7 +157,7 @@
       "imports": []
     },
     "dist/router/Memorize.js": {
-      "bytes": 5490,
+      "bytes": 5467,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -193,11 +193,19 @@
         }
       ]
     },
-    "dist/router/Quiz.js": {
-      "bytes": 1648,
+    "dist/router/Test.css": {
+      "bytes": 2334,
+      "imports": []
+    },
+    "dist/router/Test.js": {
+      "bytes": 3616,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
           "kind": "import-statement"
         },
         {
@@ -207,11 +215,19 @@
         {
           "path": "dist/components/Loader.js",
           "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Icons.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Test.css",
+          "kind": "import-statement"
         }
       ]
     },
     "dist/index.css": {
-      "bytes": 2550,
+      "bytes": 2767,
       "imports": []
     },
     "dist/index.js": {
@@ -246,7 +262,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "dist/router/Quiz.js",
+          "path": "dist/router/Test.js",
           "kind": "import-statement"
         },
         {
@@ -281,7 +297,7 @@
           "bytesInOutput": 0
         },
         "dist/router/FrontPage.js": {
-          "bytesInOutput": 527
+          "bytesInOutput": 642
         },
         "dist/utils.js": {
           "bytesInOutput": 184
@@ -308,16 +324,19 @@
           "bytesInOutput": 0
         },
         "dist/router/Words.js": {
-          "bytesInOutput": 2791
+          "bytesInOutput": 2764
         },
         "dist/router/Memorize.css": {
           "bytesInOutput": 0
         },
         "dist/router/Memorize.js": {
-          "bytesInOutput": 5058
+          "bytesInOutput": 5035
         },
-        "dist/router/Quiz.js": {
-          "bytesInOutput": 1458
+        "dist/router/Test.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/Test.js": {
+          "bytesInOutput": 3289
         },
         "dist/index.css": {
           "bytesInOutput": 0
@@ -326,19 +345,22 @@
           "bytesInOutput": 623
         }
       },
-      "bytes": 284109
+      "bytes": 286005
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/index.css": {
-          "bytesInOutput": 2402
+          "bytesInOutput": 2603
         },
         "dist/router/FrontPage.css": {
           "bytesInOutput": 348
         },
         "dist/router/Memorize.css": {
           "bytesInOutput": 716
+        },
+        "dist/router/Test.css": {
+          "bytesInOutput": 1755
         },
         "dist/router/Words.css": {
           "bytesInOutput": 609
@@ -347,7 +369,7 @@
           "bytesInOutput": 161
         }
       },
-      "bytes": 4390
+      "bytes": 6374
     }
   }
 }

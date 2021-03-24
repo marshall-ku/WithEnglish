@@ -102,6 +102,12 @@ br {
 a {
   text-decoration: none;
 }
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
 :root {
   --background-color: #121212;
   --text-color: #bbb;
@@ -171,6 +177,13 @@ h6 {
   margin-bottom: 5vh;
   font-family: "Dancing Script", cursive;
   font-size: 2.5rem;
+}
+.done__info {
+  margin-top: -2.5vh;
+  margin-bottom: 2.5vh;
+  line-height: 1.7;
+  font-size: 1.3rem;
+  text-align: center;
 }
 .done__buttons {
   display: flex;
@@ -250,6 +263,87 @@ h6 {
 }
 html.aware .memorize__aware > svg {
   fill: greenyellow;
+}
+
+/* dist/router/Test.css */
+@-webkit-keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+.question {
+  width: clamp(1px, calc(100% - 20px), 500px);
+  padding-top: 30vh;
+  margin: 0 auto;
+  text-align: center;
+}
+.question__meaning {
+  line-height: 2;
+}
+.question__meaning > li {
+  list-style: inside decimal;
+}
+.question__input-wrap {
+  margin-top: 20px;
+}
+.question__input {
+  width: clamp(1px, calc(100% - 20px), 500px);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2rem;
+  text-align: center;
+}
+.question__input-wrap.wrong .question__input {
+  background: rgba(220, 20, 60, 0.2);
+  -webkit-animation: vibrate-1 0.1s linear infinite both;
+  animation: vibrate-1 0.1s linear infinite both;
 }
 
 /* dist/router/Words.css */

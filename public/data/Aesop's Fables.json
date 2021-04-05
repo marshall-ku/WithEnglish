@@ -1,0 +1,330 @@
+[
+    {
+        "word": "lap",
+        "meaning": ["핥다, 게걸스럽게 먹다, 꿀꺽꿀꺽 마시다"]
+    },
+    {
+        "word": "spring",
+        "meaning": ["봄", "용수철, 스프링", "휙 움직이다", "샘"]
+    },
+    {
+        "word": "supper",
+        "meaning": ["저녁"]
+    },
+    {
+        "word": "seize",
+        "meaning": [
+            "꽉 붙잡다, 움켜쥐다",
+            "장악하다, 점령하다",
+            "체포하다, 붙잡다"
+        ]
+    },
+    {
+        "word": "muddle",
+        "meaning": ["헝클어뜨리다, 뒤죽박죽을 만들다", "혼란스럽게 하다"]
+    },
+    {
+        "word": "snarl",
+        "meaning": ["으르렁거리다", "으르렁거리는 소리", "호통치다"]
+    },
+    {
+        "word": "crane",
+        "meaning": ["기중기", "학"]
+    },
+    {
+        "word": "gorge",
+        "meaning": ["협곡", "실컷 먹다"]
+    },
+    {
+        "word": "swallow",
+        "meaning": ["삼키다", "제비"]
+    },
+    {
+        "word": "groan",
+        "meaning": ["신음 소리를 내다, 낮게 탄성을 지르다"]
+    },
+    {
+        "word": "relieve",
+        "meaning": ["(고통 등을) 없애 주다, 안도하게 하다", "완화하다"]
+    },
+    {
+        "word": "induce",
+        "meaning": ["설득하다, 유도하다", "유발하다"]
+    },
+
+    {
+        "word": "jaw",
+        "meaning": ["턱"]
+    },
+    {
+        "word": "grin",
+        "meaning": ["활짝 웃다"]
+    },
+    {
+        "word": "content",
+        "meaning": ["만족하는", "기꺼이 ~ 하려하는"]
+    },
+    {
+        "word": "ought",
+        "meaning": ["…해야 하다, …할 의무가 있다", "해야 할 일, 의무, 책임"]
+    },
+    {
+        "word": "marshy",
+        "meaning": ["늪, 늪 같은, 축축한 땅의"]
+    },
+    {
+        "word": "swamp",
+        "meaning": ["늪, 습지", "쇄도하다"]
+    },
+    {
+        "word": "suit",
+        "meaning": ["정장", "옷", "편리하다[맞다/괜찮다]"]
+    },
+    {
+        "word": "splash",
+        "meaning": ["철벅 떨어지다", "끼얹다"]
+    },
+    {
+        "word": "proper",
+        "meaning": ["적절한, 제대로 된", "올바른"]
+    },
+    {
+        "word": "constitute",
+        "meaning": [
+            "…이 되는 것으로 여겨지다, …이 되다",
+            "…을 구성하다",
+            "설립하다"
+        ]
+    },
+    {
+        "word": "petition",
+        "meaning": ["진정[탄원/청원]", "진정[탄원/청원]하다"]
+    },
+    {
+        "word": "might",
+        "meaning": ["may의 과거형", "힘, 권력"]
+    },
+    {
+        "word": "croak",
+        "meaning": ["개골개골하다"]
+    },
+    {
+        "word": "log",
+        "meaning": ["통나무", "일지, 기록"]
+    },
+    {
+        "word": "frighten",
+        "meaning": ["겁먹게 만들다"]
+    },
+    {
+        "word": "commotion",
+        "meaning": ["소란, 소동"]
+    },
+    {
+        "word": "midst",
+        "meaning": ["중앙, 한가운데"]
+    },
+    {
+        "word": "bold",
+        "meaning": ["용감한, 대담한", "선명한, 굵은"]
+    },
+    {
+        "word": "venture",
+        "meaning": [
+            "벤처 (사업), (사업상의) 모험",
+            "(위험을 무릅쓰고모험하듯) 가다"
+        ]
+    },
+    {
+        "word": "toward",
+        "meaning": [
+            "…쪽으로, …을 향하여",
+            "…쪽에 (있는), …의 편을 향하여 (있는)",
+            "바야흐로 일어나려는, 임박해 오는"
+        ]
+    },
+    {
+        "word": "dare",
+        "meaning": ["…할 용기가 있다, 감히 …하다, …할 엄두를 내다"]
+    },
+    {
+        "word": "commence",
+        "meaning": ["시작되다[하다]"]
+    },
+    {
+        "word": "thereupon",
+        "meaning": ["그러자 곧[바로], 그 직접적인 결과로"]
+    },
+    {
+        "word": "slight",
+        "meaning": ["약간의, 조금의, 경미한", "작고 여윈, 가냘픈"]
+    },
+    {
+        "word": "stork",
+        "meaning": ["황새"]
+    },
+    {
+        "word": "gobble",
+        "meaning": ["게걸스럽게 먹다"]
+    },
+    {
+        "word": "repent",
+        "meaning": ["뉘우치다, 회개[후회]하다"]
+    },
+    {
+        "word": "cruel",
+        "meaning": ["잔혹한, 잔인한", "고통스러운, 괴로운"]
+    },
+    {
+        "word": "jay",
+        "meaning": ["어치"]
+    },
+    {
+        "word": "peacock",
+        "meaning": ["(수컷) 공작"]
+    },
+    {
+        "word": "peahen",
+        "meaning": ["(암컷) 공작"]
+    },
+    {
+        "word": "feather",
+        "meaning": ["(새의) 털, 깃털"]
+    },
+    {
+        "word": "moult",
+        "meaning": ["털갈이를 하다"]
+    },
+    {
+        "word": "strut",
+        "meaning": ["뽐내며 걷다"]
+    },
+    {
+        "word": "approach",
+        "meaning": ["다가가다[오다]", "접촉하다"]
+    },
+    {
+        "word": "discover",
+        "meaning": ["발견하다", "알아내다"]
+    },
+    {
+        "word": "disguise",
+        "meaning": ["변장[가장]하다"]
+    },
+    {
+        "word": "peck",
+        "meaning": ["쪼다, 쪼아 먹다"]
+    },
+    {
+        "word": "pluck",
+        "meaning": ["뽑다"]
+    },
+    {
+        "word": "plume",
+        "meaning": ["기둥", "깃털"]
+    },
+    {
+        "word": "equal",
+        "meaning": ["동일한", "동등한, 평등한"]
+    },
+    {
+        "word": "annoy",
+        "meaning": ["짜증나게[약 오르게] 하다", "귀찮게 하다"]
+    },
+    {
+        "word": "gaunt",
+        "meaning": ["수척한, 아주 여윈", "삭막한"]
+    },
+    {
+        "word": "happen",
+        "meaning": ["있다[발생하다/벌어지다]", "일어나다[되다]"]
+    },
+    {
+        "word": "ruin",
+        "meaning": [
+            "망치다[엉망으로 만들다]",
+            "파산[파멸]시키다, 폐허로 만들다"
+        ]
+    },
+    {
+        "word": "steady",
+        "meaning": [
+            "꾸준한",
+            "변함[변동]없는, 고정적인, 한결같은",
+            "균형을 잡다, 진정시키다"
+        ]
+    },
+    {
+        "word": "regular",
+        "meaning": ["규칙적인, 정기적인"]
+    },
+    {
+        "word": "objection",
+        "meaning": ["이의, 반대"]
+    },
+    {
+        "word": "arrange",
+        "meaning": [
+            "마련하다, (일을) 처리[주선]하다",
+            "정리하다, 배열하다",
+            "편곡하다"
+        ]
+    },
+    {
+        "word": "certain",
+        "meaning": ["확실한, 틀림없는", "…중 어떤 사람들[것들], 일부 …"]
+    },
+    {
+        "word": "worn",
+        "meaning": ["해진, 닳은", "몹시 지쳐 보이는"]
+    },
+    {
+        "word": "collar",
+        "meaning": [
+            "칼라, 깃",
+            "(개 등의 목에 거는) 목걸이",
+            "붙잡다, 체포하다"
+        ]
+    },
+    {
+        "word": "chafe",
+        "meaning": ["(피부가) 쓸리다[까이다]", "짜증내다[애태우다]"]
+    },
+    {
+        "word": "bagpipe",
+        "meaning": ["백파이프(특히 스코틀랜드에서 연주되는 악기)"]
+    },
+    {
+        "word": "cast",
+        "meaning": [
+            "던지다[보내다]",
+            "(빛을) 발하다, (그림자를) 드리우다",
+            "출연자들[배역진]"
+        ]
+    },
+    {
+        "word": "draw",
+        "meaning": [
+            "그리다",
+            "끌어당기다[뽑아내다]",
+            "추첨, 제비뽑기",
+            "무승부"
+        ]
+    },
+    {
+        "word": "forth",
+        "meaning": ["…에서 멀리, 밖으로", "…쪽으로, 앞으로"]
+    },
+    {
+        "word": "leap",
+        "meaning": ["뛰다, 뛰어오르다[넘다]", "도약"]
+    },
+    {
+        "word": "bid",
+        "meaning": [
+            "명령하다, 분부를 내리다",
+            "말하다",
+            "값을 매기다, 입찰하다"
+        ]
+    }
+]

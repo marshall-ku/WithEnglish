@@ -9000,10 +9000,12 @@ function SelectTable(props) {
 
 // dist/components/speaker.js
 function speak(message) {
-  const msg = new SpeechSynthesisUtterance();
-  msg.text = message;
-  msg.lang = "en";
-  window.speechSynthesis.speak(msg);
+  const synth = window.speechSynthesis;
+  const voices = synth.getVoices().filter((x2) => x2.lang === "en-US");
+  const msg = new SpeechSynthesisUtterance(message);
+  msg.voice = voices[0];
+  msg.lang = "en-US";
+  speechSynthesis.speak(msg);
 }
 
 // dist/components/Loader.js

@@ -23,6 +23,8 @@
                         l.pathname.slice(0, -1) + decoded + l.hash
                     );
                 }
+                const synth = window.speechSynthesis;
+                const voices = synth.getVoices();
             })(window.location);
         </script>
     <link rel="stylesheet" href="/dist/index.css"></head>

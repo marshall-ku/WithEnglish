@@ -36,6 +36,8 @@
                         l.pathname.slice(0, -1) + decoded + l.hash
                     );
                 }
+                const synth = window.speechSynthesis;
+                const voices = synth.getVoices();
             })(window.location);
         </script>
     </head>

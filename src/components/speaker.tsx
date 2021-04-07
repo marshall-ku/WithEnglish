@@ -1,7 +1,9 @@
 export default function speak(message: string) {
-    const msg = new SpeechSynthesisUtterance();
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices().filter((x) => x.lang === "en-US");
+    const msg = new SpeechSynthesisUtterance(message);
 
-    msg.text = message;
-    msg.lang = "en";
-    window.speechSynthesis.speak(msg);
+    msg.voice = voices[0];
+    msg.lang = "en-US";
+    speechSynthesis.speak(msg);
 }

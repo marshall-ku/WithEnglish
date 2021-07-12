@@ -76,7 +76,6 @@ function WordTest(props: SpeedQuizProps) {
         const timer = done
             ? setTimeout(() => {}, 0)
             : setTimeout(() => {
-                  console.log("timer");
                   setIncorrect(incorrect + 1);
                   increaseIndex();
               }, timeLimit);

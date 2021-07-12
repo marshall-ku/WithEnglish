@@ -31,14 +31,37 @@ function WordTest(props: SpeedQuizProps) {
     );
     const [done, setDone] = useState(false);
     const [incorrect, setIncorrect] = useState<number>(0);
-    const [start, _] = useState<number>(new Date().getTime());
+    const [animating, setAnimating] = useState(true);
     const { length: dataLength } = data;
+    const timeLimit = 5000;
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const increaseIndex = () => {
+        setAnimating(false);
+        if (index !== dataLength - 1) {
+            setTimeout(() => {
+                document.querySelectorAll(".clicked").forEach((element) => {
+                    element.classList.remove("clicked");
+                });
+                setIndex(index + 1);
+                setRandomNumbers(generateRandomNumbers(dataLength, index));
+                setAnimating(true);
+            }, 1000);
+        } else {
+            setTimeout(() => {
+                setDone(true);
+            }, 1000);
+        }
+    };
+
+    const handleSubmit = (event: React.MouseEvent) => {
         event.preventDefault();
+
+        if (!animating) return;
 
         const target = event.target as HTMLFormElement;
         const answer = target.innerText;
+
+        target.classList.add("clicked");
 
         if (
             answer.toLocaleLowerCase() !== data[index].word.toLocaleLowerCase()
@@ -46,23 +69,28 @@ function WordTest(props: SpeedQuizProps) {
             setIncorrect(incorrect + 1);
         }
 
-        if (index !== dataLength - 1) {
-            setIndex(index + 1);
-            setRandomNumbers(generateRandomNumbers(dataLength, index));
-        } else {
-            setDone(true);
-        }
+        increaseIndex();
     };
+
+    useEffect(() => {
+        const timer = done
+            ? setTimeout(() => {}, 0)
+            : setTimeout(() => {
+                  console.log("timer");
+                  setIncorrect(incorrect + 1);
+                  increaseIndex();
+              }, timeLimit);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [index, setIndex, done]);
 
     if (done) {
         return (
             <div className="center-container done">
                 <h2 className="done__title">Congratulations! 🎉</h2>
                 <div className="done__info">
-                    <h3>
-                        소요 시간 :{" "}
-                        {Math.round((new Date().getTime() - start) / 1000)}초
-                    </h3>
                     <h3>오답수 : {incorrect}</h3>
                 </div>
                 <div className="done__buttons">
@@ -82,9 +110,14 @@ function WordTest(props: SpeedQuizProps) {
 
     return (
         <div className="question">
+            <div
+                className={`question__time-limit ${
+                    animating ? "animating" : ""
+                }`}
+            ></div>
             <ul className="question__meaning">
-                {data[index].meaning.map((meaning) => {
-                    return <li>{meaning}</li>;
+                {data[index].meaning.map((meaning, i) => {
+                    return <li key={i}>{meaning}</li>;
                 })}
             </ul>
             <ul className="question__words">
@@ -93,7 +126,9 @@ function WordTest(props: SpeedQuizProps) {
                         <button
                             key={number}
                             onClick={handleSubmit}
-                            className="large-button"
+                            className={`large-button ${
+                                !animating && number === index ? "answer" : ""
+                            }`}
                         >
                             {data[number].word}
                         </button>

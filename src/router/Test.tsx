@@ -7,35 +7,50 @@ import { ListIcon, HomeIcon } from "../components/Icons";
 import "./Test.css";
 
 function WordTest(props: SpeedQuizProps) {
+    const generateRandomNumbers = (max: number, mustHave: number) => {
+        const numbers: number[] = [mustHave];
+        const randomNumber = () => Math.floor(Math.random() * max);
+        const size = 4;
+
+        while (numbers.length < size) {
+            const number = randomNumber();
+
+            if (!numbers.includes(number)) {
+                numbers.push(number);
+            }
+        }
+
+        // Return shuffled array
+        return numbers.sort(() => Math.random() - 0.5);
+    };
+
     const { data, setData } = props;
     const [index, setIndex] = useState<number>(0);
+    const [randomNumbers, setRandomNumbers] = useState<number[]>(
+        generateRandomNumbers(data.length, 0)
+    );
     const [done, setDone] = useState(false);
     const [incorrect, setIncorrect] = useState<number>(0);
     const [start, _] = useState<number>(new Date().getTime());
-    const { length } = data;
+    const { length: dataLength } = data;
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
         const target = event.target as HTMLFormElement;
-        const input = target.firstChild as HTMLInputElement;
-        const answer = input.value;
+        const answer = target.innerText;
 
         if (
-            answer.toLocaleLowerCase() === data[index].word.toLocaleLowerCase()
+            answer.toLocaleLowerCase() !== data[index].word.toLocaleLowerCase()
         ) {
-            if (index !== length - 1) {
-                setIndex(index + 1);
-                input.value = "";
-            } else {
-                setDone(true);
-            }
-        } else {
             setIncorrect(incorrect + 1);
-            target.classList.add("wrong");
-            setTimeout(() => {
-                target.classList.remove("wrong");
-            }, 300);
+        }
+
+        if (index !== dataLength - 1) {
+            setIndex(index + 1);
+            setRandomNumbers(generateRandomNumbers(dataLength, index));
+        } else {
+            setDone(true);
         }
     };
 
@@ -72,9 +87,19 @@ function WordTest(props: SpeedQuizProps) {
                     return <li>{meaning}</li>;
                 })}
             </ul>
-            <form className="question__input-wrap" onSubmit={handleSubmit}>
-                <input type="text" className="question__input" />
-            </form>
+            <ul className="question__words">
+                {randomNumbers.map((number) => {
+                    return (
+                        <button
+                            key={number}
+                            onClick={handleSubmit}
+                            className="large-button"
+                        >
+                            {data[number].word}
+                        </button>
+                    );
+                })}
+            </ul>
         </div>
     );
 }

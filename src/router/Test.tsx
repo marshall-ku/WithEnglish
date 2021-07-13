@@ -29,7 +29,7 @@ function WordTest(props: SpeedQuizProps) {
     const { data, setData } = props;
     const [index, setIndex] = useState<number>(0);
     const [randomNumbers, setRandomNumbers] = useState<number[]>(
-        generateRandomNumbers(data.length, 0)
+        generateRandomNumbers(data.length, index)
     );
     const [done, setDone] = useState(false);
     const [incorrect, setIncorrect] = useState<number>(0);
@@ -44,8 +44,8 @@ function WordTest(props: SpeedQuizProps) {
                 document.querySelectorAll(".clicked").forEach((element) => {
                     element.classList.remove("clicked");
                 });
+                setRandomNumbers(generateRandomNumbers(dataLength, index + 1));
                 setIndex(index + 1);
-                setRandomNumbers(generateRandomNumbers(dataLength, index));
                 setAnimating(true);
             }, 1000);
         } else {
@@ -85,7 +85,7 @@ function WordTest(props: SpeedQuizProps) {
         return () => {
             clearTimeout(timer);
         };
-    }, [index, setIndex, done]);
+    }, [index, done]);
 
     if (done) {
         return (

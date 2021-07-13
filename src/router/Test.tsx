@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import SelectTable from "../components/SelectTable";
 import Loader from "../components/Loader";
+import { shuffleArray } from "../utils";
 import { ListIcon, HomeIcon } from "../components/Icons";
 
 import "./Test.css";
@@ -21,7 +22,8 @@ function WordTest(props: SpeedQuizProps) {
         }
 
         // Return shuffled array
-        return numbers.sort(() => Math.random() - 0.5);
+        shuffleArray(numbers);
+        return numbers;
     };
 
     const { data, setData } = props;

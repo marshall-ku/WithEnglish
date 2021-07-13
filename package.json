@@ -1,4 +1,7 @@
 {
+    "name": "with-english",
+    "version": "1.0.0",
+    "description": "",
     "scripts": {
         "start": "snowpack dev",
         "build": "snowpack build",

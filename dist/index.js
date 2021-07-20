@@ -4,7 +4,7 @@ var __export = (target, all) => {
     __defProp(target, name, {get: all[name], enumerable: true});
 };
 
-// _snowpack/env.js
+// build/_snowpack/env.js
 var env_exports = {};
 __export(env_exports, {
   MODE: () => MODE,
@@ -15,7 +15,7 @@ var MODE = "production";
 var NODE_ENV = "production";
 var SSR = false;
 
-// _snowpack/pkg/common/index-e66f0a38.js
+// build/_snowpack/pkg/common/index-ae389540.js
 function createCommonjsModule(fn, basedir, module) {
   return module = {
     path: basedir,
@@ -377,7 +377,7 @@ var react_production_min = createCommonjsModule(function(module, exports) {
   exports.useState = function(a) {
     return S2().useState(a);
   };
-  exports.version = "17.0.1";
+  exports.version = "17.0.2";
 });
 var react = createCommonjsModule(function(module) {
   {
@@ -385,11 +385,12 @@ var react = createCommonjsModule(function(module) {
   }
 });
 
-// _snowpack/pkg/react.js
+// build/_snowpack/pkg/react.js
 var useEffect = react.useEffect;
+var useRef = react.useRef;
 var useState = react.useState;
 
-// _snowpack/pkg/react-dom.js
+// build/_snowpack/pkg/react-dom.js
 var scheduler_production_min = createCommonjsModule(function(module, exports) {
   var f2, g2, h2, k2;
   if (typeof performance === "object" && typeof performance.now === "function") {
@@ -6907,7 +6908,7 @@ function uk(a, b2) {
   return kk(a, b2, null, c2);
 }
 var vk = {Events: [Cb, ue, Db, Eb, Fb, Oj, {current: false}]};
-var wk = {findFiberByHostInstance: wc, bundleType: 0, version: "17.0.1", rendererPackageName: "react-dom"};
+var wk = {findFiberByHostInstance: wc, bundleType: 0, version: "17.0.2", rendererPackageName: "react-dom"};
 var xk = {bundleType: wk.bundleType, version: wk.version, rendererPackageName: wk.rendererPackageName, rendererConfig: wk.rendererConfig, overrideHookState: null, overrideHookStateDeletePath: null, overrideHookStateRenamePath: null, overrideProps: null, overridePropsDeletePath: null, overridePropsRenamePath: null, setSuspenseHandler: null, scheduleUpdate: null, currentDispatcherRef: ra.ReactCurrentDispatcher, findHostInstanceByFiber: function(a) {
   a = cc(a);
   return a === null ? null : a.stateNode;
@@ -6981,7 +6982,7 @@ var unstable_renderSubtreeIntoContainer = function(a, b2, c2, d2) {
     throw Error(y(38));
   return tk(a, b2, c2, false, d2);
 };
-var version = "17.0.1";
+var version = "17.0.2";
 var reactDom_production_min = {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   createPortal,
@@ -7013,7 +7014,7 @@ var reactDom = createCommonjsModule(function(module) {
 });
 var react_dom_default = reactDom;
 
-// _snowpack/pkg/react-router-dom.js
+// build/_snowpack/pkg/react-router-dom.js
 function _setPrototypeOf(o, p2) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
@@ -7145,6 +7146,30 @@ function resolvePathname(to, from) {
     result += "/";
   return result;
 }
+function valueOf(obj) {
+  return obj.valueOf ? obj.valueOf() : Object.prototype.valueOf.call(obj);
+}
+function valueEqual(a, b2) {
+  if (a === b2)
+    return true;
+  if (a == null || b2 == null)
+    return false;
+  if (Array.isArray(a)) {
+    return Array.isArray(b2) && a.length === b2.length && a.every(function(item, index2) {
+      return valueEqual(item, b2[index2]);
+    });
+  }
+  if (typeof a === "object" || typeof b2 === "object") {
+    var aValue = valueOf(a);
+    var bValue = valueOf(b2);
+    if (aValue !== a || bValue !== b2)
+      return valueEqual(aValue, bValue);
+    return Object.keys(Object.assign({}, a, b2)).every(function(key) {
+      return valueEqual(a[key], b2[key]);
+    });
+  }
+  return false;
+}
 var prefix = "Invariant failed";
 function invariant(condition, message) {
   if (condition) {
@@ -7154,7 +7179,7 @@ function invariant(condition, message) {
     throw new Error(prefix);
   }
 }
-function addLeadingSlash$1(path) {
+function addLeadingSlash(path) {
   return path.charAt(0) === "/" ? path : "/" + path;
 }
 function stripLeadingSlash(path) {
@@ -7163,7 +7188,7 @@ function stripLeadingSlash(path) {
 function hasBasename(path, prefix2) {
   return path.toLowerCase().indexOf(prefix2.toLowerCase()) === 0 && "/?#".indexOf(path.charAt(prefix2.length)) !== -1;
 }
-function stripBasename$1(path, prefix2) {
+function stripBasename(path, prefix2) {
   return hasBasename(path, prefix2) ? path.substr(prefix2.length) : path;
 }
 function stripTrailingSlash(path) {
@@ -7245,6 +7270,9 @@ function createLocation(path, state, key, currentLocation) {
     }
   }
   return location;
+}
+function locationsAreEqual(a, b2) {
+  return a.pathname === b2.pathname && a.search === b2.search && a.hash === b2.hash && a.key === b2.key && valueEqual(a.state, b2.state);
 }
 function createTransitionManager() {
   var prompt = null;
@@ -7338,13 +7366,13 @@ function createBrowserHistory(props) {
   var canUseHistory = supportsHistory();
   var needsHashChangeListener = !supportsPopStateOnHashChange();
   var _props = props, _props$forceRefresh = _props.forceRefresh, forceRefresh = _props$forceRefresh === void 0 ? false : _props$forceRefresh, _props$getUserConfirm = _props.getUserConfirmation, getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm, _props$keyLength = _props.keyLength, keyLength = _props$keyLength === void 0 ? 6 : _props$keyLength;
-  var basename = props.basename ? stripTrailingSlash(addLeadingSlash$1(props.basename)) : "";
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
   function getDOMLocation(historyState) {
     var _ref = historyState || {}, key = _ref.key, state = _ref.state;
     var _window$location = window.location, pathname = _window$location.pathname, search = _window$location.search, hash = _window$location.hash;
     var path = pathname + search + hash;
     if (basename)
-      path = stripBasename$1(path, basename);
+      path = stripBasename(path, basename);
     return createLocation(path, state, key);
   }
   function createKey() {
@@ -7536,11 +7564,11 @@ var HashPathCoders = {
   },
   noslash: {
     encodePath: stripLeadingSlash,
-    decodePath: addLeadingSlash$1
+    decodePath: addLeadingSlash
   },
   slash: {
-    encodePath: addLeadingSlash$1,
-    decodePath: addLeadingSlash$1
+    encodePath: addLeadingSlash,
+    decodePath: addLeadingSlash
   }
 };
 function stripHash(url) {
@@ -7564,14 +7592,14 @@ function createHashHistory(props) {
   }
   !canUseDOM ? invariant(false) : void 0;
   var globalHistory = window.history;
-  supportsGoWithoutReloadUsingHash();
+  var canGoWithoutReload = supportsGoWithoutReloadUsingHash();
   var _props = props, _props$getUserConfirm = _props.getUserConfirmation, getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm, _props$hashType = _props.hashType, hashType = _props$hashType === void 0 ? "slash" : _props$hashType;
-  var basename = props.basename ? stripTrailingSlash(addLeadingSlash$1(props.basename)) : "";
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
   var _HashPathCoders$hashT = HashPathCoders[hashType], encodePath2 = _HashPathCoders$hashT.encodePath, decodePath2 = _HashPathCoders$hashT.decodePath;
   function getDOMLocation() {
     var path2 = decodePath2(getHashPath());
     if (basename)
-      path2 = stripBasename$1(path2, basename);
+      path2 = stripBasename(path2, basename);
     return createLocation(path2);
   }
   var transitionManager = createTransitionManager();
@@ -8396,6 +8424,155 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var b$1 = typeof Symbol === "function" && Symbol.for;
+var c$1 = b$1 ? Symbol.for("react.element") : 60103;
+var d$1 = b$1 ? Symbol.for("react.portal") : 60106;
+var e$1 = b$1 ? Symbol.for("react.fragment") : 60107;
+var f$1 = b$1 ? Symbol.for("react.strict_mode") : 60108;
+var g$1 = b$1 ? Symbol.for("react.profiler") : 60114;
+var h$1 = b$1 ? Symbol.for("react.provider") : 60109;
+var k$1 = b$1 ? Symbol.for("react.context") : 60110;
+var l$1 = b$1 ? Symbol.for("react.async_mode") : 60111;
+var m$1 = b$1 ? Symbol.for("react.concurrent_mode") : 60111;
+var n$1 = b$1 ? Symbol.for("react.forward_ref") : 60112;
+var p$1 = b$1 ? Symbol.for("react.suspense") : 60113;
+var q$1 = b$1 ? Symbol.for("react.suspense_list") : 60120;
+var r$1 = b$1 ? Symbol.for("react.memo") : 60115;
+var t$1 = b$1 ? Symbol.for("react.lazy") : 60116;
+var v$1 = b$1 ? Symbol.for("react.block") : 60121;
+var w$1 = b$1 ? Symbol.for("react.fundamental") : 60117;
+var x$1 = b$1 ? Symbol.for("react.responder") : 60118;
+var y$1 = b$1 ? Symbol.for("react.scope") : 60119;
+function z$1(a) {
+  if (typeof a === "object" && a !== null) {
+    var u = a.$$typeof;
+    switch (u) {
+      case c$1:
+        switch (a = a.type, a) {
+          case l$1:
+          case m$1:
+          case e$1:
+          case g$1:
+          case f$1:
+          case p$1:
+            return a;
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k$1:
+              case n$1:
+              case t$1:
+              case r$1:
+              case h$1:
+                return a;
+              default:
+                return u;
+            }
+        }
+      case d$1:
+        return u;
+    }
+  }
+}
+function A$1(a) {
+  return z$1(a) === m$1;
+}
+var AsyncMode$1 = l$1;
+var ConcurrentMode$1 = m$1;
+var ContextConsumer$1 = k$1;
+var ContextProvider$1 = h$1;
+var Element$1 = c$1;
+var ForwardRef$1 = n$1;
+var Fragment$1 = e$1;
+var Lazy$1 = t$1;
+var Memo$1 = r$1;
+var Portal$1 = d$1;
+var Profiler$1 = g$1;
+var StrictMode$1 = f$1;
+var Suspense$1 = p$1;
+var isAsyncMode$1 = function(a) {
+  return A$1(a) || z$1(a) === l$1;
+};
+var isConcurrentMode$1 = A$1;
+var isContextConsumer$1 = function(a) {
+  return z$1(a) === k$1;
+};
+var isContextProvider$1 = function(a) {
+  return z$1(a) === h$1;
+};
+var isElement$1 = function(a) {
+  return typeof a === "object" && a !== null && a.$$typeof === c$1;
+};
+var isForwardRef$1 = function(a) {
+  return z$1(a) === n$1;
+};
+var isFragment$1 = function(a) {
+  return z$1(a) === e$1;
+};
+var isLazy$1 = function(a) {
+  return z$1(a) === t$1;
+};
+var isMemo$1 = function(a) {
+  return z$1(a) === r$1;
+};
+var isPortal$1 = function(a) {
+  return z$1(a) === d$1;
+};
+var isProfiler$1 = function(a) {
+  return z$1(a) === g$1;
+};
+var isStrictMode$1 = function(a) {
+  return z$1(a) === f$1;
+};
+var isSuspense$1 = function(a) {
+  return z$1(a) === p$1;
+};
+var isValidElementType$1 = function(a) {
+  return typeof a === "string" || typeof a === "function" || a === e$1 || a === m$1 || a === g$1 || a === f$1 || a === p$1 || a === q$1 || typeof a === "object" && a !== null && (a.$$typeof === t$1 || a.$$typeof === r$1 || a.$$typeof === h$1 || a.$$typeof === k$1 || a.$$typeof === n$1 || a.$$typeof === w$1 || a.$$typeof === x$1 || a.$$typeof === y$1 || a.$$typeof === v$1);
+};
+var typeOf$1 = z$1;
+var reactIs_production_min$1 = {
+  AsyncMode: AsyncMode$1,
+  ConcurrentMode: ConcurrentMode$1,
+  ContextConsumer: ContextConsumer$1,
+  ContextProvider: ContextProvider$1,
+  Element: Element$1,
+  ForwardRef: ForwardRef$1,
+  Fragment: Fragment$1,
+  Lazy: Lazy$1,
+  Memo: Memo$1,
+  Portal: Portal$1,
+  Profiler: Profiler$1,
+  StrictMode: StrictMode$1,
+  Suspense: Suspense$1,
+  isAsyncMode: isAsyncMode$1,
+  isConcurrentMode: isConcurrentMode$1,
+  isContextConsumer: isContextConsumer$1,
+  isContextProvider: isContextProvider$1,
+  isElement: isElement$1,
+  isForwardRef: isForwardRef$1,
+  isFragment: isFragment$1,
+  isLazy: isLazy$1,
+  isMemo: isMemo$1,
+  isPortal: isPortal$1,
+  isProfiler: isProfiler$1,
+  isStrictMode: isStrictMode$1,
+  isSuspense: isSuspense$1,
+  isValidElementType: isValidElementType$1,
+  typeOf: typeOf$1
+};
+var reactIs$1 = createCommonjsModule(function(module) {
+  {
+    module.exports = reactIs_production_min$1;
+  }
+});
 var FORWARD_REF_STATICS = {
   $$typeof: true,
   render: true,
@@ -8412,8 +8589,8 @@ var MEMO_STATICS = {
   type: true
 };
 var TYPE_STATICS = {};
-TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
-TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+TYPE_STATICS[reactIs$1.ForwardRef] = FORWARD_REF_STATICS;
+TYPE_STATICS[reactIs$1.Memo] = MEMO_STATICS;
 var createNamedContext = function createNamedContext2(name) {
   var context2 = index();
   context2.displayName = name;
@@ -8485,9 +8662,9 @@ var Router = /* @__PURE__ */ function(_React$Component) {
   };
   return Router2;
 }(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(MemoryRouter, _React$Component);
-  function MemoryRouter() {
+var MemoryRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(MemoryRouter2, _React$Component);
+  function MemoryRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8496,21 +8673,21 @@ var Router = /* @__PURE__ */ function(_React$Component) {
     _this.history = createMemoryHistory(_this.props);
     return _this;
   }
-  var _proto = MemoryRouter.prototype;
+  var _proto = MemoryRouter2.prototype;
   _proto.render = function render2() {
     return react.createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
-  return MemoryRouter;
-})(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(Lifecycle, _React$Component);
-  function Lifecycle() {
+  return MemoryRouter2;
+}(react.Component);
+var Lifecycle = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(Lifecycle2, _React$Component);
+  function Lifecycle2() {
     return _React$Component.apply(this, arguments) || this;
   }
-  var _proto = Lifecycle.prototype;
+  var _proto = Lifecycle2.prototype;
   _proto.componentDidMount = function componentDidMount() {
     if (this.props.onMount)
       this.props.onMount.call(this, this);
@@ -8526,8 +8703,61 @@ var Router = /* @__PURE__ */ function(_React$Component) {
   _proto.render = function render2() {
     return null;
   };
-  return Lifecycle;
-})(react.Component);
+  return Lifecycle2;
+}(react.Component);
+var cache = {};
+var cacheLimit = 1e4;
+var cacheCount = 0;
+function compilePath(path) {
+  if (cache[path])
+    return cache[path];
+  var generator = pathToRegexp_1.compile(path);
+  if (cacheCount < cacheLimit) {
+    cache[path] = generator;
+    cacheCount++;
+  }
+  return generator;
+}
+function generatePath(path, params) {
+  if (path === void 0) {
+    path = "/";
+  }
+  if (params === void 0) {
+    params = {};
+  }
+  return path === "/" ? path : compilePath(path)(params, {
+    pretty: true
+  });
+}
+function Redirect(_ref) {
+  var computedMatch = _ref.computedMatch, to = _ref.to, _ref$push = _ref.push, push = _ref$push === void 0 ? false : _ref$push;
+  return react.createElement(context.Consumer, null, function(context2) {
+    !context2 ? invariant(false) : void 0;
+    var history = context2.history, staticContext = context2.staticContext;
+    var method = push ? history.push : history.replace;
+    var location = createLocation(computedMatch ? typeof to === "string" ? generatePath(to, computedMatch.params) : _extends({}, to, {
+      pathname: generatePath(to.pathname, computedMatch.params)
+    }) : to);
+    if (staticContext) {
+      method(location);
+      return null;
+    }
+    return react.createElement(Lifecycle, {
+      onMount: function onMount() {
+        method(location);
+      },
+      onUpdate: function onUpdate(self, prevProps) {
+        var prevLocation = createLocation(prevProps.to);
+        if (!locationsAreEqual(prevLocation, _extends({}, location, {
+          key: prevLocation.key
+        }))) {
+          method(location);
+        }
+      },
+      to
+    });
+  });
+}
 var cache$1 = {};
 var cacheLimit$1 = 1e4;
 var cacheCount$1 = 0;
@@ -8614,20 +8844,20 @@ var Route = /* @__PURE__ */ function(_React$Component) {
   };
   return Route2;
 }(react.Component);
-function addLeadingSlash(path) {
+function addLeadingSlash$1(path) {
   return path.charAt(0) === "/" ? path : "/" + path;
 }
 function addBasename(basename, location) {
   if (!basename)
     return location;
   return _extends({}, location, {
-    pathname: addLeadingSlash(basename) + location.pathname
+    pathname: addLeadingSlash$1(basename) + location.pathname
   });
 }
-function stripBasename(basename, location) {
+function stripBasename$1(basename, location) {
   if (!basename)
     return location;
-  var base = addLeadingSlash(basename);
+  var base = addLeadingSlash$1(basename);
   if (location.pathname.indexOf(base) !== 0)
     return location;
   return _extends({}, location, {
@@ -8644,9 +8874,9 @@ function staticHandler(methodName) {
 }
 function noop() {
 }
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(StaticRouter, _React$Component);
-  function StaticRouter() {
+var StaticRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(StaticRouter2, _React$Component);
+  function StaticRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8666,7 +8896,7 @@ function noop() {
     };
     return _this;
   }
-  var _proto = StaticRouter.prototype;
+  var _proto = StaticRouter2.prototype;
   _proto.navigateTo = function navigateTo(location, action) {
     var _this$props = this.props, _this$props$basename = _this$props.basename, basename = _this$props$basename === void 0 ? "" : _this$props$basename, _this$props$context = _this$props.context, context2 = _this$props$context === void 0 ? {} : _this$props$context;
     context2.action = action;
@@ -8677,10 +8907,10 @@ function noop() {
     var _this$props2 = this.props, _this$props2$basename = _this$props2.basename, basename = _this$props2$basename === void 0 ? "" : _this$props2$basename, _this$props2$context = _this$props2.context, context2 = _this$props2$context === void 0 ? {} : _this$props2$context, _this$props2$location = _this$props2.location, location = _this$props2$location === void 0 ? "/" : _this$props2$location, rest = _objectWithoutPropertiesLoose(_this$props2, ["basename", "context", "location"]);
     var history = {
       createHref: function createHref(path) {
-        return addLeadingSlash(basename + createURL(path));
+        return addLeadingSlash$1(basename + createURL(path));
       },
       action: "POP",
-      location: stripBasename(basename, createLocation(location)),
+      location: stripBasename$1(basename, createLocation(location)),
       push: this.handlePush,
       replace: this.handleReplace,
       go: staticHandler(),
@@ -8694,14 +8924,14 @@ function noop() {
       staticContext: context2
     }));
   };
-  return StaticRouter;
-})(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(Switch, _React$Component);
-  function Switch() {
+  return StaticRouter2;
+}(react.Component);
+var Switch = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(Switch2, _React$Component);
+  function Switch2() {
     return _React$Component.apply(this, arguments) || this;
   }
-  var _proto = Switch.prototype;
+  var _proto = Switch2.prototype;
   _proto.render = function render2() {
     var _this = this;
     return react.createElement(context.Consumer, null, function(context2) {
@@ -8723,9 +8953,9 @@ function noop() {
       }) : null;
     });
   };
-  return Switch;
-})(react.Component);
-react.useContext;
+  return Switch2;
+}(react.Component);
+var useContext = react.useContext;
 var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
   _inheritsLoose(BrowserRouter2, _React$Component);
   function BrowserRouter2() {
@@ -8746,9 +8976,9 @@ var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
   };
   return BrowserRouter2;
 }(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(HashRouter, _React$Component);
-  function HashRouter() {
+var HashRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(HashRouter2, _React$Component);
+  function HashRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8757,15 +8987,15 @@ var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
     _this.history = createHashHistory(_this.props);
     return _this;
   }
-  var _proto = HashRouter.prototype;
+  var _proto = HashRouter2.prototype;
   _proto.render = function render2() {
     return react.createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
-  return HashRouter;
-})(react.Component);
+  return HashRouter2;
+}(react.Component);
 var resolveToLocation = function resolveToLocation2(to, currentLocation) {
   return typeof to === "function" ? to(currentLocation) : to;
 };
@@ -8845,7 +9075,7 @@ function joinClassnames() {
     return i;
   }).join(" ");
 }
-forwardRef$1(function(_ref, forwardedRef) {
+var NavLink = forwardRef$1(function(_ref, forwardedRef) {
   var _ref$ariaCurrent = _ref["aria-current"], ariaCurrent = _ref$ariaCurrent === void 0 ? "page" : _ref$ariaCurrent, _ref$activeClassName = _ref.activeClassName, activeClassName = _ref$activeClassName === void 0 ? "active" : _ref$activeClassName, activeStyle = _ref.activeStyle, classNameProp = _ref.className, exact = _ref.exact, isActiveProp = _ref.isActive, locationProp = _ref.location, sensitive = _ref.sensitive, strict = _ref.strict, styleProp = _ref.style, to = _ref.to, innerRef = _ref.innerRef, rest = _objectWithoutPropertiesLoose(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
   return react.createElement(context.Consumer, null, function(context2) {
     !context2 ? invariant(false) : void 0;
@@ -8877,8 +9107,36 @@ forwardRef$1(function(_ref, forwardedRef) {
   });
 });
 
-// dist/router/FrontPage.js
+// build/dist/router/FrontPage.js
 function FrontPage() {
+  const storedToken = localStorage.getItem("token");
+  const [name, setName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (storedToken) {
+      fetch("https://api.withen.ga/auth", {
+        method: "GET",
+        headers: {
+          "x-auth-token": storedToken
+        }
+      }).then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch");
+        }
+      }).then((response) => {
+        if (response.success) {
+          setName(response.name);
+          if (response.isAdmin) {
+            setIsAdmin(true);
+          }
+        }
+      }).catch((error) => {
+        console.dir(error);
+      });
+    }
+  }, []);
   return /* @__PURE__ */ react.createElement("div", {
     className: "front"
   }, /* @__PURE__ */ react.createElement("h1", {
@@ -8888,117 +9146,22 @@ function FrontPage() {
   }, /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/words"
-  }, "\u{1F4D6} Words"), /* @__PURE__ */ react.createElement(Link, {
+  }, "📖 Words"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/memorize"
-  }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
+  }, "🤯 Memorize"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/test"
-  }, "\u{1F914} Test")));
+  }, "🤔 Test")), /* @__PURE__ */ react.createElement("footer", null, name ? isAdmin ? /* @__PURE__ */ react.createElement("div", null, "Welcome, ", /* @__PURE__ */ react.createElement(Link, {
+    to: "/admin"
+  }, name)) : /* @__PURE__ */ react.createElement("div", null, "Welcome, ", name) : /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(Link, {
+    to: "/login"
+  }, "Log In"), /* @__PURE__ */ react.createElement("span", null, " · "), /* @__PURE__ */ react.createElement(Link, {
+    to: "/signup"
+  }, "Sign Up"))));
 }
 
-// dist/utils.js
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-// dist/db.js
-function setDB(name, data, hard) {
-  const stored = getDB(name);
-  if (hard) {
-    localStorage.setItem(name, JSON.stringify(data));
-  } else if (stored) {
-    const parsed = JSON.parse(stored);
-    const merged = [];
-    parsed.forEach((item) => {
-      if (!data.includes(item)) {
-        merged.push(item);
-      }
-    });
-    data.forEach((item) => {
-      if (!merged.includes(item)) {
-        merged.push(item);
-      }
-    });
-    localStorage.setItem(name, JSON.stringify(merged));
-  } else {
-    localStorage.setItem(name, JSON.stringify(data));
-  }
-}
-function getDB(name) {
-  return localStorage.getItem(name);
-}
-
-// dist/components/SelectTable.js
-function SelectTable(props) {
-  const {
-    list,
-    shuffle,
-    removeAware,
-    setData,
-    setAndCheckData,
-    setTitle
-  } = props;
-  const fetchData = (list2) => {
-    fetch(`/data/${list2}.json`).then((response) => {
-      try {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Couldn't fetch data");
-        }
-      } catch (error) {
-        throw new Error("Couldn't parse data");
-      }
-    }).then((response) => {
-      const stored = getDB(list2);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (removeAware) {
-          response = response.filter((word) => {
-            return !parsed.includes(word.word);
-          });
-        } else {
-          response.map((word) => {
-            if (parsed.includes(word.word)) {
-              word.aware = true;
-            }
-            return word;
-          });
-        }
-      }
-      if (shuffle) {
-        shuffleArray(response);
-      }
-      if (setTitle) {
-        setTitle(list2);
-      }
-      if (setData) {
-        setData(response);
-      } else if (setAndCheckData) {
-        setAndCheckData(response);
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-  };
-  return /* @__PURE__ */ react.createElement("ul", {
-    className: "select"
-  }, list.map((item, index2) => {
-    return /* @__PURE__ */ react.createElement("li", {
-      className: "large-button",
-      onClick: () => {
-        fetchData(item);
-      },
-      key: index2
-    }, item);
-  }));
-}
-
-// dist/components/speaker.js
+// build/dist/components/speaker.js
 function speak(message) {
   const synth = window.speechSynthesis;
   const voices = synth.getVoices().filter((x2) => x2.lang === "en-US");
@@ -9008,7 +9171,7 @@ function speak(message) {
   speechSynthesis.speak(msg);
 }
 
-// dist/components/Loader.js
+// build/dist/components/Loader.js
 function Loader() {
   return /* @__PURE__ */ react.createElement("div", {
     className: "loader"
@@ -9054,7 +9217,7 @@ function Loader() {
   }))));
 }
 
-// dist/components/Icons.js
+// build/dist/components/Icons.js
 function HomeIcon() {
   return /* @__PURE__ */ react.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -9067,24 +9230,6 @@ function HomeIcon() {
     fill: "none"
   }), /* @__PURE__ */ react.createElement("path", {
     d: "M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"
-  }));
-}
-function ListIcon() {
-  return /* @__PURE__ */ react.createElement("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    height: "24px",
-    viewBox: "0 0 24 24",
-    width: "24px",
-    fill: "#FFFFFF"
-  }, /* @__PURE__ */ react.createElement("g", {
-    fill: "none"
-  }, /* @__PURE__ */ react.createElement("path", {
-    d: "M0 0h24v24H0V0z"
-  }), /* @__PURE__ */ react.createElement("path", {
-    d: "M0 0h24v24H0V0z",
-    opacity: ".87"
-  })), /* @__PURE__ */ react.createElement("path", {
-    d: "M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7zm-4 6h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"
   }));
 }
 function RenewIcon() {
@@ -9129,35 +9274,13 @@ function VolumeUpIcon() {
     d: "M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"
   }));
 }
-function ClearIcon() {
-  return /* @__PURE__ */ react.createElement("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    height: "24px",
-    viewBox: "0 0 24 24",
-    width: "24px",
-    fill: "#FFFFFF"
-  }, /* @__PURE__ */ react.createElement("path", {
-    d: "M0 0h24v24H0V0z",
-    fill: "none"
-  }), /* @__PURE__ */ react.createElement("path", {
-    d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-  }));
-}
 
-// dist/router/Words.js
+// build/dist/router/Words.js
 function WordsList(props) {
-  const {data, title, setData} = props;
+  const {data} = props;
   const handleClick = (e2) => {
     const target = e2.target;
     speak(target.dataset.message?.replace(/\(.*\)/, "") || "");
-  };
-  const removeWord = (e2) => {
-    const target = e2.target;
-    const stored = JSON.parse(getDB(title) || "");
-    const filtered = stored.filter((word) => word !== target.dataset.word);
-    setDB(title, filtered, true);
-    target.parentElement?.classList.remove("aware");
-    target.remove();
   };
   return /* @__PURE__ */ react.createElement("div", {
     className: "words"
@@ -9165,17 +9288,14 @@ function WordsList(props) {
     className: "table"
   }, /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uB2E8\uC5B4"), /* @__PURE__ */ react.createElement("div", {
+  }, "단어"), /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uB73B"), /* @__PURE__ */ react.createElement("div", {
+  }, "뜻"), /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uC608\uBB38"), data.map((word) => {
+  }, "예문"), data.map((word) => {
     return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement("div", {
       className: word.aware ? "aware" : ""
-    }, word.word, word.aware && /* @__PURE__ */ react.createElement("button", {
-      "data-word": word.word,
-      onClick: removeWord
-    }, /* @__PURE__ */ react.createElement(ClearIcon, null)), /* @__PURE__ */ react.createElement("button", {
+    }, word.word, /* @__PURE__ */ react.createElement("button", {
       "data-message": word.word,
       onClick: handleClick
     }, /* @__PURE__ */ react.createElement(VolumeUpIcon, null))), /* @__PURE__ */ react.createElement("div", null, word.meaning.map((meaning) => {
@@ -9184,11 +9304,9 @@ function WordsList(props) {
   })));
 }
 function Words() {
-  const [list, setList] = useState();
-  const [title, setTitle] = useState("");
   const [data, setData] = useState();
-  const fetchList = () => {
-    fetch("/data/list.json").then((response) => {
+  const fetchWords = () => {
+    fetch("https://api.withen.ga/words/today").then((response) => {
       try {
         if (response.ok) {
           return response.json();
@@ -9199,25 +9317,17 @@ function Words() {
         throw new Error("Couldn't parse data");
       }
     }).then((response) => {
-      setList(response);
+      setData(response);
     }).catch((error) => {
       console.log(error);
     });
   };
   useEffect(() => {
-    fetchList();
+    fetchWords();
   }, []);
   if (data) {
     return /* @__PURE__ */ react.createElement(WordsList, {
-      data,
-      title,
-      setData
-    });
-  } else if (list) {
-    return /* @__PURE__ */ react.createElement(SelectTable, {
-      list,
-      setTitle,
-      setData
+      data
     });
   } else {
     return /* @__PURE__ */ react.createElement("div", {
@@ -9226,33 +9336,30 @@ function Words() {
   }
 }
 
-// dist/router/Memorize.js
-var memorizedWords = new Set();
+// build/dist/utils.js
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// build/dist/router/Memorize.js
 function MemorizeWords(props) {
   const [index2, setIndex] = useState(0);
   const [done, setDone] = useState(false);
   const [reveal, setReveal] = useState(false);
-  const [words, setWords] = useState(props.data);
-  const [complete, setComplete] = useState(false);
-  const {setData, title} = props;
-  let {length} = words;
+  const {data} = props;
+  const {length: length2} = data;
   const wordSwapInterval = 3e3;
   const wordRevealInterval = wordSwapInterval - 1e3;
   const handleAware = () => {
-    const {word} = words[index2];
-    document.documentElement.classList.add("aware");
-    memorizedWords.add(word);
   };
   const handleDone = () => {
-    const memorizedWordsArr = [...memorizedWords.values()];
     setDone(true);
-    if (memorizedWordsArr.length) {
-      memorizedWords.clear();
-      setDB(title, memorizedWordsArr);
-    }
   };
   useEffect(() => {
-    const timer = index2 === length - 1 ? setTimeout(() => handleDone(), wordSwapInterval) : setTimeout(() => {
+    const timer = index2 === length2 - 1 ? setTimeout(() => handleDone(), wordSwapInterval) : setTimeout(() => {
       setIndex(index2 + 1);
       setReveal(false);
     }, wordSwapInterval);
@@ -9263,49 +9370,27 @@ function MemorizeWords(props) {
       clearTimeout(reveal2);
     };
   }, [index2, setIndex]);
-  if (complete) {
-    return /* @__PURE__ */ react.createElement("div", {
-      className: "center-container"
-    }, /* @__PURE__ */ react.createElement("h2", null, "Wow! You memorized every words!"));
-  } else if (done) {
+  if (done) {
     return /* @__PURE__ */ react.createElement("div", {
       className: "center-container done"
     }, /* @__PURE__ */ react.createElement("h2", {
       className: "done__title"
-    }, "Done \u{1F389}"), /* @__PURE__ */ react.createElement("div", {
+    }, "Done 🎉"), /* @__PURE__ */ react.createElement("div", {
       className: "done__buttons"
-    }, /* @__PURE__ */ react.createElement("button", {
-      className: "done__button",
-      onClick: () => setData(void 0)
-    }, /* @__PURE__ */ react.createElement(ListIcon, null)), /* @__PURE__ */ react.createElement(Link, {
+    }, /* @__PURE__ */ react.createElement(Link, {
       className: "done__button",
       to: "/"
     }, /* @__PURE__ */ react.createElement(HomeIcon, null)), /* @__PURE__ */ react.createElement("button", {
       className: "done__button",
       onClick: () => {
-        const stored = getDB(title);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          const wordsToStudy = words.filter((word) => {
-            return !parsed.includes(word.word);
-          });
-          length = wordsToStudy.length;
-          if (length) {
-            shuffleArray(wordsToStudy);
-            setWords(wordsToStudy);
-          } else {
-            setComplete(true);
-          }
-        } else {
-          shuffleArray(words);
-        }
+        shuffleArray(data);
         setIndex(0);
         setReveal(false);
         setDone(false);
       }
     }, /* @__PURE__ */ react.createElement(RenewIcon, null))));
   } else {
-    const currentWord = words[index2];
+    const currentWord = data[index2];
     return /* @__PURE__ */ react.createElement("div", {
       className: "memorize"
     }, /* @__PURE__ */ react.createElement("h2", {
@@ -9323,12 +9408,9 @@ function MemorizeWords(props) {
   }
 }
 function Memorize() {
-  const [list, setList] = useState();
   const [data, setData] = useState();
-  const [title, setTitle] = useState("");
-  const [done, setDone] = useState(false);
-  const fetchList = () => {
-    fetch("/data/list.json").then((response) => {
+  const fetchWords = () => {
+    fetch("https://api.withen.ga/words/today").then((response) => {
       try {
         if (response.ok) {
           return response.json();
@@ -9339,38 +9421,17 @@ function Memorize() {
         throw new Error("Couldn't parse data");
       }
     }).then((response) => {
-      setList(response);
+      setData(response);
     }).catch((error) => {
       console.log(error);
     });
   };
-  const setAndCheckData = (words) => {
-    if (!words.length) {
-      setDone(true);
-    } else {
-      setData(words);
-    }
-  };
   useEffect(() => {
-    fetchList();
+    fetchWords();
   }, []);
-  if (done) {
-    return /* @__PURE__ */ react.createElement("div", {
-      className: "center-container"
-    }, /* @__PURE__ */ react.createElement("h2", null, "Wow! You memorized every words!"));
-  } else if (data) {
+  if (data) {
     return /* @__PURE__ */ react.createElement(MemorizeWords, {
-      data,
-      title,
-      setData
-    });
-  } else if (list) {
-    return /* @__PURE__ */ react.createElement(SelectTable, {
-      list,
-      shuffle: true,
-      removeAware: true,
-      setAndCheckData,
-      setTitle
+      data
     });
   } else {
     return /* @__PURE__ */ react.createElement("div", {
@@ -9379,72 +9440,171 @@ function Memorize() {
   }
 }
 
-// dist/router/Test.js
+// build/dist/auth.js
+function updateToken(token) {
+  localStorage.setItem("token", token);
+}
+
+// build/dist/toast.js
+var toastElement = document.createElement("div");
+var removeToast;
+function initToast() {
+  toastElement.classList.add("toast");
+  document.body.append(toastElement);
+}
+function toast(message) {
+  if (toastElement.classList.contains("reveal")) {
+    clearTimeout(removeToast);
+    removeToast = setTimeout(() => {
+      toastElement.classList.remove("reveal");
+    }, 2500);
+  } else {
+    removeToast = setTimeout(() => {
+      toastElement.classList.remove("reveal");
+    }, 2500);
+  }
+  toastElement.innerText = message;
+  toastElement.classList.add("reveal");
+}
+
+// build/dist/router/Test.js
 function WordTest(props) {
-  const {data, setData} = props;
+  const generateRandomNumbers = (max, mustHave) => {
+    const numbers = [mustHave];
+    const randomNumber = () => Math.floor(Math.random() * max);
+    const size = 4;
+    while (numbers.length < size) {
+      const number = randomNumber();
+      if (!numbers.includes(number)) {
+        numbers.push(number);
+      }
+    }
+    shuffleArray(numbers);
+    return numbers;
+  };
+  const {data} = props;
   const [index2, setIndex] = useState(0);
+  const [randomNumbers, setRandomNumbers] = useState(generateRandomNumbers(data.length, index2));
   const [done, setDone] = useState(false);
   const [incorrect, setIncorrect] = useState(0);
-  const [start, _] = useState(new Date().getTime());
-  const {length} = data;
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const target = event.target;
-    const input = target.firstChild;
-    const answer = input.value;
-    if (answer.toLocaleLowerCase() === data[index2].word.toLocaleLowerCase()) {
-      if (index2 !== length - 1) {
-        setIndex(index2 + 1);
-        input.value = "";
-      } else {
-        setDone(true);
-      }
-    } else {
-      setIncorrect(incorrect + 1);
-      target.classList.add("wrong");
+  const [animating, setAnimating] = useState(true);
+  const {length: dataLength} = data;
+  const timeLimit = 5e3;
+  const increaseIndex = () => {
+    setAnimating(false);
+    if (index2 !== dataLength - 1) {
       setTimeout(() => {
-        target.classList.remove("wrong");
-      }, 300);
+        document.querySelectorAll(".clicked").forEach((element) => {
+          element.classList.remove("clicked");
+        });
+        setRandomNumbers(generateRandomNumbers(dataLength, index2 + 1));
+        setIndex(index2 + 1);
+        setAnimating(true);
+      }, 1e3);
+    } else {
+      setTimeout(() => {
+        setDone(true);
+        fetch("https://api.withen.ga/test/result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token") || ""
+          },
+          body: JSON.stringify({
+            grade: ((length - incorrect) / length * 100).toFixed(2)
+          })
+        }).then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Failed to fetch");
+        }).then((response) => {
+          if (!response.error) {
+            if (response.freshToken) {
+              updateToken(response.freshToken);
+            }
+            if (response.success) {
+              toast("Successfully submitted 🎉");
+            } else {
+              toast("Something went wrong 😥");
+            }
+          }
+        });
+      }, 1e3);
     }
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!animating)
+      return;
+    const target = event.target;
+    const answer = target.innerText;
+    target.classList.add("clicked");
+    if (answer.toLocaleLowerCase() !== data[index2].word.toLocaleLowerCase()) {
+      setIncorrect(incorrect + 1);
+    }
+    increaseIndex();
+  };
+  useEffect(() => {
+    const timer = done ? setTimeout(() => {
+    }, 0) : setTimeout(() => {
+      setIncorrect(incorrect + 1);
+      increaseIndex();
+    }, timeLimit);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [index2, done]);
   if (done) {
     return /* @__PURE__ */ react.createElement("div", {
       className: "center-container done"
     }, /* @__PURE__ */ react.createElement("h2", {
       className: "done__title"
-    }, "Congratulations! \u{1F389}"), /* @__PURE__ */ react.createElement("div", {
+    }, "Congratulations! 🎉"), /* @__PURE__ */ react.createElement("div", {
       className: "done__info"
-    }, /* @__PURE__ */ react.createElement("h3", null, "\uC18C\uC694 \uC2DC\uAC04 :", " ", Math.round((new Date().getTime() - start) / 1e3), "\uCD08"), /* @__PURE__ */ react.createElement("h3", null, "\uC624\uB2F5\uC218 : ", incorrect)), /* @__PURE__ */ react.createElement("div", {
+    }, /* @__PURE__ */ react.createElement("h3", null, "오답수 : ", incorrect)), /* @__PURE__ */ react.createElement("div", {
       className: "done__buttons"
-    }, /* @__PURE__ */ react.createElement("button", {
-      className: "done__button",
-      onClick: () => setData(void 0)
-    }, /* @__PURE__ */ react.createElement(ListIcon, null)), /* @__PURE__ */ react.createElement(Link, {
+    }, /* @__PURE__ */ react.createElement(Link, {
       className: "done__button",
       to: "/"
     }, /* @__PURE__ */ react.createElement(HomeIcon, null))));
   }
   return /* @__PURE__ */ react.createElement("div", {
     className: "question"
-  }, /* @__PURE__ */ react.createElement("ul", {
+  }, /* @__PURE__ */ react.createElement("div", {
+    className: `question__time-limit ${animating ? "animating" : ""}`
+  }), /* @__PURE__ */ react.createElement("ul", {
     className: "question__meaning"
-  }, data[index2].meaning.map((meaning) => {
-    return /* @__PURE__ */ react.createElement("li", null, meaning);
-  })), /* @__PURE__ */ react.createElement("form", {
-    className: "question__input-wrap",
-    onSubmit: handleSubmit
-  }, /* @__PURE__ */ react.createElement("input", {
-    type: "text",
-    className: "question__input"
+  }, data[index2].meaning.map((meaning, i) => {
+    return /* @__PURE__ */ react.createElement("li", {
+      key: i
+    }, meaning);
+  })), /* @__PURE__ */ react.createElement("ul", {
+    className: "question__words"
+  }, randomNumbers.map((number) => {
+    return /* @__PURE__ */ react.createElement("button", {
+      key: number,
+      onClick: handleSubmit,
+      className: `large-button ${!animating && number === index2 ? "answer" : ""}`
+    }, data[number].word);
   })));
 }
 function Test() {
-  const [list, setList] = useState();
   const [data, setData] = useState();
-  const fetchList = () => {
-    fetch("/data/list.json").then((response) => {
+  const [signInRequired, setSignInRequired] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const fetchWords = () => {
+    fetch("https://api.withen.ga/test", {
+      headers: {
+        "x-auth-token": localStorage.getItem("token") || ""
+      }
+    }).then((response) => {
       try {
         if (response.ok) {
+          const freshToken = response.headers.get("X-Fresh-Token");
+          if (freshToken) {
+            updateToken(freshToken);
+          }
           return response.json();
         } else {
           throw new Error("Couldn't fetch data");
@@ -9453,24 +9613,36 @@ function Test() {
         throw new Error("Couldn't parse data");
       }
     }).then((response) => {
-      setList(response);
+      if (Array.isArray(response)) {
+        setData(response);
+      } else {
+        if (response.signInRequired) {
+          setSignInRequired(true);
+        } else if (response.error) {
+          toast(response.message);
+          setRedirect(true);
+        }
+      }
+      console.log(response);
     }).catch((error) => {
       console.log(error);
     });
   };
   useEffect(() => {
-    fetchList();
+    fetchWords();
   }, []);
   if (data) {
     return /* @__PURE__ */ react.createElement(WordTest, {
-      data,
-      setData
+      data
     });
-  } else if (list) {
-    return /* @__PURE__ */ react.createElement(SelectTable, {
-      list,
-      shuffle: true,
-      setData
+  }
+  if (signInRequired) {
+    return /* @__PURE__ */ react.createElement(Redirect, {
+      to: "/login"
+    });
+  } else if (redirect) {
+    return /* @__PURE__ */ react.createElement(Redirect, {
+      to: "/"
     });
   } else {
     return /* @__PURE__ */ react.createElement("div", {
@@ -9479,7 +9651,141 @@ function Test() {
   }
 }
 
-// dist/index.js
+// build/dist/router/Admin.js
+function Admin() {
+  return /* @__PURE__ */ react.createElement(react.Fragment, null);
+}
+
+// build/dist/router/SignIn.js
+function SignIn() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const name = useRef(null);
+  const password = useRef(null);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch("https://api.withen.ga/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name.current?.value,
+        password: password.current?.value
+      })
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Failed to fetch");
+    }).then((response) => {
+      if (response.success) {
+        if (response.token) {
+          updateToken(response.token);
+        }
+        setAuthenticated(true);
+      } else {
+        toast("Something went wrong 😥");
+      }
+    });
+  };
+  if (!authenticated) {
+    return /* @__PURE__ */ react.createElement("form", {
+      action: "https://api.withen.ga/auth/login",
+      method: "post",
+      className: "sign sign--in",
+      onSubmit: handleSubmit
+    }, /* @__PURE__ */ react.createElement("h1", null, "Welcome Back!"), /* @__PURE__ */ react.createElement("label", null, /* @__PURE__ */ react.createElement("input", {
+      type: "text",
+      name: "name",
+      placeholder: "Name",
+      required: true,
+      ref: name
+    }), /* @__PURE__ */ react.createElement("span", null, "Name")), /* @__PURE__ */ react.createElement("label", null, /* @__PURE__ */ react.createElement("input", {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+      required: true,
+      ref: password
+    }), /* @__PURE__ */ react.createElement("span", null, "Password")), /* @__PURE__ */ react.createElement("div", null, /* @__PURE__ */ react.createElement("button", {
+      type: "submit",
+      className: "sign__submit"
+    }, "Log in")));
+  }
+  return /* @__PURE__ */ react.createElement(Redirect, {
+    to: "/"
+  });
+}
+
+// build/dist/router/SignUp.js
+function SignUp() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const name = useRef(null);
+  const password = useRef(null);
+  const confirm = useRef(null);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (password.current?.value !== confirm.current?.value)
+      return toast("Check your password again!");
+    fetch("https://api.withen.ga/users/user/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name.current?.value,
+        password: password.current?.value
+      })
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Failed to fetch");
+    }).then((response) => {
+      if (response.success) {
+        if (response.token) {
+          updateToken(response.token);
+        }
+        setAuthenticated(true);
+      } else {
+        toast("Something went wrong 😥");
+      }
+    });
+  };
+  if (!authenticated) {
+    return /* @__PURE__ */ react.createElement("form", {
+      action: "https://api.withen.ga/auth/login",
+      method: "post",
+      className: "sign sign--in",
+      onSubmit: handleSubmit
+    }, /* @__PURE__ */ react.createElement("h1", null, "Identify yourself"), /* @__PURE__ */ react.createElement("label", null, /* @__PURE__ */ react.createElement("input", {
+      type: "text",
+      name: "name",
+      placeholder: "Name",
+      required: true,
+      ref: name
+    }), /* @__PURE__ */ react.createElement("span", null, "Name")), /* @__PURE__ */ react.createElement("label", null, /* @__PURE__ */ react.createElement("input", {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+      required: true,
+      ref: password
+    }), /* @__PURE__ */ react.createElement("span", null, "Password")), /* @__PURE__ */ react.createElement("label", null, /* @__PURE__ */ react.createElement("input", {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+      required: true,
+      ref: confirm
+    }), /* @__PURE__ */ react.createElement("span", null, "Confirm Password")), /* @__PURE__ */ react.createElement("div", null, /* @__PURE__ */ react.createElement("button", {
+      type: "submit",
+      className: "sign__submit"
+    }, "Sign Up")));
+  }
+  return /* @__PURE__ */ react.createElement(Redirect, {
+    to: "/"
+  });
+}
+
+// build/dist/index.js
 import.meta.env = env_exports;
 react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, null, /* @__PURE__ */ react.createElement(BrowserRouter, {
   basename: "/"
@@ -9496,7 +9802,21 @@ react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, n
 }), /* @__PURE__ */ react.createElement(Route, {
   path: "/test",
   component: Test
+}), /* @__PURE__ */ react.createElement(Route, {
+  path: "/admin",
+  component: Admin
+}), /* @__PURE__ */ react.createElement(Route, {
+  path: "/login",
+  component: SignIn
+}), /* @__PURE__ */ react.createElement(Route, {
+  path: "/signup",
+  component: SignUp
 }))), document.getElementById("root"));
+initToast();
+document.addEventListener("dblclick", () => {
+  document.documentElement.requestFullscreen();
+});
 if (void 0) {
   (void 0).accept();
 }
+//# sourceMappingURL=index.js.map

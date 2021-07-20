@@ -4,29 +4,15 @@ import SelectTable from "../components/SelectTable";
 import speak from "../components/speaker";
 import Loader from "../components/Loader";
 import { VolumeUpIcon, ClearIcon } from "../components/Icons";
-import { getDB, setDB } from "../db";
 import "./Words.css";
 
 function WordsList(props: WordsListProps) {
-    const { data, title, setData } = props;
+    const { data } = props;
 
     const handleClick = (e: React.MouseEvent) => {
         const target = e.target as HTMLButtonElement;
 
         speak(target.dataset.message?.replace(/\(.*\)/, "") || "");
-    };
-
-    const removeWord = (e: React.MouseEvent) => {
-        const target = e.target as HTMLButtonElement;
-        const stored = JSON.parse(getDB(title) || "");
-        const filtered = stored.filter(
-            (word: string) => word !== target.dataset.word
-        );
-
-        setDB(title, filtered, true);
-
-        target.parentElement?.classList.remove("aware");
-        target.remove();
     };
 
     return (
@@ -40,14 +26,6 @@ function WordsList(props: WordsListProps) {
                         <>
                             <div className={word.aware ? "aware" : ""}>
                                 {word.word}
-                                {word.aware && (
-                                    <button
-                                        data-word={word.word}
-                                        onClick={removeWord}
-                                    >
-                                        <ClearIcon />
-                                    </button>
-                                )}
                                 <button
                                     data-message={word.word}
                                     onClick={handleClick}
@@ -70,12 +48,10 @@ function WordsList(props: WordsListProps) {
 }
 
 export default function Words() {
-    const [list, setList] = useState<string[]>();
-    const [title, setTitle] = useState<string>("");
     const [data, setData] = useState<word[]>();
 
-    const fetchList = () => {
-        fetch("/data/list.json")
+    const fetchWords = () => {
+        fetch("https://api.withen.ga/words/today")
             .then((response) => {
                 try {
                     if (response.ok) {
@@ -87,8 +63,8 @@ export default function Words() {
                     throw new Error("Couldn't parse data");
                 }
             })
-            .then((response: string[]) => {
-                setList(response);
+            .then((response: word[]) => {
+                setData(response);
             })
             .catch((error) => {
                 console.log(error);
@@ -96,15 +72,11 @@ export default function Words() {
     };
 
     useEffect(() => {
-        fetchList();
+        fetchWords();
     }, []);
 
     if (data) {
-        return <WordsList data={data} title={title} setData={setData} />;
-    } else if (list) {
-        return (
-            <SelectTable list={list} setTitle={setTitle} setData={setData} />
-        );
+        return <WordsList data={data} />;
     } else {
         return (
             <div className="center-container">

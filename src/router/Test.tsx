@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
-import SelectTable from "../components/SelectTable";
+import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
 import { shuffleArray } from "../utils";
 import { ListIcon, HomeIcon } from "../components/Icons";
@@ -26,7 +25,7 @@ function WordTest(props: SpeedQuizProps) {
         return numbers;
     };
 
-    const { data, setData } = props;
+    const { data } = props;
     const [index, setIndex] = useState<number>(0);
     const [randomNumbers, setRandomNumbers] = useState<number[]>(
         generateRandomNumbers(data.length, index)
@@ -95,12 +94,6 @@ function WordTest(props: SpeedQuizProps) {
                     <h3>오답수 : {incorrect}</h3>
                 </div>
                 <div className="done__buttons">
-                    <button
-                        className="done__button"
-                        onClick={() => setData(undefined)}
-                    >
-                        <ListIcon />
-                    </button>
                     <Link className="done__button" to="/">
                         <HomeIcon />
                     </Link>
@@ -141,11 +134,11 @@ function WordTest(props: SpeedQuizProps) {
 }
 
 export default function Test() {
-    const [list, setList] = useState<string[]>();
     const [data, setData] = useState<word[]>();
+    const [signInRequired, setSignInRequired] = useState(false);
 
-    const fetchList = () => {
-        fetch("/data/list.json")
+    const fetchWords = () => {
+        fetch("https://api.withen.ga/test")
             .then((response) => {
                 try {
                     if (response.ok) {
@@ -157,8 +150,15 @@ export default function Test() {
                     throw new Error("Couldn't parse data");
                 }
             })
-            .then((response: string[]) => {
-                setList(response);
+            .then((response: word[] | IError) => {
+                if (Array.isArray(response)) {
+                    setData(response);
+                } else {
+                    if (response.signInRequired) {
+                        setSignInRequired(true);
+                    }
+                }
+                console.log(response);
             })
             .catch((error) => {
                 console.log(error);
@@ -166,13 +166,15 @@ export default function Test() {
     };
 
     useEffect(() => {
-        fetchList();
+        fetchWords();
     }, []);
 
     if (data) {
-        return <WordTest data={data} setData={setData} />;
-    } else if (list) {
-        return <SelectTable list={list} shuffle={true} setData={setData} />;
+        return <WordTest data={data} />;
+    }
+
+    if (signInRequired) {
+        return <Redirect to="/login" />;
     } else {
         return (
             <div className="center-container">

@@ -17,20 +17,17 @@ function MemorizeWords(props: MemorizeWordsProps) {
     const wordSwapInterval = 3000;
     const wordRevealInterval = wordSwapInterval - 1000;
 
-    const handleAware = () => {};
-
-    const handleDone = () => {
-        setDone(true);
+    const increaseIndex = () => {
+        if (index === length - 1) {
+            setDone(true);
+        } else {
+            setIndex(index + 1);
+            setReveal(false);
+        }
     };
 
     useEffect(() => {
-        const timer =
-            index === length - 1
-                ? setTimeout(() => handleDone(), wordSwapInterval)
-                : setTimeout(() => {
-                      setIndex(index + 1);
-                      setReveal(false);
-                  }, wordSwapInterval);
+        const timer = setTimeout(increaseIndex, wordSwapInterval);
         const reveal = setTimeout(() => setReveal(true), wordRevealInterval);
 
         document.documentElement.classList.remove("aware");
@@ -78,7 +75,7 @@ function MemorizeWords(props: MemorizeWordsProps) {
                         return <li key={index}>{meaning}</li>;
                     })}
                 </ol>
-                <button className="memorize__aware" onClick={handleAware}>
+                <button className="memorize__aware" onClick={increaseIndex}>
                     <DoneIcon /> I know this
                 </button>
             </div>

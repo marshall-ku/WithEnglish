@@ -1,17 +1,9 @@
 import React from "react";
 import { shuffleArray } from "../utils";
-import { getDB } from "../db";
 import "./SelectTable.css";
 
 export default function SelectTable(props: SelectTableProps) {
-    const {
-        list,
-        shuffle,
-        removeAware,
-        setData,
-        setAndCheckData,
-        setTitle,
-    } = props;
+    const { list, shuffle, setData, setAndCheckData, setTitle } = props;
 
     const fetchData = (list: string) => {
         fetch(`/data/${list}.json`)
@@ -27,26 +19,6 @@ export default function SelectTable(props: SelectTableProps) {
                 }
             })
             .then((response: word[]) => {
-                const stored = getDB(list);
-
-                if (stored) {
-                    const parsed: string[] = JSON.parse(stored);
-
-                    if (removeAware) {
-                        response = response.filter((word) => {
-                            return !parsed.includes(word.word);
-                        });
-                    } else {
-                        response.map((word) => {
-                            if (parsed.includes(word.word)) {
-                                word.aware = true;
-                            }
-
-                            return word;
-                        });
-                    }
-                }
-
                 if (shuffle) {
                     shuffleArray(response);
                 }

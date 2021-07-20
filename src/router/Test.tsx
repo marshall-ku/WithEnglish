@@ -60,7 +60,7 @@ function WordTest(props: SpeedQuizProps) {
                         "x-auth-token": localStorage.getItem("token") || "",
                     },
                     body: JSON.stringify({
-                        grade: (((length - incorrect) / length) * 100).toFixed(
+                        grade: (((dataLength - incorrect) / dataLength) * 100).toFixed(
                             2
                         ),
                     }),

@@ -6,6 +6,9 @@ import FrontPage from "./router/FrontPage";
 import Words from "./router/Words";
 import Memorize from "./router/Memorize";
 import Test from "./router/Test";
+import Admin from "./router/Admin";
+import SignIn from "./router/SignIn";
+import SignUp from "./router/SignUp";
 import "./index.css";
 
 ReactDOM.render(
@@ -15,6 +18,9 @@ ReactDOM.render(
             <Route path={"/words"} component={Words} />
             <Route path={"/memorize"} component={Memorize} />
             <Route path={"/test"} component={Test} />
+            <Route path={"/admin"} component={Admin} />
+            <Route path={"/login"} component={SignIn} />
+            <Route path={"/signup"} component={SignUp} />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")

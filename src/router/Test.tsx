@@ -60,9 +60,10 @@ function WordTest(props: SpeedQuizProps) {
                         "x-auth-token": localStorage.getItem("token") || "",
                     },
                     body: JSON.stringify({
-                        grade: (((dataLength - incorrect) / dataLength) * 100).toFixed(
-                            2
-                        ),
+                        grade: (
+                            ((dataLength - incorrect) / dataLength) *
+                            100
+                        ).toFixed(2),
                     }),
                 })
                     .then((response) => {
@@ -182,8 +183,9 @@ export default function Test() {
             .then((response) => {
                 try {
                     if (response.ok) {
-                        const freshToken =
-                            response.headers.get("X-Fresh-Token");
+                        const freshToken = response.headers.get(
+                            "X-Fresh-Token"
+                        );
 
                         if (freshToken) {
                             updateToken(freshToken);

@@ -151,8 +151,8 @@ h6 {
 }
 .large-button,
 .large-button::before {
-  border: 2px solid var(--border-color);
-  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
 }
 .large-button {
   position: relative;
@@ -162,10 +162,10 @@ h6 {
 .large-button::before {
   content: "";
   position: absolute;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
   display: block;
 }
 .large-button:hover::before {
@@ -177,7 +177,7 @@ h6 {
   margin-right: 5px;
 }
 .large-button.large-button--fancy {
-  border: 2px solid var(--primary);
+  border: 1px solid var(--primary);
   color: var(--primary);
   transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 }

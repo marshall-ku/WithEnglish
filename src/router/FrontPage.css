@@ -21,3 +21,11 @@
 .front__buttons > .large-button:not(:last-child) {
     margin-bottom: 15px;
 }
+
+.front__footer {
+    opacity: 0;
+}
+
+.front__footer.loaded {
+    opacity: 1;
+}

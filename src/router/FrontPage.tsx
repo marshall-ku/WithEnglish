@@ -4,6 +4,7 @@ import "./FrontPage.css";
 
 export default function FrontPage() {
     const storedToken = localStorage.getItem("token");
+    const [loaded, setLoaded] = useState(false);
     const [name, setName] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -33,7 +34,8 @@ export default function FrontPage() {
                 })
                 .catch((error) => {
                     console.dir(error);
-                });
+                })
+                .finally(() => setLoaded(true));
         }
     }, []);
 
@@ -51,14 +53,22 @@ export default function FrontPage() {
                     🤔 Test
                 </Link>
             </div>
-            <footer>
+            <footer
+                className={loaded ? "front__footer loaded" : "front__footer"}
+            >
                 {name ? (
                     isAdmin ? (
                         <div>
-                            Welcome, <Link to="/admin">{name}</Link>
+                            Welcome,{" "}
+                            <Link to="/admin">
+                                <b>{name}</b>
+                            </Link>
+                            !
                         </div>
                     ) : (
-                        <div>Welcome, {name}</div>
+                        <div>
+                            Welcome, <b>{name}</b>!
+                        </div>
                     )
                 ) : (
                     <>

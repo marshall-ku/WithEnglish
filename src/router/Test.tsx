@@ -138,7 +138,11 @@ export default function Test() {
     const [signInRequired, setSignInRequired] = useState(false);
 
     const fetchWords = () => {
-        fetch("https://api.withen.ga/test")
+        fetch("https://api.withen.ga/test", {
+            headers: {
+                "x-auth-token": localStorage.getItem("token") || "",
+            },
+        })
             .then((response) => {
                 try {
                     if (response.ok) {

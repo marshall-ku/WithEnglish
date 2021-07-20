@@ -1,6 +1,79 @@
-import React, { useState, useEffect } from "react";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { updateToken } from "../auth";
+import "./Sign.css";
 
 export default function SignIn() {
-    return <></>;
+    const [authenticated, setAuthenticated] = useState(false);
+    const name = useRef<HTMLInputElement>(null);
+    const password = useRef<HTMLInputElement>(null);
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+        fetch("https://api.withen.ga/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name.current?.value,
+                password: password.current?.value,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response) => {
+                if (response.success) {
+                    if (response.token) {
+                        updateToken(response.token);
+                    }
+
+                    setAuthenticated(true);
+                }
+            });
+    };
+
+    if (!authenticated) {
+        return (
+            <form
+                action="https://api.withen.ga/auth/login"
+                method="post"
+                className="sign sign--in"
+                onSubmit={handleSubmit}
+            >
+                <h1>Welcome Back!</h1>
+                <label>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        ref={name}
+                    />
+                    <span>Name</span>
+                </label>
+                <label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        ref={password}
+                    />
+                    <span>Password</span>
+                </label>
+                <div>
+                    <button type="submit" className="sign__submit">
+                        Log in
+                    </button>
+                </div>
+            </form>
+        );
+    }
+
+    return <Redirect to="/" />;
 }

@@ -1,0 +1,434 @@
+{
+  "inputs": {
+    "_snowpack/env.js": {
+      "bytes": 97,
+      "imports": []
+    },
+    "_snowpack/pkg/common/index-e66f0a38.js": {
+      "bytes": 8994,
+      "imports": []
+    },
+    "_snowpack/pkg/react.js": {
+      "bytes": 250,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-e66f0a38.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/common/index-e66f0a38.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/react-dom.js": {
+      "bytes": 127469,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-e66f0a38.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/react-router-dom.js": {
+      "bytes": 72439,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-e66f0a38.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/router/FrontPage.css": {
+      "bytes": 411,
+      "imports": []
+    },
+    "dist/router/FrontPage.js": {
+      "bytes": 2118,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/FrontPage.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/components/speaker.js": {
+      "bytes": 283,
+      "imports": []
+    },
+    "dist/components/Loader.js": {
+      "bytes": 1421,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/components/Icons.js": {
+      "bytes": 3315,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/router/Words.css": {
+      "bytes": 652,
+      "imports": []
+    },
+    "dist/router/Words.js": {
+      "bytes": 2299,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/speaker.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Loader.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Icons.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Words.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/utils.js": {
+      "bytes": 191,
+      "imports": []
+    },
+    "dist/router/Memorize.css": {
+      "bytes": 768,
+      "imports": []
+    },
+    "dist/router/Memorize.js": {
+      "bytes": 3434,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/utils.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Loader.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Icons.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Memorize.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/auth.js": {
+      "bytes": 79,
+      "imports": []
+    },
+    "dist/toast.js": {
+      "bytes": 582,
+      "imports": []
+    },
+    "dist/router/Test.css": {
+      "bytes": 2541,
+      "imports": []
+    },
+    "dist/router/Test.js": {
+      "bytes": 6171,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Loader.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/utils.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/components/Icons.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/auth.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/toast.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Test.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/router/Admin.js": {
+      "bytes": 154,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/router/Sign.css": {
+      "bytes": 1173,
+      "imports": []
+    },
+    "dist/router/SignIn.js": {
+      "bytes": 2200,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/auth.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/toast.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Sign.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/router/SignUp.js": {
+      "bytes": 2649,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/auth.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/toast.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Sign.css",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/index.css": {
+      "bytes": 3278,
+      "imports": []
+    },
+    "dist/index.js": {
+      "bytes": 1646,
+      "imports": [
+        {
+          "path": "_snowpack/env.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/react-router-dom.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/FrontPage.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Words.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Memorize.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Test.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/Admin.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/SignIn.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/router/SignUp.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/index.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/toast.js",
+          "kind": "import-statement"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "../~~bundle~~/dist/index.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "dist/index.js",
+      "inputs": {
+        "_snowpack/env.js": {
+          "bytesInOutput": 186
+        },
+        "_snowpack/pkg/common/index-e66f0a38.js": {
+          "bytesInOutput": 11343
+        },
+        "_snowpack/pkg/react.js": {
+          "bytesInOutput": 91
+        },
+        "_snowpack/pkg/react-dom.js": {
+          "bytesInOutput": 195476
+        },
+        "_snowpack/pkg/react-router-dom.js": {
+          "bytesInOutput": 61430
+        },
+        "dist/router/FrontPage.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/FrontPage.js": {
+          "bytesInOutput": 1942
+        },
+        "dist/components/speaker.js": {
+          "bytesInOutput": 270
+        },
+        "dist/components/Loader.js": {
+          "bytesInOutput": 1356
+        },
+        "dist/components/Icons.js": {
+          "bytesInOutput": 2062
+        },
+        "dist/router/Words.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/Words.js": {
+          "bytesInOutput": 2046
+        },
+        "dist/utils.js": {
+          "bytesInOutput": 184
+        },
+        "dist/router/Memorize.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/Memorize.js": {
+          "bytesInOutput": 3108
+        },
+        "dist/auth.js": {
+          "bytesInOutput": 72
+        },
+        "dist/toast.js": {
+          "bytesInOutput": 566
+        },
+        "dist/router/Test.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/Test.js": {
+          "bytesInOutput": 5787
+        },
+        "dist/router/Admin.js": {
+          "bytesInOutput": 89
+        },
+        "dist/router/Sign.css": {
+          "bytesInOutput": 0
+        },
+        "dist/router/SignIn.js": {
+          "bytesInOutput": 1953
+        },
+        "dist/router/SignUp.js": {
+          "bytesInOutput": 2402
+        },
+        "dist/index.css": {
+          "bytesInOutput": 0
+        },
+        "dist/index.js": {
+          "bytesInOutput": 995
+        }
+      },
+      "bytes": 292027
+    },
+    "../~~bundle~~/dist/index.css": {
+      "imports": [],
+      "inputs": {
+        "dist/index.css": {
+          "bytesInOutput": 3074
+        },
+        "dist/router/FrontPage.css": {
+          "bytesInOutput": 384
+        },
+        "dist/router/Memorize.css": {
+          "bytesInOutput": 716
+        },
+        "dist/router/Sign.css": {
+          "bytesInOutput": 1104
+        },
+        "dist/router/Test.css": {
+          "bytesInOutput": 2306
+        },
+        "dist/router/Words.css": {
+          "bytesInOutput": 609
+        }
+      },
+      "bytes": 8364
+    }
+  }
+}

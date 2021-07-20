@@ -11,6 +11,8 @@ import SignIn from "./router/SignIn";
 import SignUp from "./router/SignUp";
 import "./index.css";
 
+import { initToast } from "./toast";
+
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter basename="/">
@@ -25,6 +27,8 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById("root")
 );
+
+initToast();
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement

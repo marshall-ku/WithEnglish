@@ -3,6 +3,8 @@ import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
 import { shuffleArray } from "../utils";
 import { ListIcon, HomeIcon } from "../components/Icons";
+import { updateToken } from "../auth";
+import { toast } from "../toast";
 
 import "./Test.css";
 
@@ -50,6 +52,39 @@ function WordTest(props: SpeedQuizProps) {
         } else {
             setTimeout(() => {
                 setDone(true);
+
+                fetch("https://api.withen.ga/test/result", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-auth-token": localStorage.getItem("token") || "",
+                    },
+                    body: JSON.stringify({
+                        grade: (((length - incorrect) / length) * 100).toFixed(
+                            2
+                        ),
+                    }),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+
+                        throw new Error("Failed to fetch");
+                    })
+                    .then((response) => {
+                        if (!response.error) {
+                            if (response.freshToken) {
+                                updateToken(response.freshToken);
+                            }
+
+                            if (response.success) {
+                                toast("Successfully submitted 🎉");
+                            } else {
+                                toast("Something went wrong 😥");
+                            }
+                        }
+                    });
             }, 1000);
         }
     };
@@ -136,6 +171,7 @@ function WordTest(props: SpeedQuizProps) {
 export default function Test() {
     const [data, setData] = useState<word[]>();
     const [signInRequired, setSignInRequired] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     const fetchWords = () => {
         fetch("https://api.withen.ga/test", {
@@ -146,6 +182,13 @@ export default function Test() {
             .then((response) => {
                 try {
                     if (response.ok) {
+                        const freshToken =
+                            response.headers.get("X-Fresh-Token");
+
+                        if (freshToken) {
+                            updateToken(freshToken);
+                        }
+
                         return response.json();
                     } else {
                         throw new Error("Couldn't fetch data");
@@ -160,6 +203,9 @@ export default function Test() {
                 } else {
                     if (response.signInRequired) {
                         setSignInRequired(true);
+                    } else if (response.error) {
+                        toast(response.message);
+                        setRedirect(true);
                     }
                 }
                 console.log(response);
@@ -179,6 +225,8 @@ export default function Test() {
 
     if (signInRequired) {
         return <Redirect to="/login" />;
+    } else if (redirect) {
+        return <Redirect to="/" />;
     } else {
         return (
             <div className="center-container">

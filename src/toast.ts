@@ -2,8 +2,13 @@ const toastElement = document.createElement("div");
 let removeToast: ReturnType<typeof setTimeout>;
 
 export function initToast() {
+    const toastWrap = document.createElement("div");
+
+    toastWrap.classList.add("toast-container");
     toastElement.classList.add("toast");
-    document.body.append(toastElement);
+
+    toastWrap.append(toastElement);
+    document.body.append(toastWrap);
 }
 
 export function toast(message: string) {

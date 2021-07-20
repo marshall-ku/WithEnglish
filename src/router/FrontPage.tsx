@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./FrontPage.css";
 
 export default function FrontPage() {
@@ -7,33 +7,35 @@ export default function FrontPage() {
     const [name, setName] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
 
-    if (storedToken) {
-        fetch("https://api.withen.ga/auth", {
-            method: "GET",
-            headers: {
-                "x-auth-token": storedToken,
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Failed to fetch");
-                }
+    useEffect(() => {
+        if (storedToken) {
+            fetch("https://api.withen.ga/auth", {
+                method: "GET",
+                headers: {
+                    "x-auth-token": storedToken,
+                },
             })
-            .then((response) => {
-                if (response.success) {
-                    setName(response.name);
-
-                    if (response.isAdmin) {
-                        setIsAdmin(true);
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Failed to fetch");
                     }
-                }
-            })
-            .catch((error) => {
-                console.dir(error);
-            });
-    }
+                })
+                .then((response) => {
+                    if (response.success) {
+                        setName(response.name);
+
+                        if (response.isAdmin) {
+                            setIsAdmin(true);
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.dir(error);
+                });
+        }
+    }, []);
 
     return (
         <div className="front">

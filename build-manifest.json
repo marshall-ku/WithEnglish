@@ -120,7 +120,7 @@
       "imports": []
     },
     "dist/router/Memorize.js": {
-      "bytes": 3434,
+      "bytes": 3383,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -265,7 +265,7 @@
       "imports": []
     },
     "dist/index.js": {
-      "bytes": 1646,
+      "bytes": 1548,
       "imports": [
         {
           "path": "_snowpack/env.js",
@@ -320,6 +320,10 @@
           "kind": "import-statement"
         }
       ]
+    },
+    "offline.html.inline.0.css": {
+      "bytes": 988,
+      "imports": []
     }
   },
   "outputs": {
@@ -371,7 +375,7 @@
           "bytesInOutput": 0
         },
         "dist/router/Memorize.js": {
-          "bytesInOutput": 3108
+          "bytesInOutput": 3057
         },
         "dist/auth.js": {
           "bytesInOutput": 72
@@ -401,10 +405,10 @@
           "bytesInOutput": 0
         },
         "dist/index.js": {
-          "bytesInOutput": 995
+          "bytesInOutput": 897
         }
       },
-      "bytes": 292027
+      "bytes": 291878
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
@@ -429,6 +433,16 @@
         }
       },
       "bytes": 8364
+    },
+    "../~~bundle~~/offline.html.inline.0.css": {
+      "imports": [],
+      "entryPoint": "offline.html.inline.0.css",
+      "inputs": {
+        "offline.html.inline.0.css": {
+          "bytesInOutput": 553
+        }
+      },
+      "bytes": 585
     }
   }
 }

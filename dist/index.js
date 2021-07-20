@@ -9204,16 +9204,16 @@ function MemorizeWords(props) {
   const {length} = data;
   const wordSwapInterval = 3e3;
   const wordRevealInterval = wordSwapInterval - 1e3;
-  const handleAware = () => {
-  };
-  const handleDone = () => {
-    setDone(true);
-  };
-  useEffect(() => {
-    const timer = index2 === length - 1 ? setTimeout(() => handleDone(), wordSwapInterval) : setTimeout(() => {
+  const increaseIndex = () => {
+    if (index2 === length - 1) {
+      setDone(true);
+    } else {
       setIndex(index2 + 1);
       setReveal(false);
-    }, wordSwapInterval);
+    }
+  };
+  useEffect(() => {
+    const timer = setTimeout(increaseIndex, wordSwapInterval);
     const reveal2 = setTimeout(() => setReveal(true), wordRevealInterval);
     document.documentElement.classList.remove("aware");
     return () => {
@@ -9254,7 +9254,7 @@ function MemorizeWords(props) {
       }, meaning);
     })), /* @__PURE__ */ react.createElement("button", {
       className: "memorize__aware",
-      onClick: handleAware
+      onClick: increaseIndex
     }, /* @__PURE__ */ react.createElement(DoneIcon, null), " I know this"));
   }
 }
@@ -9664,9 +9664,6 @@ react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, n
   component: SignUp
 }))), document.getElementById("root"));
 initToast();
-document.addEventListener("dblclick", () => {
-  document.documentElement.requestFullscreen();
-});
 if (void 0) {
   (void 0).accept();
 }

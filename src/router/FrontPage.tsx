@@ -36,6 +36,8 @@ export default function FrontPage() {
                     console.dir(error);
                 })
                 .finally(() => setLoaded(true));
+        } else {
+            setLoaded(true);
         }
     }, []);
 
@@ -43,13 +45,16 @@ export default function FrontPage() {
         <div className="front">
             <h1 className="front__title">With English</h1>
             <div className="front__buttons">
-                <Link className="large-button" to="/words">
+                <Link className="large-button large-button--fancy" to="/words">
                     📖 Words
                 </Link>
-                <Link className="large-button" to="/memorize">
+                <Link
+                    className="large-button large-button--fancy"
+                    to="/memorize"
+                >
                     🤯 Memorize
                 </Link>
-                <Link className="large-button" to="/test">
+                <Link className="large-button large-button--fancy" to="/test">
                     🤔 Test
                 </Link>
             </div>

@@ -3,7 +3,7 @@
     --text-color: #bbb;
     --light-text-color: #ffeaea;
     --border-color: #787878;
-    --primary: #7b1fa2;
+    --primary: #86c8f7;
 }
 
 a,
@@ -188,6 +188,21 @@ h6 {
 
 .large-button > i {
     margin-right: 5px;
+}
+
+.large-button.large-button--fancy {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+}
+
+.large-button.large-button--fancy::before {
+    display: none;
+}
+
+.large-button.large-button--fancy:hover {
+    background-color: var(--primary);
+    color: var(--background-color);
 }
 
 .done__title {

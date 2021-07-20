@@ -50,6 +50,6 @@
     padding: 0.5rem 1rem;
     margin: 3rem auto 0 auto;
     background: var(--primary);
-    color: var(--light-text-color);
+    color: var(--background-color);
     border-radius: 0.2rem;
 }

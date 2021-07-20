@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { updateToken } from "../auth";
+import { toast } from "../toast";
 import "./Sign.css";
 
 export default function SignIn() {
@@ -35,6 +36,8 @@ export default function SignIn() {
                     }
 
                     setAuthenticated(true);
+                } else {
+                    toast("Something went wrong 😥");
                 }
             });
     };
@@ -53,6 +56,7 @@ export default function SignIn() {
                         type="text"
                         name="name"
                         placeholder="Name"
+                        required={true}
                         ref={name}
                     />
                     <span>Name</span>
@@ -62,6 +66,7 @@ export default function SignIn() {
                         type="password"
                         name="password"
                         placeholder="Password"
+                        required={true}
                         ref={password}
                     />
                     <span>Password</span>

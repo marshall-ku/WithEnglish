@@ -1,3 +1,11 @@
+:root {
+    --background-color: #121212;
+    --text-color: #bbb;
+    --light-text-color: #ffeaea;
+    --border-color: #787878;
+    --primary: #7b1fa2;
+}
+
 a,
 article,
 aside,
@@ -108,14 +116,6 @@ a {
 ::before {
     box-sizing: border-box;
     scrollbar-width: thin;
-}
-
-:root {
-    --background-color: #121212;
-    --text-color: #bbb;
-    --light-text-color: #ffeaea;
-    --border-color: #787878;
-    --primary: #7b1fa2;
 }
 
 html {

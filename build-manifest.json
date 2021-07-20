@@ -40,11 +40,11 @@
       ]
     },
     "dist/router/FrontPage.css": {
-      "bytes": 411,
+      "bytes": 490,
       "imports": []
     },
     "dist/router/FrontPage.js": {
-      "bytes": 2118,
+      "bytes": 2372,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -153,7 +153,7 @@
       "imports": []
     },
     "dist/toast.js": {
-      "bytes": 582,
+      "bytes": 710,
       "imports": []
     },
     "dist/router/Test.css": {
@@ -261,7 +261,7 @@
       ]
     },
     "dist/index.css": {
-      "bytes": 3278,
+      "bytes": 3430,
       "imports": []
     },
     "dist/index.js": {
@@ -351,7 +351,7 @@
           "bytesInOutput": 0
         },
         "dist/router/FrontPage.js": {
-          "bytesInOutput": 1942
+          "bytesInOutput": 2196
         },
         "dist/components/speaker.js": {
           "bytesInOutput": 270
@@ -381,7 +381,7 @@
           "bytesInOutput": 72
         },
         "dist/toast.js": {
-          "bytesInOutput": 566
+          "bytesInOutput": 694
         },
         "dist/router/Test.css": {
           "bytesInOutput": 0
@@ -408,16 +408,16 @@
           "bytesInOutput": 897
         }
       },
-      "bytes": 291878
+      "bytes": 292260
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/index.css": {
-          "bytesInOutput": 3074
+          "bytesInOutput": 3213
         },
         "dist/router/FrontPage.css": {
-          "bytesInOutput": 384
+          "bytesInOutput": 457
         },
         "dist/router/Memorize.css": {
           "bytesInOutput": 716
@@ -432,7 +432,7 @@
           "bytesInOutput": 609
         }
       },
-      "bytes": 8364
+      "bytes": 8576
     },
     "../~~bundle~~/offline.html.inline.0.css": {
       "imports": [],

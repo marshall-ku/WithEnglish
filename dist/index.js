@@ -8961,6 +8961,7 @@ forwardRef$1(function(_ref, forwardedRef) {
 // dist/router/FrontPage.js
 function FrontPage() {
   const storedToken = localStorage.getItem("token");
+  const [loaded, setLoaded] = useState(false);
   const [name, setName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
@@ -8985,7 +8986,7 @@ function FrontPage() {
         }
       }).catch((error) => {
         console.dir(error);
-      });
+      }).finally(() => setLoaded(true));
     }
   }, []);
   return /* @__PURE__ */ react.createElement("div", {
@@ -9003,9 +9004,11 @@ function FrontPage() {
   }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button",
     to: "/test"
-  }, "\u{1F914} Test")), /* @__PURE__ */ react.createElement("footer", null, name ? isAdmin ? /* @__PURE__ */ react.createElement("div", null, "Welcome, ", /* @__PURE__ */ react.createElement(Link, {
+  }, "\u{1F914} Test")), /* @__PURE__ */ react.createElement("footer", {
+    className: loaded ? "front__footer loaded" : "front__footer"
+  }, name ? isAdmin ? /* @__PURE__ */ react.createElement("div", null, "Welcome,", " ", /* @__PURE__ */ react.createElement(Link, {
     to: "/admin"
-  }, name)) : /* @__PURE__ */ react.createElement("div", null, "Welcome, ", name) : /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(Link, {
+  }, /* @__PURE__ */ react.createElement("b", null, name)), "!") : /* @__PURE__ */ react.createElement("div", null, "Welcome, ", /* @__PURE__ */ react.createElement("b", null, name), "!") : /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(Link, {
     to: "/login"
   }, "Log In"), /* @__PURE__ */ react.createElement("span", null, " \xB7 "), /* @__PURE__ */ react.createElement(Link, {
     to: "/signup"
@@ -9300,8 +9303,11 @@ function updateToken(token) {
 var toastElement = document.createElement("div");
 var removeToast;
 function initToast() {
+  const toastWrap = document.createElement("div");
+  toastWrap.classList.add("toast-container");
   toastElement.classList.add("toast");
-  document.body.append(toastElement);
+  toastWrap.append(toastElement);
+  document.body.append(toastWrap);
 }
 function toast(message) {
   if (toastElement.classList.contains("reveal")) {

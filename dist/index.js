@@ -8987,6 +8987,8 @@ function FrontPage() {
       }).catch((error) => {
         console.dir(error);
       }).finally(() => setLoaded(true));
+    } else {
+      setLoaded(true);
     }
   }, []);
   return /* @__PURE__ */ react.createElement("div", {

@@ -44,7 +44,7 @@
       "imports": []
     },
     "dist/router/FrontPage.js": {
-      "bytes": 2372,
+      "bytes": 2408,
       "imports": [
         {
           "path": "_snowpack/pkg/react.js",
@@ -261,7 +261,7 @@
       ]
     },
     "dist/index.css": {
-      "bytes": 3430,
+      "bytes": 3284,
       "imports": []
     },
     "dist/index.js": {
@@ -351,7 +351,7 @@
           "bytesInOutput": 0
         },
         "dist/router/FrontPage.js": {
-          "bytesInOutput": 2196
+          "bytesInOutput": 2232
         },
         "dist/components/speaker.js": {
           "bytesInOutput": 270
@@ -408,13 +408,13 @@
           "bytesInOutput": 897
         }
       },
-      "bytes": 292260
+      "bytes": 292296
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/index.css": {
-          "bytesInOutput": 3213
+          "bytesInOutput": 3081
         },
         "dist/router/FrontPage.css": {
           "bytesInOutput": 457
@@ -432,7 +432,7 @@
           "bytesInOutput": 609
         }
       },
-      "bytes": 8576
+      "bytes": 8444
     },
     "../~~bundle~~/offline.html.inline.0.css": {
       "imports": [],

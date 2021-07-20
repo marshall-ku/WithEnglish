@@ -4,7 +4,7 @@
   --text-color: #bbb;
   --light-text-color: #ffeaea;
   --border-color: #787878;
-  --primary: #7b1fa2;
+  --primary: #86c8f7;
 }
 a,
 article,
@@ -149,29 +149,18 @@ h5,
 h6 {
   font-weight: bold;
 }
-.large-button,
-.large-button::before {
-  border: 2px solid var(--border-color);
-  border-radius: 5px;
-}
 .large-button {
   position: relative;
   padding: 12.5px 40px;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 5px;
   cursor: pointer;
+  transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 }
-.large-button::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
-  display: block;
-}
-.large-button:hover::before {
-  transform: scale(1.2);
-  opacity: 0;
-  transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+.large-button:hover {
+  background-color: var(--primary);
+  color: var(--background-color);
 }
 .large-button > i {
   margin-right: 5px;
@@ -349,7 +338,7 @@ html.aware .memorize__aware > svg {
   padding: 0.5rem 1rem;
   margin: 3rem auto 0 auto;
   background: var(--primary);
-  color: var(--light-text-color);
+  color: var(--background-color);
   border-radius: 0.2rem;
 }
 

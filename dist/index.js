@@ -8998,13 +8998,13 @@ function FrontPage() {
   }, "With English"), /* @__PURE__ */ react.createElement("div", {
     className: "front__buttons"
   }, /* @__PURE__ */ react.createElement(Link, {
-    className: "large-button",
+    className: "large-button large-button--fancy",
     to: "/words"
   }, "\u{1F4D6} Words"), /* @__PURE__ */ react.createElement(Link, {
-    className: "large-button",
+    className: "large-button large-button--fancy",
     to: "/memorize"
   }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
-    className: "large-button",
+    className: "large-button large-button--fancy",
     to: "/test"
   }, "\u{1F914} Test")), /* @__PURE__ */ react.createElement("footer", {
     className: loaded ? "front__footer loaded" : "front__footer"

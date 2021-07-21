@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import SelectTable from "../components/SelectTable";
-import speak from "../components/speaker";
+import speak from "../speaker";
 import Loader from "../components/Loader";
 import { VolumeUpIcon, ClearIcon } from "../components/Icons";
 import "./Words.css";

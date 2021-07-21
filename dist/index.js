@@ -9512,32 +9512,6 @@ function WordTest(props) {
     } else {
       setTimeout(() => {
         setDone(true);
-        fetch("https://api.withen.ga/test/result", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": localStorage.getItem("token") || ""
-          },
-          body: JSON.stringify({
-            grade: ((dataLength - incorrect) / dataLength * 100).toFixed(2)
-          })
-        }).then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Failed to fetch");
-        }).then((response) => {
-          if (!response.error) {
-            if (response.freshToken) {
-              updateToken(response.freshToken);
-            }
-            if (response.success) {
-              toast("Successfully submitted 🎉");
-            } else {
-              toast("Something went wrong 😥");
-            }
-          }
-        });
       }, 1e3);
     }
   };
@@ -9562,7 +9536,7 @@ function WordTest(props) {
     return () => {
       clearTimeout(timer);
     };
-  }, [index2, done]);
+  }, [animating, index2, done]);
   if (done) {
     return /* @__PURE__ */ react.createElement("div", {
       className: "center-container done"

@@ -53,39 +53,39 @@ function WordTest(props: SpeedQuizProps) {
             setTimeout(() => {
                 setDone(true);
 
-                fetch("https://api.withen.ga/test/result", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-auth-token": localStorage.getItem("token") || "",
-                    },
-                    body: JSON.stringify({
-                        grade: (
-                            ((dataLength - incorrect) / dataLength) *
-                            100
-                        ).toFixed(2),
-                    }),
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        }
+                // fetch("https://api.withen.ga/test/result", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "x-auth-token": localStorage.getItem("token") || "",
+                //     },
+                //     body: JSON.stringify({
+                //         grade: (
+                //             ((dataLength - incorrect) / dataLength) *
+                //             100
+                //         ).toFixed(2),
+                //     }),
+                // })
+                //     .then((response) => {
+                //         if (response.ok) {
+                //             return response.json();
+                //         }
 
-                        throw new Error("Failed to fetch");
-                    })
-                    .then((response) => {
-                        if (!response.error) {
-                            if (response.freshToken) {
-                                updateToken(response.freshToken);
-                            }
+                //         throw new Error("Failed to fetch");
+                //     })
+                //     .then((response) => {
+                //         if (!response.error) {
+                //             if (response.freshToken) {
+                //                 updateToken(response.freshToken);
+                //             }
 
-                            if (response.success) {
-                                toast("Successfully submitted 🎉");
-                            } else {
-                                toast("Something went wrong 😥");
-                            }
-                        }
-                    });
+                //             if (response.success) {
+                //                 toast("Successfully submitted 🎉");
+                //             } else {
+                //                 toast("Something went wrong 😥");
+                //             }
+                //         }
+                //     });
             }, 1000);
         }
     };
@@ -120,7 +120,7 @@ function WordTest(props: SpeedQuizProps) {
         return () => {
             clearTimeout(timer);
         };
-    }, [index, done]);
+    }, [animating, index, done]);
 
     if (done) {
         return (
@@ -183,9 +183,8 @@ export default function Test() {
             .then((response) => {
                 try {
                     if (response.ok) {
-                        const freshToken = response.headers.get(
-                            "X-Fresh-Token"
-                        );
+                        const freshToken =
+                            response.headers.get("X-Fresh-Token");
 
                         if (freshToken) {
                             updateToken(freshToken);

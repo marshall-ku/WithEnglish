@@ -63,7 +63,7 @@ function UserGrades() {
                 data.map((user) => {
                     return (
                         <details className="admin__grade">
-                            <summary>{user.name}'s Grades</summary>
+                            <summary>{user.name}</summary>
                             <GradeCalendar user={user} />
                         </details>
                     );

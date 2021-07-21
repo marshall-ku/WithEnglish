@@ -3,6 +3,7 @@ import Calendar, { CalendarTileProperties } from "react-calendar";
 import Loader from "../components/Loader";
 import { GroupIcon, BookIcon } from "../components/Icons";
 import "./Admin.css";
+import "../components/Calendar.css";
 
 function GradeCalendar(props: GradeCalendarProps) {
     const { user } = props;

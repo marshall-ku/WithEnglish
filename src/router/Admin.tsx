@@ -6,6 +6,12 @@ import "./Admin.css";
 
 function GradeCalendar(props: GradeCalendarProps) {
     const { user } = props;
+    const grades = user.grades.map((user) => {
+        return {
+            date: new Date(user.date),
+            grade: user.grade,
+        };
+    });
     const [value, onChange] = useState(new Date());
     const checkIfSameDay = (day1: Date, day2: Date) => {
         return (
@@ -16,8 +22,8 @@ function GradeCalendar(props: GradeCalendarProps) {
     };
     const Tile = (props: CalendarTileProperties) => {
         const currentDate = new Date(props.date);
-        const filter = user.grades.filter((day) =>
-            checkIfSameDay(new Date(day.date), currentDate)
+        const filter = grades.filter((day) =>
+            checkIfSameDay(day.date, currentDate)
         );
 
         console.log(filter);

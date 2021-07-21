@@ -7014,19 +7014,7 @@ var reactDom = createCommonjsModule(function(module) {
 });
 var react_dom_default = reactDom;
 
-// build/_snowpack/pkg/react-router-dom.js
-function _setPrototypeOf(o, p2) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p3) {
-    o2.__proto__ = p3;
-    return o2;
-  };
-  return _setPrototypeOf(o, p2);
-}
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
+// build/_snowpack/pkg/common/index-ffbe0e60.js
 var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
 var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 function emptyFunction() {
@@ -7077,6 +7065,20 @@ var propTypes = createCommonjsModule(function(module) {
     module.exports = factoryWithThrowingShims();
   }
 });
+
+// build/_snowpack/pkg/react-router-dom.js
+function _setPrototypeOf(o, p2) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf3(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf(o, p2);
+}
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  _setPrototypeOf(subClass, superClass);
+}
 function _extends() {
   _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -8002,7 +8004,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
         this.context[contextProp].off(this.onUpdate);
       }
     };
-    _proto2.getValue = function getValue() {
+    _proto2.getValue = function getValue2() {
       if (this.context[contextProp]) {
         return this.context[contextProp].get();
       } else {
@@ -9090,11 +9092,11 @@ var NavLink = forwardRef$1(function(_ref, forwardedRef) {
       strict
     }) : null;
     var isActive = !!(isActiveProp ? isActiveProp(match, currentLocation) : match);
-    var className = isActive ? joinClassnames(classNameProp, activeClassName) : classNameProp;
+    var className2 = isActive ? joinClassnames(classNameProp, activeClassName) : classNameProp;
     var style = isActive ? _extends({}, styleProp, {}, activeStyle) : styleProp;
     var props = _extends({
       "aria-current": isActive && ariaCurrent || null,
-      className,
+      className: className2,
       style,
       to: toLocation
     }, rest);
@@ -9166,7 +9168,7 @@ function FrontPage() {
   }, "Sign Up"))));
 }
 
-// build/dist/components/speaker.js
+// build/dist/speaker.js
 function speak(message) {
   const synth = window.speechSynthesis;
   const voices = synth.getVoices().filter((x2) => x2.lang === "en-US");
@@ -9512,6 +9514,32 @@ function WordTest(props) {
     } else {
       setTimeout(() => {
         setDone(true);
+        fetch("https://api.withen.ga/test/result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token") || ""
+          },
+          body: JSON.stringify({
+            grade: ((dataLength - incorrect) / dataLength * 100).toFixed(2)
+          })
+        }).then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Failed to fetch");
+        }).then((response) => {
+          if (!response.error) {
+            if (response.freshToken) {
+              updateToken(response.freshToken);
+            }
+            if (response.success) {
+              toast("Successfully submitted 🎉");
+            } else {
+              toast("Something went wrong 😥");
+            }
+          }
+        });
       }, 1e3);
     }
   };
@@ -9633,9 +9661,3051 @@ function Test() {
   }
 }
 
+// build/_snowpack/pkg/react-calendar.js
+function mergeClassNames() {
+  return Array.prototype.slice.call(arguments).reduce(function(classList, arg) {
+    return typeof arg === "string" || Array.isArray(arg) ? classList.concat(arg) : classList;
+  }, []).filter(Boolean).join(" ");
+}
+var FUNC_ERROR_TEXT = "Expected a function";
+var INFINITY = 1 / 0;
+var MAX_INTEGER = 17976931348623157e292;
+var NAN = 0 / 0;
+var symbolTag = "[object Symbol]";
+var reTrim = /^\s+|\s+$/g;
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+var reIsBinary = /^0b[01]+$/i;
+var reIsOctal = /^0o[0-7]+$/i;
+var freeParseInt = parseInt;
+var objectProto = Object.prototype;
+var objectToString = objectProto.toString;
+function before(n2, func) {
+  var result;
+  if (typeof func != "function") {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  n2 = toInteger(n2);
+  return function() {
+    if (--n2 > 0) {
+      result = func.apply(this, arguments);
+    }
+    if (n2 <= 1) {
+      func = void 0;
+    }
+    return result;
+  };
+}
+function once(func) {
+  return before(2, func);
+}
+function isObject(value) {
+  var type = typeof value;
+  return !!value && (type == "object" || type == "function");
+}
+function isObjectLike(value) {
+  return !!value && typeof value == "object";
+}
+function isSymbol(value) {
+  return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
+}
+function toFinite(value) {
+  if (!value) {
+    return value === 0 ? value : 0;
+  }
+  value = toNumber(value);
+  if (value === INFINITY || value === -INFINITY) {
+    var sign = value < 0 ? -1 : 1;
+    return sign * MAX_INTEGER;
+  }
+  return value === value ? value : 0;
+}
+function toInteger(value) {
+  var result = toFinite(value), remainder = result % 1;
+  return result === result ? remainder ? result - remainder : result : 0;
+}
+function toNumber(value) {
+  if (typeof value == "number") {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+    value = isObject(other) ? other + "" : other;
+  }
+  if (typeof value != "string") {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, "");
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+var lodash_once = once;
+function filterDuplicates(arr) {
+  return arr.filter(function(el, index2, self) {
+    return self.indexOf(el) === index2;
+  });
+}
+function fixLowercaseProperties(arr) {
+  return arr.map(function(el) {
+    if (!el || el.indexOf("-") === -1 || el.toLowerCase() !== el) {
+      return el;
+    }
+    var splitEl = el.split("-");
+    return "".concat(splitEl[0], "-").concat(splitEl[1].toUpperCase());
+  });
+}
+function getUserLocalesInternal() {
+  var languageList = [];
+  if (typeof window !== "undefined") {
+    if (window.navigator.languages) {
+      languageList = languageList.concat(window.navigator.languages);
+    }
+    if (window.navigator.language) {
+      languageList.push(window.navigator.language);
+    }
+    if (window.navigator.userLanguage) {
+      languageList.push(window.navigator.userLanguage);
+    }
+    if (window.navigator.browserLanguage) {
+      languageList.push(window.navigator.browserLanguage);
+    }
+    if (window.navigator.systemLanguage) {
+      languageList.push(window.navigator.systemLanguage);
+    }
+  }
+  languageList.push("en-US");
+  return fixLowercaseProperties(filterDuplicates(languageList));
+}
+var getUserLocales = lodash_once(getUserLocalesInternal);
+function getUserLocaleInternal() {
+  return getUserLocales()[0];
+}
+var getUserLocale = lodash_once(getUserLocaleInternal);
+function makeGetEdgeOfNeighbor(getPeriod, getEdgeOfPeriod, defaultOffset) {
+  return function makeGetEdgeOfNeighborInternal(date) {
+    var offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : defaultOffset;
+    var previousPeriod = getPeriod(date) + offset;
+    return getEdgeOfPeriod(previousPeriod);
+  };
+}
+function makeGetEnd(getBeginOfNextPeriod) {
+  return function makeGetEndInternal(date) {
+    return new Date(getBeginOfNextPeriod(date).getTime() - 1);
+  };
+}
+function makeGetRange(functions) {
+  return function makeGetRangeInternal(date) {
+    return functions.map(function(fn) {
+      return fn(date);
+    });
+  };
+}
+function getYear(date) {
+  if (date instanceof Date) {
+    return date.getFullYear();
+  }
+  if (typeof date === "number") {
+    return date;
+  }
+  var year = parseInt(date, 10);
+  if (typeof date === "string" && !isNaN(year)) {
+    return year;
+  }
+  throw new Error("Failed to get year from date: ".concat(date, "."));
+}
+function getMonth(date) {
+  if (date instanceof Date) {
+    return date.getMonth();
+  }
+  throw new Error("Failed to get month from date: ".concat(date, "."));
+}
+function getDate(date) {
+  if (date instanceof Date) {
+    return date.getDate();
+  }
+  throw new Error("Failed to get year from date: ".concat(date, "."));
+}
+function getCenturyStart(date) {
+  var year = getYear(date);
+  var centuryStartYear = year + (-year + 1) % 100;
+  var centuryStartDate = new Date();
+  centuryStartDate.setFullYear(centuryStartYear, 0, 1);
+  centuryStartDate.setHours(0, 0, 0, 0);
+  return centuryStartDate;
+}
+var getPreviousCenturyStart = makeGetEdgeOfNeighbor(getYear, getCenturyStart, -100);
+var getNextCenturyStart = makeGetEdgeOfNeighbor(getYear, getCenturyStart, 100);
+var getCenturyEnd = makeGetEnd(getNextCenturyStart);
+var getPreviousCenturyEnd = makeGetEdgeOfNeighbor(getYear, getCenturyEnd, -100);
+var getCenturyRange = makeGetRange([getCenturyStart, getCenturyEnd]);
+function getDecadeStart(date) {
+  var year = getYear(date);
+  var decadeStartYear = year + (-year + 1) % 10;
+  var decadeStartDate = new Date();
+  decadeStartDate.setFullYear(decadeStartYear, 0, 1);
+  decadeStartDate.setHours(0, 0, 0, 0);
+  return decadeStartDate;
+}
+var getPreviousDecadeStart = makeGetEdgeOfNeighbor(getYear, getDecadeStart, -10);
+var getNextDecadeStart = makeGetEdgeOfNeighbor(getYear, getDecadeStart, 10);
+var getDecadeEnd = makeGetEnd(getNextDecadeStart);
+var getPreviousDecadeEnd = makeGetEdgeOfNeighbor(getYear, getDecadeEnd, -10);
+var getDecadeRange = makeGetRange([getDecadeStart, getDecadeEnd]);
+function getYearStart(date) {
+  var year = getYear(date);
+  var yearStartDate = new Date();
+  yearStartDate.setFullYear(year, 0, 1);
+  yearStartDate.setHours(0, 0, 0, 0);
+  return yearStartDate;
+}
+var getPreviousYearStart = makeGetEdgeOfNeighbor(getYear, getYearStart, -1);
+var getNextYearStart = makeGetEdgeOfNeighbor(getYear, getYearStart, 1);
+var getYearEnd = makeGetEnd(getNextYearStart);
+var getPreviousYearEnd = makeGetEdgeOfNeighbor(getYear, getYearEnd, -1);
+var getYearRange = makeGetRange([getYearStart, getYearEnd]);
+function makeGetEdgeOfNeighborMonth(getEdgeOfPeriod, defaultOffset) {
+  return function makeGetEdgeOfNeighborMonthInternal(date) {
+    var offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : defaultOffset;
+    var year = getYear(date);
+    var month = getMonth(date) + offset;
+    var previousPeriod = new Date();
+    previousPeriod.setFullYear(year, month, 1);
+    previousPeriod.setHours(0, 0, 0, 0);
+    return getEdgeOfPeriod(previousPeriod);
+  };
+}
+function getMonthStart(date) {
+  var year = getYear(date);
+  var month = getMonth(date);
+  var monthStartDate = new Date();
+  monthStartDate.setFullYear(year, month, 1);
+  monthStartDate.setHours(0, 0, 0, 0);
+  return monthStartDate;
+}
+var getPreviousMonthStart = makeGetEdgeOfNeighborMonth(getMonthStart, -1);
+var getNextMonthStart = makeGetEdgeOfNeighborMonth(getMonthStart, 1);
+var getMonthEnd = makeGetEnd(getNextMonthStart);
+var getPreviousMonthEnd = makeGetEdgeOfNeighborMonth(getMonthEnd, -1);
+var getMonthRange = makeGetRange([getMonthStart, getMonthEnd]);
+function makeGetEdgeOfNeighborDay(getEdgeOfPeriod, defaultOffset) {
+  return function makeGetEdgeOfNeighborDayInternal(date) {
+    var offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : defaultOffset;
+    var year = getYear(date);
+    var month = getMonth(date);
+    var day = getDate(date) + offset;
+    var previousPeriod = new Date();
+    previousPeriod.setFullYear(year, month, day);
+    previousPeriod.setHours(0, 0, 0, 0);
+    return getEdgeOfPeriod(previousPeriod);
+  };
+}
+function getDayStart(date) {
+  var year = getYear(date);
+  var month = getMonth(date);
+  var day = getDate(date);
+  var dayStartDate = new Date();
+  dayStartDate.setFullYear(year, month, day);
+  dayStartDate.setHours(0, 0, 0, 0);
+  return dayStartDate;
+}
+var getNextDayStart = makeGetEdgeOfNeighborDay(getDayStart, 1);
+var getDayEnd = makeGetEnd(getNextDayStart);
+var getDayRange = makeGetRange([getDayStart, getDayEnd]);
+function getDaysInMonth(date) {
+  return getDate(getMonthEnd(date));
+}
+var _CALENDAR_TYPE_LOCALE;
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray(o, minLen);
+  var n2 = Object.prototype.toString.call(o).slice(8, -1);
+  if (n2 === "Object" && o.constructor)
+    n2 = o.constructor.name;
+  if (n2 === "Map" || n2 === "Set")
+    return Array.from(o);
+  if (n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2))
+    return _arrayLikeToArray(o, minLen);
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    return Array.from(iter);
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr))
+    return _arrayLikeToArray(arr);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+var CALENDAR_TYPES = {
+  ARABIC: "Arabic",
+  HEBREW: "Hebrew",
+  ISO_8601: "ISO 8601",
+  US: "US"
+};
+var CALENDAR_TYPE_LOCALES = (_CALENDAR_TYPE_LOCALE = {}, _defineProperty(_CALENDAR_TYPE_LOCALE, CALENDAR_TYPES.US, ["en-CA", "en-US", "es-AR", "es-BO", "es-CL", "es-CO", "es-CR", "es-DO", "es-EC", "es-GT", "es-HN", "es-MX", "es-NI", "es-PA", "es-PE", "es-PR", "es-SV", "es-VE", "pt-BR"]), _defineProperty(_CALENDAR_TYPE_LOCALE, CALENDAR_TYPES.ARABIC, [
+  "ar",
+  "ar-AE",
+  "ar-BH",
+  "ar-DZ",
+  "ar-EG",
+  "ar-IQ",
+  "ar-JO",
+  "ar-KW",
+  "ar-LY",
+  "ar-OM",
+  "ar-QA",
+  "ar-SA",
+  "ar-SD",
+  "ar-SY",
+  "ar-YE",
+  "dv",
+  "dv-MV",
+  "ps",
+  "ps-AR"
+]), _defineProperty(_CALENDAR_TYPE_LOCALE, CALENDAR_TYPES.HEBREW, ["he", "he-IL"]), _CALENDAR_TYPE_LOCALE);
+var WEEKDAYS = _toConsumableArray(Array(7)).map(function(el, index2) {
+  return index2;
+});
+function getFormatter(options) {
+  return function(locale, date) {
+    return date.toLocaleString(locale || getUserLocale(), options);
+  };
+}
+function toSafeHour(date) {
+  var safeDate = new Date(date);
+  return new Date(safeDate.setHours(12));
+}
+function getSafeFormatter(options) {
+  return function(locale, date) {
+    return getFormatter(options)(locale, toSafeHour(date));
+  };
+}
+var formatDayOptions = {
+  day: "numeric"
+};
+var formatLongDateOptions = {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+};
+var formatMonthOptions = {
+  month: "long"
+};
+var formatMonthYearOptions = {
+  month: "long",
+  year: "numeric"
+};
+var formatShortWeekdayOptions = {
+  weekday: "short"
+};
+var formatWeekdayOptions = {
+  weekday: "long"
+};
+var formatYearOptions = {
+  year: "numeric"
+};
+var formatDay = getSafeFormatter(formatDayOptions);
+var formatLongDate = getSafeFormatter(formatLongDateOptions);
+var formatMonth = getSafeFormatter(formatMonthOptions);
+var formatMonthYear = getSafeFormatter(formatMonthYearOptions);
+var formatShortWeekday = getSafeFormatter(formatShortWeekdayOptions);
+var formatWeekday = getSafeFormatter(formatWeekdayOptions);
+var formatYear = getSafeFormatter(formatYearOptions);
+var SUNDAY = WEEKDAYS[0];
+var FRIDAY = WEEKDAYS[5];
+var SATURDAY = WEEKDAYS[6];
+function getDayOfWeek(date) {
+  var calendarType = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : CALENDAR_TYPES.ISO_8601;
+  var weekday = date.getDay();
+  switch (calendarType) {
+    case CALENDAR_TYPES.ISO_8601:
+      return (weekday + 6) % 7;
+    case CALENDAR_TYPES.ARABIC:
+      return (weekday + 1) % 7;
+    case CALENDAR_TYPES.HEBREW:
+    case CALENDAR_TYPES.US:
+      return weekday;
+    default:
+      throw new Error("Unsupported calendar type.");
+  }
+}
+function getBeginOfCenturyYear(date) {
+  var beginOfCentury = getCenturyStart(date);
+  return getYear(beginOfCentury);
+}
+function getBeginOfDecadeYear(date) {
+  var beginOfDecade = getDecadeStart(date);
+  return getYear(beginOfDecade);
+}
+function getBeginOfWeek(date) {
+  var calendarType = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : CALENDAR_TYPES.ISO_8601;
+  var year = getYear(date);
+  var monthIndex = getMonth(date);
+  var day = date.getDate() - getDayOfWeek(date, calendarType);
+  return new Date(year, monthIndex, day);
+}
+function getWeekNumber(date) {
+  var calendarType = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : CALENDAR_TYPES.ISO_8601;
+  var calendarTypeForWeekNumber = calendarType === CALENDAR_TYPES.US ? CALENDAR_TYPES.US : CALENDAR_TYPES.ISO_8601;
+  var beginOfWeek = getBeginOfWeek(date, calendarTypeForWeekNumber);
+  var year = getYear(date) + 1;
+  var dayInWeekOne;
+  var beginOfFirstWeek;
+  do {
+    dayInWeekOne = new Date(year, 0, calendarTypeForWeekNumber === CALENDAR_TYPES.ISO_8601 ? 4 : 1);
+    beginOfFirstWeek = getBeginOfWeek(dayInWeekOne, calendarTypeForWeekNumber);
+    year -= 1;
+  } while (date - beginOfFirstWeek < 0);
+  return Math.round((beginOfWeek - beginOfFirstWeek) / (864e5 * 7)) + 1;
+}
+function getBegin(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getCenturyStart(date);
+    case "decade":
+      return getDecadeStart(date);
+    case "year":
+      return getYearStart(date);
+    case "month":
+      return getMonthStart(date);
+    case "day":
+      return getDayStart(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+function getBeginPrevious(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getPreviousCenturyStart(date);
+    case "decade":
+      return getPreviousDecadeStart(date);
+    case "year":
+      return getPreviousYearStart(date);
+    case "month":
+      return getPreviousMonthStart(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+function getBeginNext(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getNextCenturyStart(date);
+    case "decade":
+      return getNextDecadeStart(date);
+    case "year":
+      return getNextYearStart(date);
+    case "month":
+      return getNextMonthStart(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+var getBeginPrevious2 = function getBeginPrevious22(rangeType, date) {
+  switch (rangeType) {
+    case "decade":
+      return getPreviousDecadeStart(date, -100);
+    case "year":
+      return getPreviousYearStart(date, -10);
+    case "month":
+      return getPreviousMonthStart(date, -12);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+};
+var getBeginNext2 = function getBeginNext22(rangeType, date) {
+  switch (rangeType) {
+    case "decade":
+      return getNextDecadeStart(date, 100);
+    case "year":
+      return getNextYearStart(date, 10);
+    case "month":
+      return getNextMonthStart(date, 12);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+};
+function getEnd(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getCenturyEnd(date);
+    case "decade":
+      return getDecadeEnd(date);
+    case "year":
+      return getYearEnd(date);
+    case "month":
+      return getMonthEnd(date);
+    case "day":
+      return getDayEnd(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+function getEndPrevious(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getPreviousCenturyEnd(date);
+    case "decade":
+      return getPreviousDecadeEnd(date);
+    case "year":
+      return getPreviousYearEnd(date);
+    case "month":
+      return getPreviousMonthEnd(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+var getEndPrevious2 = function getEndPrevious22(rangeType, date) {
+  switch (rangeType) {
+    case "decade":
+      return getPreviousDecadeEnd(date, -100);
+    case "year":
+      return getPreviousYearEnd(date, -10);
+    case "month":
+      return getPreviousMonthEnd(date, -12);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+};
+function getRange(rangeType, date) {
+  switch (rangeType) {
+    case "century":
+      return getCenturyRange(date);
+    case "decade":
+      return getDecadeRange(date);
+    case "year":
+      return getYearRange(date);
+    case "month":
+      return getMonthRange(date);
+    case "day":
+      return getDayRange(date);
+    default:
+      throw new Error("Invalid rangeType: ".concat(rangeType));
+  }
+}
+function getValueRange(rangeType, date1, date2) {
+  var rawNextValue = [date1, date2].sort(function(a, b2) {
+    return a - b2;
+  });
+  return [getBegin(rangeType, rawNextValue[0]), getEnd(rangeType, rawNextValue[1])];
+}
+function toYearLabel(locale) {
+  var formatYear$1 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : formatYear;
+  var dates = arguments.length > 2 ? arguments[2] : void 0;
+  return dates.map(function(date) {
+    return formatYear$1(locale, date);
+  }).join(" – ");
+}
+function getCenturyLabel(locale, formatYear2, date) {
+  return toYearLabel(locale, formatYear2, getCenturyRange(date));
+}
+function getDecadeLabel(locale, formatYear2, date) {
+  return toYearLabel(locale, formatYear2, getDecadeRange(date));
+}
+function isWeekend(date) {
+  var calendarType = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : CALENDAR_TYPES.ISO_8601;
+  var weekday = date.getDay();
+  switch (calendarType) {
+    case CALENDAR_TYPES.ARABIC:
+    case CALENDAR_TYPES.HEBREW:
+      return weekday === FRIDAY || weekday === SATURDAY;
+    case CALENDAR_TYPES.ISO_8601:
+    case CALENDAR_TYPES.US:
+      return weekday === SATURDAY || weekday === SUNDAY;
+    default:
+      throw new Error("Unsupported calendar type.");
+  }
+}
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof2(obj2) {
+      return typeof obj2;
+    };
+  } else {
+    _typeof = function _typeof2(obj2) {
+      return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+    };
+  }
+  return _typeof(obj);
+}
+var calendarTypes = Object.values(CALENDAR_TYPES);
+var allViews = ["century", "decade", "year", "month"];
+var isCalendarType = propTypes.oneOf(calendarTypes);
+var isClassName = propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]);
+var isMinDate = function isMinDate2(props, propName, componentName) {
+  var minDate = props[propName];
+  if (!minDate) {
+    return null;
+  }
+  if (!(minDate instanceof Date)) {
+    return new Error("Invalid prop `".concat(propName, "` of type `").concat(_typeof(minDate), "` supplied to `").concat(componentName, "`, expected instance of `Date`."));
+  }
+  var maxDate = props.maxDate;
+  if (maxDate && minDate > maxDate) {
+    return new Error("Invalid prop `".concat(propName, "` of type `").concat(_typeof(minDate), "` supplied to `").concat(componentName, "`, minDate cannot be larger than maxDate."));
+  }
+  return null;
+};
+var isMaxDate = function isMaxDate2(props, propName, componentName) {
+  var maxDate = props[propName];
+  if (!maxDate) {
+    return null;
+  }
+  if (!(maxDate instanceof Date)) {
+    return new Error("Invalid prop `".concat(propName, "` of type `").concat(_typeof(maxDate), "` supplied to `").concat(componentName, "`, expected instance of `Date`."));
+  }
+  var minDate = props.minDate;
+  if (minDate && maxDate < minDate) {
+    return new Error("Invalid prop `".concat(propName, "` of type `").concat(_typeof(maxDate), "` supplied to `").concat(componentName, "`, maxDate cannot be smaller than minDate."));
+  }
+  return null;
+};
+var isRef = propTypes.oneOfType([propTypes.func, propTypes.shape({
+  current: propTypes.any
+})]);
+var isValue = propTypes.oneOfType([propTypes.instanceOf(Date), propTypes.arrayOf(propTypes.instanceOf(Date))]);
+var isViews = propTypes.arrayOf(propTypes.oneOf(allViews));
+var isView = function isView2(props, propName, componentName) {
+  var view = props[propName];
+  var views = props.views;
+  var allowedViews = views || allViews;
+  if (view !== void 0 && allowedViews.indexOf(view) === -1) {
+    return new Error("Invalid prop `".concat(propName, "` of value `").concat(view, "` supplied to `").concat(componentName, "`, expected one of [").concat(allowedViews.map(function(a) {
+      return '"'.concat(a, '"');
+    }).join(", "), "]."));
+  }
+  return null;
+};
+isView.isRequired = function(props, propName, componentName) {
+  var view = props[propName];
+  if (!view) {
+    return new Error("The prop `".concat(propName, "` is marked as required in `").concat(componentName, "`, but its value is `").concat(view, "`."));
+  }
+  return isView(props, propName, componentName);
+};
+var tileGroupProps = {
+  activeStartDate: propTypes.instanceOf(Date).isRequired,
+  hover: propTypes.instanceOf(Date),
+  locale: propTypes.string,
+  maxDate: isMaxDate,
+  minDate: isMinDate,
+  onClick: propTypes.func,
+  onMouseOver: propTypes.func,
+  tileClassName: propTypes.oneOfType([propTypes.func, isClassName]),
+  tileContent: propTypes.oneOfType([propTypes.func, propTypes.node]),
+  value: isValue,
+  valueType: propTypes.string
+};
+var tileProps = {
+  activeStartDate: propTypes.instanceOf(Date).isRequired,
+  classes: propTypes.arrayOf(propTypes.string).isRequired,
+  date: propTypes.instanceOf(Date).isRequired,
+  locale: propTypes.string,
+  maxDate: isMaxDate,
+  minDate: isMinDate,
+  onClick: propTypes.func,
+  onMouseOver: propTypes.func,
+  style: propTypes.objectOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
+  tileClassName: propTypes.oneOfType([propTypes.func, isClassName]),
+  tileContent: propTypes.oneOfType([propTypes.func, propTypes.node]),
+  tileDisabled: propTypes.func
+};
+var className = "react-calendar__navigation";
+function Navigation(_ref) {
+  var activeStartDate = _ref.activeStartDate, drillUp = _ref.drillUp, _ref$formatMonthYear = _ref.formatMonthYear, formatMonthYear$1 = _ref$formatMonthYear === void 0 ? formatMonthYear : _ref$formatMonthYear, _ref$formatYear = _ref.formatYear, formatYear$1 = _ref$formatYear === void 0 ? formatYear : _ref$formatYear, locale = _ref.locale, maxDate = _ref.maxDate, minDate = _ref.minDate, _ref$navigationAriaLa = _ref.navigationAriaLabel, navigationAriaLabel = _ref$navigationAriaLa === void 0 ? "" : _ref$navigationAriaLa, navigationLabel = _ref.navigationLabel, _ref$next2AriaLabel = _ref.next2AriaLabel, next2AriaLabel = _ref$next2AriaLabel === void 0 ? "" : _ref$next2AriaLabel, _ref$next2Label = _ref.next2Label, next2Label = _ref$next2Label === void 0 ? "»" : _ref$next2Label, _ref$nextAriaLabel = _ref.nextAriaLabel, nextAriaLabel = _ref$nextAriaLabel === void 0 ? "" : _ref$nextAriaLabel, _ref$nextLabel = _ref.nextLabel, nextLabel = _ref$nextLabel === void 0 ? "›" : _ref$nextLabel, _ref$prev2AriaLabel = _ref.prev2AriaLabel, prev2AriaLabel = _ref$prev2AriaLabel === void 0 ? "" : _ref$prev2AriaLabel, _ref$prev2Label = _ref.prev2Label, prev2Label = _ref$prev2Label === void 0 ? "«" : _ref$prev2Label, _ref$prevAriaLabel = _ref.prevAriaLabel, prevAriaLabel = _ref$prevAriaLabel === void 0 ? "" : _ref$prevAriaLabel, _ref$prevLabel = _ref.prevLabel, prevLabel = _ref$prevLabel === void 0 ? "‹" : _ref$prevLabel, setActiveStartDate = _ref.setActiveStartDate, showDoubleView = _ref.showDoubleView, view = _ref.view, views = _ref.views;
+  var drillUpAvailable = views.indexOf(view) > 0;
+  var shouldShowPrevNext2Buttons = view !== "century";
+  var previousActiveStartDate = getBeginPrevious(view, activeStartDate);
+  var previousActiveStartDate2 = shouldShowPrevNext2Buttons && getBeginPrevious2(view, activeStartDate);
+  var nextActiveStartDate = getBeginNext(view, activeStartDate);
+  var nextActiveStartDate2 = shouldShowPrevNext2Buttons && getBeginNext2(view, activeStartDate);
+  var prevButtonDisabled = function() {
+    if (previousActiveStartDate.getFullYear() < 0) {
+      return true;
+    }
+    var previousActiveEndDate = getEndPrevious(view, activeStartDate);
+    return minDate && minDate >= previousActiveEndDate;
+  }();
+  var prev2ButtonDisabled = shouldShowPrevNext2Buttons && function() {
+    if (previousActiveStartDate2.getFullYear() < 0) {
+      return true;
+    }
+    var previousActiveEndDate = getEndPrevious2(view, activeStartDate);
+    return minDate && minDate >= previousActiveEndDate;
+  }();
+  var nextButtonDisabled = maxDate && maxDate <= nextActiveStartDate;
+  var next2ButtonDisabled = shouldShowPrevNext2Buttons && maxDate && maxDate <= nextActiveStartDate2;
+  function onClickPrevious() {
+    setActiveStartDate(previousActiveStartDate);
+  }
+  function onClickPrevious2() {
+    setActiveStartDate(previousActiveStartDate2);
+  }
+  function onClickNext() {
+    setActiveStartDate(nextActiveStartDate);
+  }
+  function onClickNext2() {
+    setActiveStartDate(nextActiveStartDate2);
+  }
+  function renderLabel(date) {
+    var label = function() {
+      switch (view) {
+        case "century":
+          return getCenturyLabel(locale, formatYear$1, date);
+        case "decade":
+          return getDecadeLabel(locale, formatYear$1, date);
+        case "year":
+          return formatYear$1(locale, date);
+        case "month":
+          return formatMonthYear$1(locale, date);
+        default:
+          throw new Error("Invalid view: ".concat(view, "."));
+      }
+    }();
+    return navigationLabel ? navigationLabel({
+      date,
+      label,
+      locale: locale || getUserLocale(),
+      view
+    }) : label;
+  }
+  function renderButton() {
+    var labelClassName = "".concat(className, "__label");
+    return /* @__PURE__ */ react.createElement("button", {
+      "aria-label": navigationAriaLabel,
+      className: labelClassName,
+      disabled: !drillUpAvailable,
+      onClick: drillUp,
+      style: {
+        flexGrow: 1
+      },
+      type: "button"
+    }, /* @__PURE__ */ react.createElement("span", {
+      className: "".concat(labelClassName, "__labelText ").concat(labelClassName, "__labelText--from")
+    }, renderLabel(activeStartDate)), showDoubleView && /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement("span", {
+      className: "".concat(labelClassName, "__divider")
+    }, " ", "–", " "), /* @__PURE__ */ react.createElement("span", {
+      className: "".concat(labelClassName, "__labelText ").concat(labelClassName, "__labelText--to")
+    }, renderLabel(nextActiveStartDate))));
+  }
+  return /* @__PURE__ */ react.createElement("div", {
+    className,
+    style: {
+      display: "flex"
+    }
+  }, prev2Label !== null && shouldShowPrevNext2Buttons && /* @__PURE__ */ react.createElement("button", {
+    "aria-label": prev2AriaLabel,
+    className: "".concat(className, "__arrow ").concat(className, "__prev2-button"),
+    disabled: prev2ButtonDisabled,
+    onClick: onClickPrevious2,
+    type: "button"
+  }, prev2Label), prevLabel !== null && /* @__PURE__ */ react.createElement("button", {
+    "aria-label": prevAriaLabel,
+    className: "".concat(className, "__arrow ").concat(className, "__prev-button"),
+    disabled: prevButtonDisabled,
+    onClick: onClickPrevious,
+    type: "button"
+  }, prevLabel), renderButton(), nextLabel !== null && /* @__PURE__ */ react.createElement("button", {
+    "aria-label": nextAriaLabel,
+    className: "".concat(className, "__arrow ").concat(className, "__next-button"),
+    disabled: nextButtonDisabled,
+    onClick: onClickNext,
+    type: "button"
+  }, nextLabel), next2Label !== null && shouldShowPrevNext2Buttons && /* @__PURE__ */ react.createElement("button", {
+    "aria-label": next2AriaLabel,
+    className: "".concat(className, "__arrow ").concat(className, "__next2-button"),
+    disabled: next2ButtonDisabled,
+    onClick: onClickNext2,
+    type: "button"
+  }, next2Label));
+}
+Navigation.propTypes = {
+  activeStartDate: propTypes.instanceOf(Date).isRequired,
+  drillUp: propTypes.func.isRequired,
+  formatMonthYear: propTypes.func,
+  formatYear: propTypes.func,
+  locale: propTypes.string,
+  maxDate: propTypes.instanceOf(Date),
+  minDate: propTypes.instanceOf(Date),
+  navigationAriaLabel: propTypes.string,
+  navigationLabel: propTypes.func,
+  next2AriaLabel: propTypes.string,
+  next2Label: propTypes.node,
+  nextAriaLabel: propTypes.string,
+  nextLabel: propTypes.node,
+  prev2AriaLabel: propTypes.string,
+  prev2Label: propTypes.node,
+  prevAriaLabel: propTypes.string,
+  prevLabel: propTypes.node,
+  setActiveStartDate: propTypes.func.isRequired,
+  showDoubleView: propTypes.bool,
+  view: isView.isRequired,
+  views: isViews.isRequired
+};
+function _extends2() {
+  _extends2 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends2.apply(this, arguments);
+}
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function(key) {
+        _defineProperty$1(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$1(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _objectWithoutProperties(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose2(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function toPercent(num) {
+  return "".concat(num, "%");
+}
+function Flex(_ref) {
+  var children = _ref.children, className2 = _ref.className, direction = _ref.direction, count = _ref.count, offset = _ref.offset, style = _ref.style, wrap = _ref.wrap, otherProps = _objectWithoutProperties(_ref, ["children", "className", "direction", "count", "offset", "style", "wrap"]);
+  return /* @__PURE__ */ react.createElement("div", _extends2({
+    className: className2,
+    style: _objectSpread({
+      display: "flex",
+      flexDirection: direction,
+      flexWrap: wrap ? "wrap" : "no-wrap"
+    }, style)
+  }, otherProps), react.Children.map(children, function(child, index2) {
+    return /* @__PURE__ */ react.cloneElement(child, _objectSpread(_objectSpread({}, child.props), {}, {
+      style: {
+        flexBasis: toPercent(100 / count),
+        maxWidth: toPercent(100 / count),
+        overflow: "hidden",
+        marginLeft: offset && index2 === 0 ? toPercent(100 * offset / count) : null
+      }
+    }));
+  }));
+}
+Flex.propTypes = {
+  children: propTypes.node,
+  className: propTypes.string,
+  count: propTypes.number.isRequired,
+  direction: propTypes.string,
+  offset: propTypes.number,
+  style: propTypes.objectOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
+  wrap: propTypes.bool
+};
+function _toConsumableArray$1(arr) {
+  return _arrayWithoutHoles$1(arr) || _iterableToArray$1(arr) || _unsupportedIterableToArray$1(arr) || _nonIterableSpread$1();
+}
+function _nonIterableSpread$1() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray$1(o, minLen);
+  var n2 = Object.prototype.toString.call(o).slice(8, -1);
+  if (n2 === "Object" && o.constructor)
+    n2 = o.constructor.name;
+  if (n2 === "Map" || n2 === "Set")
+    return Array.from(o);
+  if (n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2))
+    return _arrayLikeToArray$1(o, minLen);
+}
+function _iterableToArray$1(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    return Array.from(iter);
+}
+function _arrayWithoutHoles$1(arr) {
+  if (Array.isArray(arr))
+    return _arrayLikeToArray$1(arr);
+}
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function between(value, min, max) {
+  if (min && min > value) {
+    return min;
+  }
+  if (max && max < value) {
+    return max;
+  }
+  return value;
+}
+function isValueWithinRange(value, range) {
+  return range[0] <= value && range[1] >= value;
+}
+function isRangeWithinRange(greaterRange, smallerRange) {
+  return greaterRange[0] <= smallerRange[0] && greaterRange[1] >= smallerRange[1];
+}
+function doRangesOverlap(range1, range2) {
+  return isValueWithinRange(range1[0], range2) || isValueWithinRange(range1[1], range2);
+}
+function getRangeClassNames(valueRange, dateRange, baseClassName2) {
+  var isRange = doRangesOverlap(dateRange, valueRange);
+  var classes = [];
+  if (isRange) {
+    classes.push(baseClassName2);
+    var isRangeStart = isValueWithinRange(valueRange[0], dateRange);
+    var isRangeEnd = isValueWithinRange(valueRange[1], dateRange);
+    if (isRangeStart) {
+      classes.push("".concat(baseClassName2, "Start"));
+    }
+    if (isRangeEnd) {
+      classes.push("".concat(baseClassName2, "End"));
+    }
+    if (isRangeStart && isRangeEnd) {
+      classes.push("".concat(baseClassName2, "BothEnds"));
+    }
+  }
+  return classes;
+}
+function getTileClasses() {
+  var _ref = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, value = _ref.value, valueType = _ref.valueType, date = _ref.date, dateType = _ref.dateType, hover = _ref.hover;
+  var className2 = "react-calendar__tile";
+  var classes = [className2];
+  if (!date) {
+    return classes;
+  }
+  if (!Array.isArray(date) && !dateType) {
+    throw new Error("getTileClasses(): Unable to get tile activity classes because one or more required arguments were not passed.");
+  }
+  var now = new Date();
+  var dateRange = Array.isArray(date) ? date : getRange(dateType, date);
+  if (isValueWithinRange(now, dateRange)) {
+    classes.push("".concat(className2, "--now"));
+  }
+  if (!value) {
+    return classes;
+  }
+  if (!Array.isArray(value) && !valueType) {
+    throw new Error("getTileClasses(): Unable to get tile activity classes because one or more required arguments were not passed.");
+  }
+  var valueRange = Array.isArray(value) ? value : getRange(valueType, value);
+  if (isRangeWithinRange(valueRange, dateRange)) {
+    classes.push("".concat(className2, "--active"));
+  } else if (doRangesOverlap(valueRange, dateRange)) {
+    classes.push("".concat(className2, "--hasActive"));
+  }
+  var valueRangeClassNames = getRangeClassNames(valueRange, dateRange, "".concat(className2, "--range"));
+  classes.push.apply(classes, _toConsumableArray$1(valueRangeClassNames));
+  if (hover) {
+    var hoverRange = hover > valueRange[1] ? [valueRange[1], hover] : [hover, valueRange[0]];
+    var hoverRangeClassNames = getRangeClassNames(hoverRange, dateRange, "".concat(className2, "--hover"));
+    classes.push.apply(classes, _toConsumableArray$1(hoverRangeClassNames));
+  }
+  return classes;
+}
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$1(Object(source), true).forEach(function(key) {
+        _defineProperty$2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$2(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$1() {
+  _extends$1 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$1.apply(this, arguments);
+}
+function _objectWithoutProperties$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$1(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function TileGroup(_ref) {
+  var className2 = _ref.className, _ref$count = _ref.count, count = _ref$count === void 0 ? 3 : _ref$count, dateTransform = _ref.dateTransform, dateType = _ref.dateType, end = _ref.end, hover = _ref.hover, offset = _ref.offset, start = _ref.start, _ref$step = _ref.step, step = _ref$step === void 0 ? 1 : _ref$step, Tile2 = _ref.tile, value = _ref.value, valueType = _ref.valueType, tileProps2 = _objectWithoutProperties$1(_ref, ["className", "count", "dateTransform", "dateType", "end", "hover", "offset", "start", "step", "tile", "value", "valueType"]);
+  var tiles = [];
+  for (var point = start; point <= end; point += step) {
+    var date = dateTransform(point);
+    tiles.push(/* @__PURE__ */ react.createElement(Tile2, _extends$1({
+      key: date.getTime(),
+      classes: getTileClasses({
+        value,
+        valueType,
+        date,
+        dateType,
+        hover
+      }),
+      date,
+      point
+    }, tileProps2)));
+  }
+  return /* @__PURE__ */ react.createElement(Flex, {
+    className: className2,
+    count,
+    offset,
+    wrap: true
+  }, tiles);
+}
+TileGroup.propTypes = _objectSpread$1(_objectSpread$1({}, tileGroupProps), {}, {
+  activeStartDate: propTypes.instanceOf(Date),
+  count: propTypes.number,
+  dateTransform: propTypes.func.isRequired,
+  dateType: propTypes.string,
+  offset: propTypes.number,
+  step: propTypes.number,
+  tile: propTypes.func.isRequired
+});
+function ownKeys$2(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$2(Object(source), true).forEach(function(key) {
+        _defineProperty$3(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$2(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _typeof$1(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof$1 = function _typeof2(obj2) {
+      return typeof obj2;
+    };
+  } else {
+    _typeof$1 = function _typeof2(obj2) {
+      return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+    };
+  }
+  return _typeof$1(obj);
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor)
+      descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps)
+    _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps)
+    _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {constructor: {value: subClass, writable: true, configurable: true}});
+  if (superClass)
+    _setPrototypeOf2(subClass, superClass);
+}
+function _setPrototypeOf2(o, p2) {
+  _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf3(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf2(o, p2);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+  return _assertThisInitialized(self);
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function() {
+    }));
+    return true;
+  } catch (e2) {
+    return false;
+  }
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf(o);
+}
+function _defineProperty$3(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function getValue(nextProps, prop) {
+  var activeStartDate = nextProps.activeStartDate, date = nextProps.date, view = nextProps.view;
+  return typeof prop === "function" ? prop({
+    activeStartDate,
+    date,
+    view
+  }) : prop;
+}
+var Tile = /* @__PURE__ */ function(_Component) {
+  _inherits(Tile2, _Component);
+  var _super = _createSuper(Tile2);
+  function Tile2() {
+    var _this;
+    _classCallCheck(this, Tile2);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty$3(_assertThisInitialized(_this), "state", {});
+    return _this;
+  }
+  _createClass(Tile2, [{
+    key: "render",
+    value: function render2() {
+      var _this$props = this.props, activeStartDate = _this$props.activeStartDate, children = _this$props.children, classes = _this$props.classes, date = _this$props.date, formatAbbr = _this$props.formatAbbr, locale = _this$props.locale, maxDate = _this$props.maxDate, maxDateTransform = _this$props.maxDateTransform, minDate = _this$props.minDate, minDateTransform = _this$props.minDateTransform, onClick = _this$props.onClick, onMouseOver = _this$props.onMouseOver, style = _this$props.style, tileDisabled = _this$props.tileDisabled, view = _this$props.view;
+      var _this$state = this.state, tileClassName = _this$state.tileClassName, tileContent = _this$state.tileContent;
+      return /* @__PURE__ */ react.createElement("button", {
+        className: mergeClassNames(classes, tileClassName),
+        disabled: minDate && minDateTransform(minDate) > date || maxDate && maxDateTransform(maxDate) < date || tileDisabled && tileDisabled({
+          activeStartDate,
+          date,
+          view
+        }),
+        onClick: onClick && function(event) {
+          return onClick(date, event);
+        },
+        onFocus: onMouseOver && function() {
+          return onMouseOver(date);
+        },
+        onMouseOver: onMouseOver && function() {
+          return onMouseOver(date);
+        },
+        style,
+        type: "button"
+      }, formatAbbr ? /* @__PURE__ */ react.createElement("abbr", {
+        "aria-label": formatAbbr(locale, date)
+      }, children) : children, tileContent);
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var tileClassName = nextProps.tileClassName, tileContent = nextProps.tileContent;
+      var nextState = {};
+      if (tileClassName !== prevState.tileClassNameProps) {
+        nextState.tileClassName = getValue(nextProps, tileClassName);
+        nextState.tileClassNameProps = tileClassName;
+      }
+      if (tileContent !== prevState.tileContentProps) {
+        nextState.tileContent = getValue(nextProps, tileContent);
+        nextState.tileContentProps = tileContent;
+      }
+      return nextState;
+    }
+  }]);
+  return Tile2;
+}(react.Component);
+Tile.propTypes = _objectSpread$2(_objectSpread$2({}, tileProps), {}, {
+  children: propTypes.node.isRequired,
+  formatAbbr: propTypes.func,
+  maxDateTransform: propTypes.func.isRequired,
+  minDateTransform: propTypes.func.isRequired
+});
+function ownKeys$3(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$3(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$3(Object(source), true).forEach(function(key) {
+        _defineProperty$4(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$3(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$4(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$2() {
+  _extends$2 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$2.apply(this, arguments);
+}
+function _objectWithoutProperties$2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$2(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+var className$1 = "react-calendar__century-view__decades__decade";
+function Decade(_ref) {
+  var classes = _ref.classes, _ref$formatYear = _ref.formatYear, formatYear$1 = _ref$formatYear === void 0 ? formatYear : _ref$formatYear, otherProps = _objectWithoutProperties$2(_ref, ["classes", "formatYear"]);
+  var date = otherProps.date, locale = otherProps.locale;
+  return /* @__PURE__ */ react.createElement(Tile, _extends$2({}, otherProps, {
+    classes: [].concat(classes, className$1),
+    maxDateTransform: getDecadeEnd,
+    minDateTransform: getDecadeStart,
+    view: "century"
+  }), getDecadeLabel(locale, formatYear$1, date));
+}
+Decade.propTypes = _objectSpread$3(_objectSpread$3({}, tileProps), {}, {
+  formatYear: propTypes.func
+});
+function ownKeys$4(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$4(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$4(Object(source), true).forEach(function(key) {
+        _defineProperty$5(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$4(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$5(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$3() {
+  _extends$3 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$3.apply(this, arguments);
+}
+function Decades(props) {
+  var activeStartDate = props.activeStartDate;
+  var start = getBeginOfCenturyYear(activeStartDate);
+  var end = start + 99;
+  return /* @__PURE__ */ react.createElement(TileGroup, _extends$3({}, props, {
+    className: "react-calendar__century-view__decades",
+    dateTransform: getDecadeStart,
+    dateType: "decade",
+    end,
+    start,
+    step: 10,
+    tile: Decade
+  }));
+}
+Decades.propTypes = _objectSpread$4({}, tileGroupProps);
+function CenturyView(props) {
+  function renderDecades() {
+    return /* @__PURE__ */ react.createElement(Decades, props);
+  }
+  return /* @__PURE__ */ react.createElement("div", {
+    className: "react-calendar__century-view"
+  }, renderDecades());
+}
+function ownKeys$5(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$5(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$5(Object(source), true).forEach(function(key) {
+        _defineProperty$6(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$5(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$6(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$4() {
+  _extends$4 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$4.apply(this, arguments);
+}
+function _objectWithoutProperties$3(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$3(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$3(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+var className$2 = "react-calendar__decade-view__years__year";
+function Year(_ref) {
+  var classes = _ref.classes, _ref$formatYear = _ref.formatYear, formatYear$1 = _ref$formatYear === void 0 ? formatYear : _ref$formatYear, otherProps = _objectWithoutProperties$3(_ref, ["classes", "formatYear"]);
+  var date = otherProps.date, locale = otherProps.locale;
+  return /* @__PURE__ */ react.createElement(Tile, _extends$4({}, otherProps, {
+    classes: [].concat(classes, className$2),
+    maxDateTransform: getYearEnd,
+    minDateTransform: getYearStart,
+    view: "decade"
+  }), formatYear$1(locale, date));
+}
+Year.propTypes = _objectSpread$5(_objectSpread$5({}, tileProps), {}, {
+  formatYear: propTypes.func
+});
+function ownKeys$6(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$6(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$6(Object(source), true).forEach(function(key) {
+        _defineProperty$7(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$6(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$7(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$5() {
+  _extends$5 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$5.apply(this, arguments);
+}
+function Years(props) {
+  var activeStartDate = props.activeStartDate;
+  var start = getBeginOfDecadeYear(activeStartDate);
+  var end = start + 9;
+  return /* @__PURE__ */ react.createElement(TileGroup, _extends$5({}, props, {
+    className: "react-calendar__decade-view__years",
+    dateTransform: function dateTransform(year) {
+      var date = new Date();
+      date.setFullYear(year, 0, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    },
+    dateType: "year",
+    end,
+    start,
+    tile: Year
+  }));
+}
+Years.propTypes = _objectSpread$6({}, tileGroupProps);
+function DecadeView(props) {
+  function renderYears() {
+    return /* @__PURE__ */ react.createElement(Years, props);
+  }
+  return /* @__PURE__ */ react.createElement("div", {
+    className: "react-calendar__decade-view"
+  }, renderYears());
+}
+function ownKeys$7(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$7(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$7(Object(source), true).forEach(function(key) {
+        _defineProperty$8(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$7(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$8(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$6() {
+  _extends$6 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$6.apply(this, arguments);
+}
+function _objectWithoutProperties$4(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$4(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$4(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+var className$3 = "react-calendar__year-view__months__month";
+function Month(_ref) {
+  var classes = _ref.classes, _ref$formatMonth = _ref.formatMonth, formatMonth$1 = _ref$formatMonth === void 0 ? formatMonth : _ref$formatMonth, _ref$formatMonthYear = _ref.formatMonthYear, formatMonthYear$1 = _ref$formatMonthYear === void 0 ? formatMonthYear : _ref$formatMonthYear, otherProps = _objectWithoutProperties$4(_ref, ["classes", "formatMonth", "formatMonthYear"]);
+  var date = otherProps.date, locale = otherProps.locale;
+  return /* @__PURE__ */ react.createElement(Tile, _extends$6({}, otherProps, {
+    classes: [].concat(classes, className$3),
+    formatAbbr: formatMonthYear$1,
+    maxDateTransform: getMonthEnd,
+    minDateTransform: getMonthStart,
+    view: "year"
+  }), formatMonth$1(locale, date));
+}
+Month.propTypes = _objectSpread$7(_objectSpread$7({}, tileProps), {}, {
+  formatMonth: propTypes.func,
+  formatMonthYear: propTypes.func
+});
+function ownKeys$8(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$8(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$8(Object(source), true).forEach(function(key) {
+        _defineProperty$9(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$8(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$9(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$7() {
+  _extends$7 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$7.apply(this, arguments);
+}
+function Months(props) {
+  var activeStartDate = props.activeStartDate;
+  var start = 0;
+  var end = 11;
+  var year = getYear(activeStartDate);
+  return /* @__PURE__ */ react.createElement(TileGroup, _extends$7({}, props, {
+    className: "react-calendar__year-view__months",
+    dateTransform: function dateTransform(monthIndex) {
+      var date = new Date();
+      date.setFullYear(year, monthIndex, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    },
+    dateType: "month",
+    end,
+    start,
+    tile: Month
+  }));
+}
+Months.propTypes = _objectSpread$8(_objectSpread$8({}, tileGroupProps), {}, {
+  locale: propTypes.string
+});
+function YearView(props) {
+  function renderMonths() {
+    return /* @__PURE__ */ react.createElement(Months, props);
+  }
+  return /* @__PURE__ */ react.createElement("div", {
+    className: "react-calendar__year-view"
+  }, renderMonths());
+}
+function ownKeys$9(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$9(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$9(Object(source), true).forEach(function(key) {
+        _defineProperty$a(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$9(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$a(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$8() {
+  _extends$8 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$8.apply(this, arguments);
+}
+function _objectWithoutProperties$5(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$5(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$5(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+var className$4 = "react-calendar__month-view__days__day";
+function Day(_ref) {
+  var _ref$formatDay = _ref.formatDay, formatDay$1 = _ref$formatDay === void 0 ? formatDay : _ref$formatDay, _ref$formatLongDate = _ref.formatLongDate, formatLongDate$1 = _ref$formatLongDate === void 0 ? formatLongDate : _ref$formatLongDate, calendarType = _ref.calendarType, classes = _ref.classes, currentMonthIndex = _ref.currentMonthIndex, otherProps = _objectWithoutProperties$5(_ref, ["formatDay", "formatLongDate", "calendarType", "classes", "currentMonthIndex"]);
+  var date = otherProps.date, locale = otherProps.locale;
+  return /* @__PURE__ */ react.createElement(Tile, _extends$8({}, otherProps, {
+    classes: [].concat(classes, className$4, isWeekend(date, calendarType) ? "".concat(className$4, "--weekend") : null, date.getMonth() !== currentMonthIndex ? "".concat(className$4, "--neighboringMonth") : null),
+    formatAbbr: formatLongDate$1,
+    maxDateTransform: getDayEnd,
+    minDateTransform: getDayStart,
+    view: "month"
+  }), formatDay$1(locale, date));
+}
+Day.propTypes = _objectSpread$9(_objectSpread$9({}, tileProps), {}, {
+  currentMonthIndex: propTypes.number.isRequired,
+  formatDay: propTypes.func,
+  formatLongDate: propTypes.func
+});
+function ownKeys$a(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$a(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$a(Object(source), true).forEach(function(key) {
+        _defineProperty$b(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$a(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$b(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends$9() {
+  _extends$9 = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$9.apply(this, arguments);
+}
+function _objectWithoutProperties$6(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$6(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$6(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function Days(props) {
+  var activeStartDate = props.activeStartDate, calendarType = props.calendarType;
+  var showFixedNumberOfWeeks = props.showFixedNumberOfWeeks, showNeighboringMonth = props.showNeighboringMonth, otherProps = _objectWithoutProperties$6(props, ["showFixedNumberOfWeeks", "showNeighboringMonth"]);
+  var year = getYear(activeStartDate);
+  var monthIndex = getMonth(activeStartDate);
+  var hasFixedNumberOfWeeks = showFixedNumberOfWeeks || showNeighboringMonth;
+  var dayOfWeek = getDayOfWeek(activeStartDate, calendarType);
+  var offset = hasFixedNumberOfWeeks ? 0 : dayOfWeek;
+  var start = (hasFixedNumberOfWeeks ? -dayOfWeek : 0) + 1;
+  var end = function() {
+    if (showFixedNumberOfWeeks) {
+      return start + 6 * 7 - 1;
+    }
+    var daysInMonth = getDaysInMonth(activeStartDate);
+    if (showNeighboringMonth) {
+      var activeEndDate = new Date();
+      activeEndDate.setFullYear(year, monthIndex, daysInMonth);
+      activeEndDate.setHours(0, 0, 0, 0);
+      var daysUntilEndOfTheWeek = 7 - getDayOfWeek(activeEndDate, calendarType) - 1;
+      return daysInMonth + daysUntilEndOfTheWeek;
+    }
+    return daysInMonth;
+  }();
+  return /* @__PURE__ */ react.createElement(TileGroup, _extends$9({}, otherProps, {
+    className: "react-calendar__month-view__days",
+    count: 7,
+    currentMonthIndex: monthIndex,
+    dateTransform: function dateTransform(day) {
+      var date = new Date();
+      date.setFullYear(year, monthIndex, day);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    },
+    dateType: "day",
+    end,
+    offset,
+    start,
+    tile: Day
+  }));
+}
+Days.propTypes = _objectSpread$a({
+  calendarType: isCalendarType.isRequired,
+  showFixedNumberOfWeeks: propTypes.bool,
+  showNeighboringMonth: propTypes.bool
+}, tileGroupProps);
+var className$5 = "react-calendar__month-view__weekdays";
+function Weekdays(props) {
+  var calendarType = props.calendarType, _props$formatShortWee = props.formatShortWeekday, formatShortWeekday$1 = _props$formatShortWee === void 0 ? formatShortWeekday : _props$formatShortWee, locale = props.locale, onMouseLeave = props.onMouseLeave;
+  var anyDate = new Date();
+  var beginOfMonth = getMonthStart(anyDate);
+  var year = getYear(beginOfMonth);
+  var monthIndex = getMonth(beginOfMonth);
+  var weekdays = [];
+  for (var weekday = 1; weekday <= 7; weekday += 1) {
+    var weekdayDate = new Date(year, monthIndex, weekday - getDayOfWeek(beginOfMonth, calendarType));
+    var abbr = formatWeekday(locale, weekdayDate);
+    weekdays.push(/* @__PURE__ */ react.createElement("div", {
+      key: weekday,
+      className: "".concat(className$5, "__weekday")
+    }, /* @__PURE__ */ react.createElement("abbr", {
+      "aria-label": abbr,
+      title: abbr
+    }, formatShortWeekday$1(locale, weekdayDate).replace(".", ""))));
+  }
+  return /* @__PURE__ */ react.createElement(Flex, {
+    className: className$5,
+    count: 7,
+    onFocus: onMouseLeave,
+    onMouseOver: onMouseLeave
+  }, weekdays);
+}
+Weekdays.propTypes = {
+  calendarType: isCalendarType.isRequired,
+  formatShortWeekday: propTypes.func,
+  locale: propTypes.string,
+  onMouseLeave: propTypes.func
+};
+function _extends$a() {
+  _extends$a = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$a.apply(this, arguments);
+}
+function WeekNumber(_ref) {
+  var date = _ref.date, onClickWeekNumber = _ref.onClickWeekNumber, weekNumber = _ref.weekNumber;
+  var props = {
+    className: "react-calendar__tile",
+    style: {
+      flexGrow: 1
+    }
+  };
+  var children = /* @__PURE__ */ react.createElement("span", null, weekNumber);
+  return onClickWeekNumber ? /* @__PURE__ */ react.createElement("button", _extends$a({}, props, {
+    onClick: function onClick(event) {
+      return onClickWeekNumber(weekNumber, date, event);
+    },
+    type: "button"
+  }), children) : /* @__PURE__ */ react.createElement("div", props, children);
+}
+WeekNumber.propTypes = {
+  date: propTypes.instanceOf(Date).isRequired,
+  onClickWeekNumber: propTypes.func,
+  weekNumber: propTypes.node.isRequired
+};
+function WeekNumbers(props) {
+  var activeStartDate = props.activeStartDate, calendarType = props.calendarType, onClickWeekNumber = props.onClickWeekNumber, onMouseLeave = props.onMouseLeave, showFixedNumberOfWeeks = props.showFixedNumberOfWeeks;
+  var numberOfWeeks = function() {
+    if (showFixedNumberOfWeeks) {
+      return 6;
+    }
+    var numberOfDays = getDaysInMonth(activeStartDate);
+    var startWeekday = getDayOfWeek(activeStartDate, calendarType);
+    var days = numberOfDays - (7 - startWeekday);
+    return 1 + Math.ceil(days / 7);
+  }();
+  var dates = function() {
+    var year = getYear(activeStartDate);
+    var monthIndex = getMonth(activeStartDate);
+    var day = getDate(activeStartDate);
+    var result = [];
+    for (var index2 = 0; index2 < numberOfWeeks; index2 += 1) {
+      result.push(getBeginOfWeek(new Date(year, monthIndex, day + index2 * 7), calendarType));
+    }
+    return result;
+  }();
+  var weekNumbers = dates.map(function(date) {
+    return getWeekNumber(date, calendarType);
+  });
+  return /* @__PURE__ */ react.createElement(Flex, {
+    className: "react-calendar__month-view__weekNumbers",
+    count: numberOfWeeks,
+    direction: "column",
+    onFocus: onMouseLeave,
+    onMouseOver: onMouseLeave,
+    style: {
+      flexBasis: "calc(100% * (1 / 8)",
+      flexShrink: 0
+    }
+  }, weekNumbers.map(function(weekNumber, weekIndex) {
+    return /* @__PURE__ */ react.createElement(WeekNumber, {
+      key: weekNumber,
+      date: dates[weekIndex],
+      onClickWeekNumber,
+      weekNumber
+    });
+  }));
+}
+WeekNumbers.propTypes = {
+  activeStartDate: propTypes.instanceOf(Date).isRequired,
+  calendarType: isCalendarType.isRequired,
+  onClickWeekNumber: propTypes.func,
+  onMouseLeave: propTypes.func,
+  showFixedNumberOfWeeks: propTypes.bool
+};
+function _extends$b() {
+  _extends$b = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$b.apply(this, arguments);
+}
+function _objectWithoutProperties$7(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$7(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$7(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function getCalendarTypeFromLocale(locale) {
+  return Object.keys(CALENDAR_TYPE_LOCALES).find(function(calendarType) {
+    return CALENDAR_TYPE_LOCALES[calendarType].includes(locale);
+  }) || CALENDAR_TYPES.ISO_8601;
+}
+function MonthView(props) {
+  var activeStartDate = props.activeStartDate, locale = props.locale, onMouseLeave = props.onMouseLeave, showFixedNumberOfWeeks = props.showFixedNumberOfWeeks;
+  var _props$calendarType = props.calendarType, calendarType = _props$calendarType === void 0 ? getCalendarTypeFromLocale(locale) : _props$calendarType, formatShortWeekday2 = props.formatShortWeekday, onClickWeekNumber = props.onClickWeekNumber, showWeekNumbers = props.showWeekNumbers, childProps = _objectWithoutProperties$7(props, ["calendarType", "formatShortWeekday", "onClickWeekNumber", "showWeekNumbers"]);
+  function renderWeekdays() {
+    return /* @__PURE__ */ react.createElement(Weekdays, {
+      calendarType,
+      formatShortWeekday: formatShortWeekday2,
+      locale,
+      onMouseLeave
+    });
+  }
+  function renderWeekNumbers() {
+    if (!showWeekNumbers) {
+      return null;
+    }
+    return /* @__PURE__ */ react.createElement(WeekNumbers, {
+      activeStartDate,
+      calendarType,
+      onClickWeekNumber,
+      onMouseLeave,
+      showFixedNumberOfWeeks
+    });
+  }
+  function renderDays() {
+    return /* @__PURE__ */ react.createElement(Days, _extends$b({
+      calendarType
+    }, childProps));
+  }
+  var className2 = "react-calendar__month-view";
+  return /* @__PURE__ */ react.createElement("div", {
+    className: mergeClassNames(className2, showWeekNumbers ? "".concat(className2, "--weekNumbers") : "")
+  }, /* @__PURE__ */ react.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "flex-end"
+    }
+  }, renderWeekNumbers(), /* @__PURE__ */ react.createElement("div", {
+    style: {
+      flexGrow: 1,
+      width: "100%"
+    }
+  }, renderWeekdays(), renderDays())));
+}
+MonthView.propTypes = {
+  activeStartDate: propTypes.instanceOf(Date).isRequired,
+  calendarType: isCalendarType,
+  formatShortWeekday: propTypes.func,
+  locale: propTypes.string,
+  onClickWeekNumber: propTypes.func,
+  onMouseLeave: propTypes.func,
+  showFixedNumberOfWeeks: propTypes.bool,
+  showWeekNumbers: propTypes.bool
+};
+function _extends$c() {
+  _extends$c = Object.assign || function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$c.apply(this, arguments);
+}
+function _typeof$2(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof$2 = function _typeof2(obj2) {
+      return typeof obj2;
+    };
+  } else {
+    _typeof$2 = function _typeof2(obj2) {
+      return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+    };
+  }
+  return _typeof$2(obj);
+}
+function _classCallCheck$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties$1(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor)
+      descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass$1(Constructor, protoProps, staticProps) {
+  if (protoProps)
+    _defineProperties$1(Constructor.prototype, protoProps);
+  if (staticProps)
+    _defineProperties$1(Constructor, staticProps);
+  return Constructor;
+}
+function _inherits$1(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {constructor: {value: subClass, writable: true, configurable: true}});
+  if (superClass)
+    _setPrototypeOf$1(subClass, superClass);
+}
+function _setPrototypeOf$1(o, p2) {
+  _setPrototypeOf$1 = Object.setPrototypeOf || function _setPrototypeOf3(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$1(o, p2);
+}
+function _createSuper$1(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$1();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf$1(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf$1(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn$1(this, result);
+  };
+}
+function _possibleConstructorReturn$1(self, call) {
+  if (call && (_typeof$2(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+  return _assertThisInitialized$1(self);
+}
+function _assertThisInitialized$1(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _isNativeReflectConstruct$1() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function() {
+    }));
+    return true;
+  } catch (e2) {
+    return false;
+  }
+}
+function _getPrototypeOf$1(o) {
+  _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$1(o);
+}
+function ownKeys$b(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly)
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$b(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys$b(Object(source), true).forEach(function(key) {
+        _defineProperty$c(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$b(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _defineProperty$c(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {value, enumerable: true, configurable: true, writable: true});
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _objectWithoutProperties$8(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$8(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$8(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function _toConsumableArray$2(arr) {
+  return _arrayWithoutHoles$2(arr) || _iterableToArray$2(arr) || _unsupportedIterableToArray$2(arr) || _nonIterableSpread$2();
+}
+function _nonIterableSpread$2() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray$2(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray$2(o, minLen);
+  var n2 = Object.prototype.toString.call(o).slice(8, -1);
+  if (n2 === "Object" && o.constructor)
+    n2 = o.constructor.name;
+  if (n2 === "Map" || n2 === "Set")
+    return Array.from(o);
+  if (n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2))
+    return _arrayLikeToArray$2(o, minLen);
+}
+function _iterableToArray$2(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    return Array.from(iter);
+}
+function _arrayWithoutHoles$2(arr) {
+  if (Array.isArray(arr))
+    return _arrayLikeToArray$2(arr);
+}
+function _arrayLikeToArray$2(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+var defaultMinDate = new Date();
+defaultMinDate.setFullYear(1, 0, 1);
+defaultMinDate.setHours(0, 0, 0, 0);
+var defaultMaxDate = new Date(864e13);
+var baseClassName = "react-calendar";
+var allViews$1 = ["century", "decade", "year", "month"];
+var allValueTypes = [].concat(_toConsumableArray$2(allViews$1.slice(1)), ["day"]);
+function toDate(value) {
+  if (value instanceof Date) {
+    return value;
+  }
+  return new Date(value);
+}
+function getLimitedViews(minDetail, maxDetail) {
+  return allViews$1.slice(allViews$1.indexOf(minDetail), allViews$1.indexOf(maxDetail) + 1);
+}
+function isViewAllowed(view, minDetail, maxDetail) {
+  var views = getLimitedViews(minDetail, maxDetail);
+  return views.indexOf(view) !== -1;
+}
+function getView(view, minDetail, maxDetail) {
+  if (isViewAllowed(view, minDetail, maxDetail)) {
+    return view;
+  }
+  return maxDetail;
+}
+function getValueType(maxDetail) {
+  return allValueTypes[allViews$1.indexOf(maxDetail)];
+}
+function getValue$1(value, index2) {
+  if (!value) {
+    return null;
+  }
+  var rawValue = Array.isArray(value) && value.length === 2 ? value[index2] : value;
+  if (!rawValue) {
+    return null;
+  }
+  var valueDate = toDate(rawValue);
+  if (isNaN(valueDate.getTime())) {
+    throw new Error("Invalid date: ".concat(value));
+  }
+  return valueDate;
+}
+function getDetailValue(_ref, index2) {
+  var value = _ref.value, minDate = _ref.minDate, maxDate = _ref.maxDate, maxDetail = _ref.maxDetail;
+  var valuePiece = getValue$1(value, index2);
+  if (!valuePiece) {
+    return null;
+  }
+  var valueType = getValueType(maxDetail);
+  var detailValueFrom = [getBegin, getEnd][index2](valueType, valuePiece);
+  return between(detailValueFrom, minDate, maxDate);
+}
+var getDetailValueFrom = function getDetailValueFrom2(args) {
+  return getDetailValue(args, 0);
+};
+var getDetailValueTo = function getDetailValueTo2(args) {
+  return getDetailValue(args, 1);
+};
+var getDetailValueArray = function getDetailValueArray2(args) {
+  var value = args.value;
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return [getDetailValueFrom, getDetailValueTo].map(function(fn) {
+    return fn(args);
+  });
+};
+function getActiveStartDate(props) {
+  var maxDate = props.maxDate, maxDetail = props.maxDetail, minDate = props.minDate, minDetail = props.minDetail, value = props.value, view = props.view;
+  var rangeType = getView(view, minDetail, maxDetail);
+  var valueFrom = getDetailValueFrom({
+    value,
+    minDate,
+    maxDate,
+    maxDetail
+  }) || new Date();
+  return getBegin(rangeType, valueFrom);
+}
+function getInitialActiveStartDate(props) {
+  var activeStartDate = props.activeStartDate, defaultActiveStartDate = props.defaultActiveStartDate, defaultValue = props.defaultValue, defaultView = props.defaultView, maxDetail = props.maxDetail, minDetail = props.minDetail, value = props.value, view = props.view, otherProps = _objectWithoutProperties$8(props, ["activeStartDate", "defaultActiveStartDate", "defaultValue", "defaultView", "maxDetail", "minDetail", "value", "view"]);
+  var rangeType = getView(view, minDetail, maxDetail);
+  var valueFrom = activeStartDate || defaultActiveStartDate;
+  if (valueFrom) {
+    return getBegin(rangeType, valueFrom);
+  }
+  return getActiveStartDate(_objectSpread$b({
+    maxDetail,
+    minDetail,
+    value: value || defaultValue,
+    view: view || defaultView
+  }, otherProps));
+}
+var getIsSingleValue = function getIsSingleValue2(value) {
+  return value && [].concat(value).length === 1;
+};
+var Calendar = /* @__PURE__ */ function(_Component) {
+  _inherits$1(Calendar2, _Component);
+  var _super = _createSuper$1(Calendar2);
+  function Calendar2() {
+    var _this;
+    _classCallCheck$1(this, Calendar2);
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(_args));
+    _defineProperty$c(_assertThisInitialized$1(_this), "state", {
+      activeStartDate: _this.props.defaultActiveStartDate,
+      value: _this.props.defaultValue,
+      view: _this.props.defaultView
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "setStateAndCallCallbacks", function(nextState, event, callback) {
+      var _assertThisInitialize = _assertThisInitialized$1(_this), previousActiveStartDate = _assertThisInitialize.activeStartDate, previousView = _assertThisInitialize.view;
+      var _this$props = _this.props, allowPartialRange = _this$props.allowPartialRange, onActiveStartDateChange = _this$props.onActiveStartDateChange, onChange = _this$props.onChange, onViewChange = _this$props.onViewChange, selectRange = _this$props.selectRange;
+      var prevArgs = {
+        activeStartDate: previousActiveStartDate,
+        view: previousView
+      };
+      _this.setState(nextState, function() {
+        var args = {
+          activeStartDate: nextState.activeStartDate || _this.activeStartDate,
+          value: nextState.value || _this.value,
+          view: nextState.view || _this.view
+        };
+        function shouldUpdate(key) {
+          return key in nextState && (_typeof$2(nextState[key]) !== _typeof$2(prevArgs[key]) || (nextState[key] instanceof Date ? nextState[key].getTime() !== prevArgs[key].getTime() : nextState[key] !== prevArgs[key]));
+        }
+        if (shouldUpdate("activeStartDate")) {
+          if (onActiveStartDateChange)
+            onActiveStartDateChange(args);
+        }
+        if (shouldUpdate("view")) {
+          if (onViewChange)
+            onViewChange(args);
+        }
+        if (shouldUpdate("value")) {
+          if (onChange) {
+            if (selectRange) {
+              var isSingleValue = getIsSingleValue(nextState.value);
+              if (!isSingleValue) {
+                onChange(nextState.value, event);
+              } else if (allowPartialRange) {
+                onChange([nextState.value], event);
+              }
+            } else {
+              onChange(nextState.value, event);
+            }
+          }
+        }
+        if (callback)
+          callback(args);
+      });
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "setActiveStartDate", function(activeStartDate) {
+      _this.setStateAndCallCallbacks({
+        activeStartDate
+      });
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "drillDown", function(nextActiveStartDate, event) {
+      if (!_this.drillDownAvailable) {
+        return;
+      }
+      _this.onClickTile(nextActiveStartDate, event);
+      var _assertThisInitialize2 = _assertThisInitialized$1(_this), view = _assertThisInitialize2.view, views = _assertThisInitialize2.views;
+      var onDrillDown = _this.props.onDrillDown;
+      var nextView = views[views.indexOf(view) + 1];
+      _this.setStateAndCallCallbacks({
+        activeStartDate: nextActiveStartDate,
+        view: nextView
+      }, void 0, onDrillDown);
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "drillUp", function() {
+      if (!_this.drillUpAvailable) {
+        return;
+      }
+      var _assertThisInitialize3 = _assertThisInitialized$1(_this), activeStartDate = _assertThisInitialize3.activeStartDate, view = _assertThisInitialize3.view, views = _assertThisInitialize3.views;
+      var onDrillUp = _this.props.onDrillUp;
+      var nextView = views[views.indexOf(view) - 1];
+      var nextActiveStartDate = getBegin(nextView, activeStartDate);
+      _this.setStateAndCallCallbacks({
+        activeStartDate: nextActiveStartDate,
+        view: nextView
+      }, void 0, onDrillUp);
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "onChange", function(value, event) {
+      var selectRange = _this.props.selectRange;
+      _this.onClickTile(value, event);
+      var nextValue;
+      if (selectRange) {
+        var _assertThisInitialize4 = _assertThisInitialized$1(_this), previousValue = _assertThisInitialize4.value, valueType = _assertThisInitialize4.valueType;
+        if (!getIsSingleValue(previousValue)) {
+          nextValue = getBegin(valueType, value);
+        } else {
+          nextValue = getValueRange(valueType, previousValue, value);
+        }
+      } else {
+        nextValue = _this.getProcessedValue(value);
+      }
+      var nextActiveStartDate = getActiveStartDate(_objectSpread$b(_objectSpread$b({}, _this.props), {}, {
+        value: nextValue
+      }));
+      event.persist();
+      _this.setStateAndCallCallbacks({
+        activeStartDate: nextActiveStartDate,
+        value: nextValue
+      }, event);
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "onClickTile", function(value, event) {
+      var _assertThisInitialize5 = _assertThisInitialized$1(_this), view = _assertThisInitialize5.view;
+      var _this$props2 = _this.props, onClickDay = _this$props2.onClickDay, onClickDecade = _this$props2.onClickDecade, onClickMonth = _this$props2.onClickMonth, onClickYear = _this$props2.onClickYear;
+      var callback = function() {
+        switch (view) {
+          case "century":
+            return onClickDecade;
+          case "decade":
+            return onClickYear;
+          case "year":
+            return onClickMonth;
+          case "month":
+            return onClickDay;
+          default:
+            throw new Error("Invalid view: ".concat(view, "."));
+        }
+      }();
+      if (callback)
+        callback(value, event);
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "onMouseOver", function(value) {
+      _this.setState(function(prevState) {
+        if (prevState.hover && prevState.hover.getTime() === value.getTime()) {
+          return null;
+        }
+        return {
+          hover: value
+        };
+      });
+    });
+    _defineProperty$c(_assertThisInitialized$1(_this), "onMouseLeave", function() {
+      _this.setState({
+        hover: null
+      });
+    });
+    return _this;
+  }
+  _createClass$1(Calendar2, [{
+    key: "getProcessedValue",
+    value: function getProcessedValue(value) {
+      var _this$props3 = this.props, minDate = _this$props3.minDate, maxDate = _this$props3.maxDate, maxDetail = _this$props3.maxDetail, returnValue = _this$props3.returnValue;
+      var processFunction = function() {
+        switch (returnValue) {
+          case "start":
+            return getDetailValueFrom;
+          case "end":
+            return getDetailValueTo;
+          case "range":
+            return getDetailValueArray;
+          default:
+            throw new Error("Invalid returnValue.");
+        }
+      }();
+      return processFunction({
+        value,
+        minDate,
+        maxDate,
+        maxDetail
+      });
+    }
+  }, {
+    key: "renderContent",
+    value: function renderContent(next) {
+      var currentActiveStartDate = this.activeStartDate, onMouseOver = this.onMouseOver, valueType = this.valueType, value = this.value, view = this.view;
+      var _this$props4 = this.props, calendarType = _this$props4.calendarType, locale = _this$props4.locale, maxDate = _this$props4.maxDate, minDate = _this$props4.minDate, selectRange = _this$props4.selectRange, tileClassName = _this$props4.tileClassName, tileContent = _this$props4.tileContent, tileDisabled = _this$props4.tileDisabled;
+      var hover = this.hover;
+      var activeStartDate = next ? getBeginNext(view, currentActiveStartDate) : getBegin(view, currentActiveStartDate);
+      var onClick = this.drillDownAvailable ? this.drillDown : this.onChange;
+      var commonProps = {
+        activeStartDate,
+        hover,
+        locale,
+        maxDate,
+        minDate,
+        onClick,
+        onMouseOver: selectRange ? onMouseOver : null,
+        tileClassName,
+        tileContent,
+        tileDisabled,
+        value,
+        valueType
+      };
+      switch (view) {
+        case "century": {
+          var formatYear2 = this.props.formatYear;
+          return /* @__PURE__ */ react.createElement(CenturyView, _extends$c({
+            formatYear: formatYear2
+          }, commonProps));
+        }
+        case "decade": {
+          var _formatYear = this.props.formatYear;
+          return /* @__PURE__ */ react.createElement(DecadeView, _extends$c({
+            formatYear: _formatYear
+          }, commonProps));
+        }
+        case "year": {
+          var _this$props5 = this.props, formatMonth2 = _this$props5.formatMonth, formatMonthYear2 = _this$props5.formatMonthYear;
+          return /* @__PURE__ */ react.createElement(YearView, _extends$c({
+            formatMonth: formatMonth2,
+            formatMonthYear: formatMonthYear2
+          }, commonProps));
+        }
+        case "month": {
+          var _this$props6 = this.props, formatDay2 = _this$props6.formatDay, formatLongDate2 = _this$props6.formatLongDate, formatShortWeekday2 = _this$props6.formatShortWeekday, onClickWeekNumber = _this$props6.onClickWeekNumber, showDoubleView = _this$props6.showDoubleView, showFixedNumberOfWeeks = _this$props6.showFixedNumberOfWeeks, showNeighboringMonth = _this$props6.showNeighboringMonth, showWeekNumbers = _this$props6.showWeekNumbers;
+          var onMouseLeave = this.onMouseLeave;
+          return /* @__PURE__ */ react.createElement(MonthView, _extends$c({
+            calendarType,
+            formatDay: formatDay2,
+            formatLongDate: formatLongDate2,
+            formatShortWeekday: formatShortWeekday2,
+            onClickWeekNumber,
+            onMouseLeave: selectRange ? onMouseLeave : null,
+            showFixedNumberOfWeeks: showFixedNumberOfWeeks || showDoubleView,
+            showNeighboringMonth,
+            showWeekNumbers
+          }, commonProps));
+        }
+        default:
+          throw new Error("Invalid view: ".concat(view, "."));
+      }
+    }
+  }, {
+    key: "renderNavigation",
+    value: function renderNavigation() {
+      var showNavigation = this.props.showNavigation;
+      if (!showNavigation) {
+        return null;
+      }
+      var activeStartDate = this.activeStartDate, view = this.view, views = this.views;
+      var _this$props7 = this.props, formatMonthYear2 = _this$props7.formatMonthYear, formatYear2 = _this$props7.formatYear, locale = _this$props7.locale, maxDate = _this$props7.maxDate, minDate = _this$props7.minDate, navigationAriaLabel = _this$props7.navigationAriaLabel, navigationLabel = _this$props7.navigationLabel, next2AriaLabel = _this$props7.next2AriaLabel, next2Label = _this$props7.next2Label, nextAriaLabel = _this$props7.nextAriaLabel, nextLabel = _this$props7.nextLabel, prev2AriaLabel = _this$props7.prev2AriaLabel, prev2Label = _this$props7.prev2Label, prevAriaLabel = _this$props7.prevAriaLabel, prevLabel = _this$props7.prevLabel, showDoubleView = _this$props7.showDoubleView;
+      return /* @__PURE__ */ react.createElement(Navigation, {
+        activeStartDate,
+        drillUp: this.drillUp,
+        formatMonthYear: formatMonthYear2,
+        formatYear: formatYear2,
+        locale,
+        maxDate,
+        minDate,
+        navigationAriaLabel,
+        navigationLabel,
+        next2AriaLabel,
+        next2Label,
+        nextAriaLabel,
+        nextLabel,
+        prev2AriaLabel,
+        prev2Label,
+        prevAriaLabel,
+        prevLabel,
+        setActiveStartDate: this.setActiveStartDate,
+        showDoubleView,
+        view,
+        views
+      });
+    }
+  }, {
+    key: "render",
+    value: function render2() {
+      var _this$props8 = this.props, className2 = _this$props8.className, inputRef = _this$props8.inputRef, selectRange = _this$props8.selectRange, showDoubleView = _this$props8.showDoubleView;
+      var onMouseLeave = this.onMouseLeave, value = this.value;
+      var valueArray = [].concat(value);
+      return /* @__PURE__ */ react.createElement("div", {
+        className: mergeClassNames(baseClassName, selectRange && valueArray.length === 1 && "".concat(baseClassName, "--selectRange"), showDoubleView && "".concat(baseClassName, "--doubleView"), className2),
+        ref: inputRef
+      }, this.renderNavigation(), /* @__PURE__ */ react.createElement("div", {
+        className: "".concat(baseClassName, "__viewContainer"),
+        onBlur: selectRange ? onMouseLeave : null,
+        onMouseLeave: selectRange ? onMouseLeave : null
+      }, this.renderContent(), showDoubleView && this.renderContent(true)));
+    }
+  }, {
+    key: "activeStartDate",
+    get: function get() {
+      var activeStartDateProps = this.props.activeStartDate;
+      var activeStartDateState = this.state.activeStartDate;
+      return activeStartDateProps || activeStartDateState || getInitialActiveStartDate(this.props);
+    }
+  }, {
+    key: "value",
+    get: function get() {
+      var _this$props9 = this.props, selectRange = _this$props9.selectRange, valueProps = _this$props9.value;
+      var valueState = this.state.value;
+      if (selectRange && getIsSingleValue(valueState)) {
+        return valueState;
+      }
+      return valueProps !== void 0 ? valueProps : valueState;
+    }
+  }, {
+    key: "valueType",
+    get: function get() {
+      var maxDetail = this.props.maxDetail;
+      return getValueType(maxDetail);
+    }
+  }, {
+    key: "view",
+    get: function get() {
+      var _this$props10 = this.props, minDetail = _this$props10.minDetail, maxDetail = _this$props10.maxDetail, viewProps = _this$props10.view;
+      var viewState = this.state.view;
+      return getView(viewProps || viewState, minDetail, maxDetail);
+    }
+  }, {
+    key: "views",
+    get: function get() {
+      var _this$props11 = this.props, minDetail = _this$props11.minDetail, maxDetail = _this$props11.maxDetail;
+      return getLimitedViews(minDetail, maxDetail);
+    }
+  }, {
+    key: "hover",
+    get: function get() {
+      var selectRange = this.props.selectRange;
+      var hover = this.state.hover;
+      return selectRange ? hover : null;
+    }
+  }, {
+    key: "drillDownAvailable",
+    get: function get() {
+      var view = this.view, views = this.views;
+      return views.indexOf(view) < views.length - 1;
+    }
+  }, {
+    key: "drillUpAvailable",
+    get: function get() {
+      var view = this.view, views = this.views;
+      return views.indexOf(view) > 0;
+    }
+  }]);
+  return Calendar2;
+}(react.Component);
+Calendar.defaultProps = {
+  maxDate: defaultMaxDate,
+  maxDetail: "month",
+  minDate: defaultMinDate,
+  minDetail: "century",
+  returnValue: "start",
+  showNavigation: true,
+  showNeighboringMonth: true
+};
+var isActiveStartDate = propTypes.instanceOf(Date);
+var isLooseValue = propTypes.oneOfType([propTypes.string, isValue]);
+Calendar.propTypes = {
+  activeStartDate: isActiveStartDate,
+  allowPartialRange: propTypes.bool,
+  calendarType: isCalendarType,
+  className: isClassName,
+  defaultActiveStartDate: isActiveStartDate,
+  defaultValue: isLooseValue,
+  defaultView: isView,
+  formatDay: propTypes.func,
+  formatLongDate: propTypes.func,
+  formatMonth: propTypes.func,
+  formatMonthYear: propTypes.func,
+  formatShortWeekday: propTypes.func,
+  formatYear: propTypes.func,
+  inputRef: isRef,
+  locale: propTypes.string,
+  maxDate: isMaxDate,
+  maxDetail: propTypes.oneOf(allViews$1),
+  minDate: isMinDate,
+  minDetail: propTypes.oneOf(allViews$1),
+  navigationAriaLabel: propTypes.string,
+  navigationLabel: propTypes.func,
+  next2AriaLabel: propTypes.string,
+  next2Label: propTypes.node,
+  nextAriaLabel: propTypes.string,
+  nextLabel: propTypes.node,
+  onActiveStartDateChange: propTypes.func,
+  onChange: propTypes.func,
+  onClickDay: propTypes.func,
+  onClickDecade: propTypes.func,
+  onClickMonth: propTypes.func,
+  onClickWeekNumber: propTypes.func,
+  onClickYear: propTypes.func,
+  onDrillDown: propTypes.func,
+  onDrillUp: propTypes.func,
+  onViewChange: propTypes.func,
+  prev2AriaLabel: propTypes.string,
+  prev2Label: propTypes.node,
+  prevAriaLabel: propTypes.string,
+  prevLabel: propTypes.node,
+  returnValue: propTypes.oneOf(["start", "end", "range"]),
+  selectRange: propTypes.bool,
+  showDoubleView: propTypes.bool,
+  showFixedNumberOfWeeks: propTypes.bool,
+  showNavigation: propTypes.bool,
+  showNeighboringMonth: propTypes.bool,
+  showWeekNumbers: propTypes.bool,
+  tileClassName: propTypes.oneOfType([propTypes.func, isClassName]),
+  tileContent: propTypes.oneOfType([propTypes.func, propTypes.node]),
+  tileDisabled: propTypes.func,
+  value: isLooseValue,
+  view: isView
+};
+
 // build/dist/router/Admin.js
 function Admin() {
-  return /* @__PURE__ */ react.createElement(react.Fragment, null);
+  return /* @__PURE__ */ react.createElement("div", {
+    className: "admin"
+  });
 }
 
 // build/dist/router/SignIn.js

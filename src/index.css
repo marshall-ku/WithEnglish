@@ -159,10 +159,15 @@ h6 {
     font-weight: bold;
 }
 
+.small-button,
 .large-button,
 .large-button::before {
     border: 1px solid var(--border-color);
     border-radius: 2px;
+}
+
+.small-button {
+    padding: 0 10px;
 }
 
 .large-button {

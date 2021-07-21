@@ -21,11 +21,11 @@
     margin-bottom: 1rem;
 }
 
-.admin__grade {
+.admin__user {
     position: relative;
 }
 
-.admin__grade::before {
+.admin__user::before {
     content: "";
     position: absolute;
     top: 0.5rem;
@@ -42,26 +42,40 @@
     transition: transform 0.25s ease-in-out;
 }
 
-.admin__grade[open]::before {
+.admin__user[open]::before {
     transform: rotate(-180deg);
 }
 
-.admin__grade > summary {
+.admin__user > summary {
     padding: 0.5rem 0.5rem 0.5rem 2rem;
     font-size: 1.5rem;
     list-style: none;
 }
 
-.admin__grade > summary::-webkit-details-marker {
+.admin__user > summary::-webkit-details-marker {
     display: none;
 }
 
-.admin__grade:not(:last-child) > summary {
+.admin__user:not(:last-child) > summary {
     margin-bottom: 1rem;
 }
 
-.admin__grade[open] > .react-calendar {
+.admin__user[open] > .admin__user__container {
     animation: reveal 0.5s;
+}
+
+.admin__user__container > h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    line-height: 2;
+}
+
+.admin__user__last-test {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    line-height: 1.7;
 }
 
 .admin .react-calendar {
@@ -74,10 +88,12 @@
     position: fixed;
     left: 50%;
     bottom: 20px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     transform: translateX(-50%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
 }
 
 .admin__nav::before {
@@ -87,7 +103,7 @@
     width: 44px;
     height: 44px;
     top: 10px;
-    left: 10px;
+    left: 20px;
     background: rgba(120, 120, 120, 0.25);
     border-radius: 50%;
     transition: transform 0.25s ease-in-out;

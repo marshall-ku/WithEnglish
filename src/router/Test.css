@@ -66,11 +66,12 @@
 
 .question {
     display: flex;
-    width: clamp(1px, calc(100% - 20px), 500px);
+    width: clamp(1px, calc(100% - 20px), 700px);
     height: 100vh;
-    padding: 20vh 0;
+    padding: 10px;
     margin: 0 auto;
     flex-direction: column;
+    justify-content: center;
     text-align: center;
 }
 
@@ -87,6 +88,11 @@
 }
 
 .question__meaning {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
     font-size: 2rem;
     font-weight: bold;
     line-height: 2;
@@ -100,7 +106,6 @@
 .question__words {
     display: flex;
     flex-direction: column;
-    margin-top: auto;
 }
 
 .question__words > .large-button:not(:last-child) {

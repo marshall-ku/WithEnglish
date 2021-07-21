@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
 import { shuffleArray } from "../utils";
-import { ListIcon, HomeIcon } from "../components/Icons";
+import { HomeIcon } from "../components/Icons";
 import { updateToken } from "../auth";
 import { toast } from "../toast";
 
@@ -84,6 +84,10 @@ function WordTest(props: SpeedQuizProps) {
                             } else {
                                 toast("Something went wrong 😥");
                             }
+                        } else {
+                            toast(
+                                response.message || "Something went wrong 😥"
+                            );
                         }
                     });
             }, 1000);

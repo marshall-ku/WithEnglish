@@ -6,6 +6,12 @@
     opacity: 1;
 }
 
+.memorize__word > div,
+.memorize__meaning {
+    max-width: 680px;
+    margin: auto;
+}
+
 .memorize__word {
     font-size: 2.5rem;
     padding: 5px 10px;

@@ -65,7 +65,9 @@ function MemorizeWords(props: MemorizeWordsProps) {
 
         return (
             <div className="memorize">
-                <h2 className="memorize__word">{currentWord.word}</h2>
+                <h2 className="memorize__word">
+                    <div>{currentWord.word}</div>
+                </h2>
                 <ol
                     className={`memorize__meaning memorize__hidden${
                         reveal ? " reveal" : ""

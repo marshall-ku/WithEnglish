@@ -4,7 +4,7 @@ var __export = (target, all) => {
     __defProp(target, name, {get: all[name], enumerable: true});
 };
 
-// _snowpack/env.js
+// build/_snowpack/env.js
 var env_exports = {};
 __export(env_exports, {
   MODE: () => MODE,
@@ -15,7 +15,7 @@ var MODE = "production";
 var NODE_ENV = "production";
 var SSR = false;
 
-// _snowpack/pkg/common/index-e66f0a38.js
+// build/_snowpack/pkg/common/index-ae389540.js
 function createCommonjsModule(fn, basedir, module) {
   return module = {
     path: basedir,
@@ -377,7 +377,7 @@ var react_production_min = createCommonjsModule(function(module, exports) {
   exports.useState = function(a) {
     return S2().useState(a);
   };
-  exports.version = "17.0.1";
+  exports.version = "17.0.2";
 });
 var react = createCommonjsModule(function(module) {
   {
@@ -385,12 +385,12 @@ var react = createCommonjsModule(function(module) {
   }
 });
 
-// _snowpack/pkg/react.js
+// build/_snowpack/pkg/react.js
 var useEffect = react.useEffect;
 var useRef = react.useRef;
 var useState = react.useState;
 
-// _snowpack/pkg/react-dom.js
+// build/_snowpack/pkg/react-dom.js
 var scheduler_production_min = createCommonjsModule(function(module, exports) {
   var f2, g2, h2, k2;
   if (typeof performance === "object" && typeof performance.now === "function") {
@@ -6908,7 +6908,7 @@ function uk(a, b2) {
   return kk(a, b2, null, c2);
 }
 var vk = {Events: [Cb, ue, Db, Eb, Fb, Oj, {current: false}]};
-var wk = {findFiberByHostInstance: wc, bundleType: 0, version: "17.0.1", rendererPackageName: "react-dom"};
+var wk = {findFiberByHostInstance: wc, bundleType: 0, version: "17.0.2", rendererPackageName: "react-dom"};
 var xk = {bundleType: wk.bundleType, version: wk.version, rendererPackageName: wk.rendererPackageName, rendererConfig: wk.rendererConfig, overrideHookState: null, overrideHookStateDeletePath: null, overrideHookStateRenamePath: null, overrideProps: null, overridePropsDeletePath: null, overridePropsRenamePath: null, setSuspenseHandler: null, scheduleUpdate: null, currentDispatcherRef: ra.ReactCurrentDispatcher, findHostInstanceByFiber: function(a) {
   a = cc(a);
   return a === null ? null : a.stateNode;
@@ -6982,7 +6982,7 @@ var unstable_renderSubtreeIntoContainer = function(a, b2, c2, d2) {
     throw Error(y(38));
   return tk(a, b2, c2, false, d2);
 };
-var version = "17.0.1";
+var version = "17.0.2";
 var reactDom_production_min = {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   createPortal,
@@ -7014,7 +7014,7 @@ var reactDom = createCommonjsModule(function(module) {
 });
 var react_dom_default = reactDom;
 
-// _snowpack/pkg/react-router-dom.js
+// build/_snowpack/pkg/react-router-dom.js
 function _setPrototypeOf(o, p2) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
@@ -7179,7 +7179,7 @@ function invariant(condition, message) {
     throw new Error(prefix);
   }
 }
-function addLeadingSlash$1(path) {
+function addLeadingSlash(path) {
   return path.charAt(0) === "/" ? path : "/" + path;
 }
 function stripLeadingSlash(path) {
@@ -7188,7 +7188,7 @@ function stripLeadingSlash(path) {
 function hasBasename(path, prefix2) {
   return path.toLowerCase().indexOf(prefix2.toLowerCase()) === 0 && "/?#".indexOf(path.charAt(prefix2.length)) !== -1;
 }
-function stripBasename$1(path, prefix2) {
+function stripBasename(path, prefix2) {
   return hasBasename(path, prefix2) ? path.substr(prefix2.length) : path;
 }
 function stripTrailingSlash(path) {
@@ -7366,13 +7366,13 @@ function createBrowserHistory(props) {
   var canUseHistory = supportsHistory();
   var needsHashChangeListener = !supportsPopStateOnHashChange();
   var _props = props, _props$forceRefresh = _props.forceRefresh, forceRefresh = _props$forceRefresh === void 0 ? false : _props$forceRefresh, _props$getUserConfirm = _props.getUserConfirmation, getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm, _props$keyLength = _props.keyLength, keyLength = _props$keyLength === void 0 ? 6 : _props$keyLength;
-  var basename = props.basename ? stripTrailingSlash(addLeadingSlash$1(props.basename)) : "";
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
   function getDOMLocation(historyState) {
     var _ref = historyState || {}, key = _ref.key, state = _ref.state;
     var _window$location = window.location, pathname = _window$location.pathname, search = _window$location.search, hash = _window$location.hash;
     var path = pathname + search + hash;
     if (basename)
-      path = stripBasename$1(path, basename);
+      path = stripBasename(path, basename);
     return createLocation(path, state, key);
   }
   function createKey() {
@@ -7564,11 +7564,11 @@ var HashPathCoders = {
   },
   noslash: {
     encodePath: stripLeadingSlash,
-    decodePath: addLeadingSlash$1
+    decodePath: addLeadingSlash
   },
   slash: {
-    encodePath: addLeadingSlash$1,
-    decodePath: addLeadingSlash$1
+    encodePath: addLeadingSlash,
+    decodePath: addLeadingSlash
   }
 };
 function stripHash(url) {
@@ -7592,14 +7592,14 @@ function createHashHistory(props) {
   }
   !canUseDOM ? invariant(false) : void 0;
   var globalHistory = window.history;
-  supportsGoWithoutReloadUsingHash();
+  var canGoWithoutReload = supportsGoWithoutReloadUsingHash();
   var _props = props, _props$getUserConfirm = _props.getUserConfirmation, getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm, _props$hashType = _props.hashType, hashType = _props$hashType === void 0 ? "slash" : _props$hashType;
-  var basename = props.basename ? stripTrailingSlash(addLeadingSlash$1(props.basename)) : "";
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
   var _HashPathCoders$hashT = HashPathCoders[hashType], encodePath2 = _HashPathCoders$hashT.encodePath, decodePath2 = _HashPathCoders$hashT.decodePath;
   function getDOMLocation() {
     var path2 = decodePath2(getHashPath());
     if (basename)
-      path2 = stripBasename$1(path2, basename);
+      path2 = stripBasename(path2, basename);
     return createLocation(path2);
   }
   var transitionManager = createTransitionManager();
@@ -8424,6 +8424,155 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var b$1 = typeof Symbol === "function" && Symbol.for;
+var c$1 = b$1 ? Symbol.for("react.element") : 60103;
+var d$1 = b$1 ? Symbol.for("react.portal") : 60106;
+var e$1 = b$1 ? Symbol.for("react.fragment") : 60107;
+var f$1 = b$1 ? Symbol.for("react.strict_mode") : 60108;
+var g$1 = b$1 ? Symbol.for("react.profiler") : 60114;
+var h$1 = b$1 ? Symbol.for("react.provider") : 60109;
+var k$1 = b$1 ? Symbol.for("react.context") : 60110;
+var l$1 = b$1 ? Symbol.for("react.async_mode") : 60111;
+var m$1 = b$1 ? Symbol.for("react.concurrent_mode") : 60111;
+var n$1 = b$1 ? Symbol.for("react.forward_ref") : 60112;
+var p$1 = b$1 ? Symbol.for("react.suspense") : 60113;
+var q$1 = b$1 ? Symbol.for("react.suspense_list") : 60120;
+var r$1 = b$1 ? Symbol.for("react.memo") : 60115;
+var t$1 = b$1 ? Symbol.for("react.lazy") : 60116;
+var v$1 = b$1 ? Symbol.for("react.block") : 60121;
+var w$1 = b$1 ? Symbol.for("react.fundamental") : 60117;
+var x$1 = b$1 ? Symbol.for("react.responder") : 60118;
+var y$1 = b$1 ? Symbol.for("react.scope") : 60119;
+function z$1(a) {
+  if (typeof a === "object" && a !== null) {
+    var u = a.$$typeof;
+    switch (u) {
+      case c$1:
+        switch (a = a.type, a) {
+          case l$1:
+          case m$1:
+          case e$1:
+          case g$1:
+          case f$1:
+          case p$1:
+            return a;
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k$1:
+              case n$1:
+              case t$1:
+              case r$1:
+              case h$1:
+                return a;
+              default:
+                return u;
+            }
+        }
+      case d$1:
+        return u;
+    }
+  }
+}
+function A$1(a) {
+  return z$1(a) === m$1;
+}
+var AsyncMode$1 = l$1;
+var ConcurrentMode$1 = m$1;
+var ContextConsumer$1 = k$1;
+var ContextProvider$1 = h$1;
+var Element$1 = c$1;
+var ForwardRef$1 = n$1;
+var Fragment$1 = e$1;
+var Lazy$1 = t$1;
+var Memo$1 = r$1;
+var Portal$1 = d$1;
+var Profiler$1 = g$1;
+var StrictMode$1 = f$1;
+var Suspense$1 = p$1;
+var isAsyncMode$1 = function(a) {
+  return A$1(a) || z$1(a) === l$1;
+};
+var isConcurrentMode$1 = A$1;
+var isContextConsumer$1 = function(a) {
+  return z$1(a) === k$1;
+};
+var isContextProvider$1 = function(a) {
+  return z$1(a) === h$1;
+};
+var isElement$1 = function(a) {
+  return typeof a === "object" && a !== null && a.$$typeof === c$1;
+};
+var isForwardRef$1 = function(a) {
+  return z$1(a) === n$1;
+};
+var isFragment$1 = function(a) {
+  return z$1(a) === e$1;
+};
+var isLazy$1 = function(a) {
+  return z$1(a) === t$1;
+};
+var isMemo$1 = function(a) {
+  return z$1(a) === r$1;
+};
+var isPortal$1 = function(a) {
+  return z$1(a) === d$1;
+};
+var isProfiler$1 = function(a) {
+  return z$1(a) === g$1;
+};
+var isStrictMode$1 = function(a) {
+  return z$1(a) === f$1;
+};
+var isSuspense$1 = function(a) {
+  return z$1(a) === p$1;
+};
+var isValidElementType$1 = function(a) {
+  return typeof a === "string" || typeof a === "function" || a === e$1 || a === m$1 || a === g$1 || a === f$1 || a === p$1 || a === q$1 || typeof a === "object" && a !== null && (a.$$typeof === t$1 || a.$$typeof === r$1 || a.$$typeof === h$1 || a.$$typeof === k$1 || a.$$typeof === n$1 || a.$$typeof === w$1 || a.$$typeof === x$1 || a.$$typeof === y$1 || a.$$typeof === v$1);
+};
+var typeOf$1 = z$1;
+var reactIs_production_min$1 = {
+  AsyncMode: AsyncMode$1,
+  ConcurrentMode: ConcurrentMode$1,
+  ContextConsumer: ContextConsumer$1,
+  ContextProvider: ContextProvider$1,
+  Element: Element$1,
+  ForwardRef: ForwardRef$1,
+  Fragment: Fragment$1,
+  Lazy: Lazy$1,
+  Memo: Memo$1,
+  Portal: Portal$1,
+  Profiler: Profiler$1,
+  StrictMode: StrictMode$1,
+  Suspense: Suspense$1,
+  isAsyncMode: isAsyncMode$1,
+  isConcurrentMode: isConcurrentMode$1,
+  isContextConsumer: isContextConsumer$1,
+  isContextProvider: isContextProvider$1,
+  isElement: isElement$1,
+  isForwardRef: isForwardRef$1,
+  isFragment: isFragment$1,
+  isLazy: isLazy$1,
+  isMemo: isMemo$1,
+  isPortal: isPortal$1,
+  isProfiler: isProfiler$1,
+  isStrictMode: isStrictMode$1,
+  isSuspense: isSuspense$1,
+  isValidElementType: isValidElementType$1,
+  typeOf: typeOf$1
+};
+var reactIs$1 = createCommonjsModule(function(module) {
+  {
+    module.exports = reactIs_production_min$1;
+  }
+});
 var FORWARD_REF_STATICS = {
   $$typeof: true,
   render: true,
@@ -8440,8 +8589,8 @@ var MEMO_STATICS = {
   type: true
 };
 var TYPE_STATICS = {};
-TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
-TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+TYPE_STATICS[reactIs$1.ForwardRef] = FORWARD_REF_STATICS;
+TYPE_STATICS[reactIs$1.Memo] = MEMO_STATICS;
 var createNamedContext = function createNamedContext2(name) {
   var context2 = index();
   context2.displayName = name;
@@ -8513,9 +8662,9 @@ var Router = /* @__PURE__ */ function(_React$Component) {
   };
   return Router2;
 }(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(MemoryRouter, _React$Component);
-  function MemoryRouter() {
+var MemoryRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(MemoryRouter2, _React$Component);
+  function MemoryRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8524,15 +8673,15 @@ var Router = /* @__PURE__ */ function(_React$Component) {
     _this.history = createMemoryHistory(_this.props);
     return _this;
   }
-  var _proto = MemoryRouter.prototype;
+  var _proto = MemoryRouter2.prototype;
   _proto.render = function render2() {
     return react.createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
-  return MemoryRouter;
-})(react.Component);
+  return MemoryRouter2;
+}(react.Component);
 var Lifecycle = /* @__PURE__ */ function(_React$Component) {
   _inheritsLoose(Lifecycle2, _React$Component);
   function Lifecycle2() {
@@ -8695,20 +8844,20 @@ var Route = /* @__PURE__ */ function(_React$Component) {
   };
   return Route2;
 }(react.Component);
-function addLeadingSlash(path) {
+function addLeadingSlash$1(path) {
   return path.charAt(0) === "/" ? path : "/" + path;
 }
 function addBasename(basename, location) {
   if (!basename)
     return location;
   return _extends({}, location, {
-    pathname: addLeadingSlash(basename) + location.pathname
+    pathname: addLeadingSlash$1(basename) + location.pathname
   });
 }
-function stripBasename(basename, location) {
+function stripBasename$1(basename, location) {
   if (!basename)
     return location;
-  var base = addLeadingSlash(basename);
+  var base = addLeadingSlash$1(basename);
   if (location.pathname.indexOf(base) !== 0)
     return location;
   return _extends({}, location, {
@@ -8725,9 +8874,9 @@ function staticHandler(methodName) {
 }
 function noop() {
 }
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(StaticRouter, _React$Component);
-  function StaticRouter() {
+var StaticRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(StaticRouter2, _React$Component);
+  function StaticRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8747,7 +8896,7 @@ function noop() {
     };
     return _this;
   }
-  var _proto = StaticRouter.prototype;
+  var _proto = StaticRouter2.prototype;
   _proto.navigateTo = function navigateTo(location, action) {
     var _this$props = this.props, _this$props$basename = _this$props.basename, basename = _this$props$basename === void 0 ? "" : _this$props$basename, _this$props$context = _this$props.context, context2 = _this$props$context === void 0 ? {} : _this$props$context;
     context2.action = action;
@@ -8758,10 +8907,10 @@ function noop() {
     var _this$props2 = this.props, _this$props2$basename = _this$props2.basename, basename = _this$props2$basename === void 0 ? "" : _this$props2$basename, _this$props2$context = _this$props2.context, context2 = _this$props2$context === void 0 ? {} : _this$props2$context, _this$props2$location = _this$props2.location, location = _this$props2$location === void 0 ? "/" : _this$props2$location, rest = _objectWithoutPropertiesLoose(_this$props2, ["basename", "context", "location"]);
     var history = {
       createHref: function createHref(path) {
-        return addLeadingSlash(basename + createURL(path));
+        return addLeadingSlash$1(basename + createURL(path));
       },
       action: "POP",
-      location: stripBasename(basename, createLocation(location)),
+      location: stripBasename$1(basename, createLocation(location)),
       push: this.handlePush,
       replace: this.handleReplace,
       go: staticHandler(),
@@ -8775,14 +8924,14 @@ function noop() {
       staticContext: context2
     }));
   };
-  return StaticRouter;
-})(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(Switch, _React$Component);
-  function Switch() {
+  return StaticRouter2;
+}(react.Component);
+var Switch = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(Switch2, _React$Component);
+  function Switch2() {
     return _React$Component.apply(this, arguments) || this;
   }
-  var _proto = Switch.prototype;
+  var _proto = Switch2.prototype;
   _proto.render = function render2() {
     var _this = this;
     return react.createElement(context.Consumer, null, function(context2) {
@@ -8804,9 +8953,9 @@ function noop() {
       }) : null;
     });
   };
-  return Switch;
-})(react.Component);
-react.useContext;
+  return Switch2;
+}(react.Component);
+var useContext = react.useContext;
 var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
   _inheritsLoose(BrowserRouter2, _React$Component);
   function BrowserRouter2() {
@@ -8827,9 +8976,9 @@ var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
   };
   return BrowserRouter2;
 }(react.Component);
-/* @__PURE__ */ (function(_React$Component) {
-  _inheritsLoose(HashRouter, _React$Component);
-  function HashRouter() {
+var HashRouter = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(HashRouter2, _React$Component);
+  function HashRouter2() {
     var _this;
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -8838,15 +8987,15 @@ var BrowserRouter = /* @__PURE__ */ function(_React$Component) {
     _this.history = createHashHistory(_this.props);
     return _this;
   }
-  var _proto = HashRouter.prototype;
+  var _proto = HashRouter2.prototype;
   _proto.render = function render2() {
     return react.createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
-  return HashRouter;
-})(react.Component);
+  return HashRouter2;
+}(react.Component);
 var resolveToLocation = function resolveToLocation2(to, currentLocation) {
   return typeof to === "function" ? to(currentLocation) : to;
 };
@@ -8926,7 +9075,7 @@ function joinClassnames() {
     return i;
   }).join(" ");
 }
-forwardRef$1(function(_ref, forwardedRef) {
+var NavLink = forwardRef$1(function(_ref, forwardedRef) {
   var _ref$ariaCurrent = _ref["aria-current"], ariaCurrent = _ref$ariaCurrent === void 0 ? "page" : _ref$ariaCurrent, _ref$activeClassName = _ref.activeClassName, activeClassName = _ref$activeClassName === void 0 ? "active" : _ref$activeClassName, activeStyle = _ref.activeStyle, classNameProp = _ref.className, exact = _ref.exact, isActiveProp = _ref.isActive, locationProp = _ref.location, sensitive = _ref.sensitive, strict = _ref.strict, styleProp = _ref.style, to = _ref.to, innerRef = _ref.innerRef, rest = _objectWithoutPropertiesLoose(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
   return react.createElement(context.Consumer, null, function(context2) {
     !context2 ? invariant(false) : void 0;
@@ -8958,7 +9107,7 @@ forwardRef$1(function(_ref, forwardedRef) {
   });
 });
 
-// dist/router/FrontPage.js
+// build/dist/router/FrontPage.js
 function FrontPage() {
   const storedToken = localStorage.getItem("token");
   const [loaded, setLoaded] = useState(false);
@@ -9000,24 +9149,24 @@ function FrontPage() {
   }, /* @__PURE__ */ react.createElement(Link, {
     className: "large-button large-button--fancy",
     to: "/words"
-  }, "\u{1F4D6} Words"), /* @__PURE__ */ react.createElement(Link, {
+  }, "📖 Words"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button large-button--fancy",
     to: "/memorize"
-  }, "\u{1F92F} Memorize"), /* @__PURE__ */ react.createElement(Link, {
+  }, "🤯 Memorize"), /* @__PURE__ */ react.createElement(Link, {
     className: "large-button large-button--fancy",
     to: "/test"
-  }, "\u{1F914} Test")), /* @__PURE__ */ react.createElement("footer", {
+  }, "🤔 Test")), /* @__PURE__ */ react.createElement("footer", {
     className: loaded ? "front__footer loaded" : "front__footer"
   }, name ? isAdmin ? /* @__PURE__ */ react.createElement("div", null, "Welcome,", " ", /* @__PURE__ */ react.createElement(Link, {
     to: "/admin"
   }, /* @__PURE__ */ react.createElement("b", null, name)), "!") : /* @__PURE__ */ react.createElement("div", null, "Welcome, ", /* @__PURE__ */ react.createElement("b", null, name), "!") : /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(Link, {
     to: "/login"
-  }, "Log In"), /* @__PURE__ */ react.createElement("span", null, " \xB7 "), /* @__PURE__ */ react.createElement(Link, {
+  }, "Log In"), /* @__PURE__ */ react.createElement("span", null, " · "), /* @__PURE__ */ react.createElement(Link, {
     to: "/signup"
   }, "Sign Up"))));
 }
 
-// dist/components/speaker.js
+// build/dist/components/speaker.js
 function speak(message) {
   const synth = window.speechSynthesis;
   const voices = synth.getVoices().filter((x2) => x2.lang === "en-US");
@@ -9027,7 +9176,7 @@ function speak(message) {
   speechSynthesis.speak(msg);
 }
 
-// dist/components/Loader.js
+// build/dist/components/Loader.js
 function Loader() {
   return /* @__PURE__ */ react.createElement("div", {
     className: "loader"
@@ -9073,7 +9222,7 @@ function Loader() {
   }))));
 }
 
-// dist/components/Icons.js
+// build/dist/components/Icons.js
 function HomeIcon() {
   return /* @__PURE__ */ react.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -9131,7 +9280,7 @@ function VolumeUpIcon() {
   }));
 }
 
-// dist/router/Words.js
+// build/dist/router/Words.js
 function WordsList(props) {
   const {data} = props;
   const handleClick = (e2) => {
@@ -9144,11 +9293,11 @@ function WordsList(props) {
     className: "table"
   }, /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uB2E8\uC5B4"), /* @__PURE__ */ react.createElement("div", {
+  }, "단어"), /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uB73B"), /* @__PURE__ */ react.createElement("div", {
+  }, "뜻"), /* @__PURE__ */ react.createElement("div", {
     className: "table__title"
-  }, "\uC608\uBB38"), data.map((word) => {
+  }, "예문"), data.map((word) => {
     return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement("div", {
       className: word.aware ? "aware" : ""
     }, word.word, /* @__PURE__ */ react.createElement("button", {
@@ -9192,7 +9341,7 @@ function Words() {
   }
 }
 
-// dist/utils.js
+// build/dist/utils.js
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -9200,7 +9349,7 @@ function shuffleArray(array) {
   }
 }
 
-// dist/router/Memorize.js
+// build/dist/router/Memorize.js
 function MemorizeWords(props) {
   const [index2, setIndex] = useState(0);
   const [done, setDone] = useState(false);
@@ -9231,7 +9380,7 @@ function MemorizeWords(props) {
       className: "center-container done"
     }, /* @__PURE__ */ react.createElement("h2", {
       className: "done__title"
-    }, "Done \u{1F389}"), /* @__PURE__ */ react.createElement("div", {
+    }, "Done 🎉"), /* @__PURE__ */ react.createElement("div", {
       className: "done__buttons"
     }, /* @__PURE__ */ react.createElement(Link, {
       className: "done__button",
@@ -9296,12 +9445,12 @@ function Memorize() {
   }
 }
 
-// dist/auth.js
+// build/dist/auth.js
 function updateToken(token) {
   localStorage.setItem("token", token);
 }
 
-// dist/toast.js
+// build/dist/toast.js
 var toastElement = document.createElement("div");
 var removeToast;
 function initToast() {
@@ -9326,7 +9475,7 @@ function toast(message) {
   toastElement.classList.add("reveal");
 }
 
-// dist/router/Test.js
+// build/dist/router/Test.js
 function WordTest(props) {
   const generateRandomNumbers = (max, mustHave) => {
     const numbers = [mustHave];
@@ -9383,9 +9532,9 @@ function WordTest(props) {
               updateToken(response.freshToken);
             }
             if (response.success) {
-              toast("Successfully submitted \u{1F389}");
+              toast("Successfully submitted 🎉");
             } else {
-              toast("Something went wrong \u{1F625}");
+              toast("Something went wrong 😥");
             }
           }
         });
@@ -9419,9 +9568,9 @@ function WordTest(props) {
       className: "center-container done"
     }, /* @__PURE__ */ react.createElement("h2", {
       className: "done__title"
-    }, "Congratulations! \u{1F389}"), /* @__PURE__ */ react.createElement("div", {
+    }, "Congratulations! 🎉"), /* @__PURE__ */ react.createElement("div", {
       className: "done__info"
-    }, /* @__PURE__ */ react.createElement("h3", null, "\uC624\uB2F5\uC218 : ", incorrect)), /* @__PURE__ */ react.createElement("div", {
+    }, /* @__PURE__ */ react.createElement("h3", null, "오답수 : ", incorrect)), /* @__PURE__ */ react.createElement("div", {
       className: "done__buttons"
     }, /* @__PURE__ */ react.createElement(Link, {
       className: "done__button",
@@ -9510,12 +9659,12 @@ function Test() {
   }
 }
 
-// dist/router/Admin.js
+// build/dist/router/Admin.js
 function Admin() {
   return /* @__PURE__ */ react.createElement(react.Fragment, null);
 }
 
-// dist/router/SignIn.js
+// build/dist/router/SignIn.js
 function SignIn() {
   const [authenticated, setAuthenticated] = useState(false);
   const name = useRef(null);
@@ -9543,7 +9692,7 @@ function SignIn() {
         }
         setAuthenticated(true);
       } else {
-        toast("Something went wrong \u{1F625}");
+        toast("Something went wrong 😥");
       }
     });
   };
@@ -9575,7 +9724,7 @@ function SignIn() {
   });
 }
 
-// dist/router/SignUp.js
+// build/dist/router/SignUp.js
 function SignUp() {
   const [authenticated, setAuthenticated] = useState(false);
   const name = useRef(null);
@@ -9606,7 +9755,7 @@ function SignUp() {
         }
         setAuthenticated(true);
       } else {
-        toast("Something went wrong \u{1F625}");
+        toast("Something went wrong 😥");
       }
     });
   };
@@ -9644,7 +9793,7 @@ function SignUp() {
   });
 }
 
-// dist/index.js
+// build/dist/index.js
 import.meta.env = env_exports;
 react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, null, /* @__PURE__ */ react.createElement(BrowserRouter, {
   basename: "/"
@@ -9672,6 +9821,12 @@ react_dom_default.render(/* @__PURE__ */ react.createElement(react.StrictMode, n
   component: SignUp
 }))), document.getElementById("root"));
 initToast();
+window.addEventListener("load", () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/worker.js");
+  }
+}, {once: true, passive: true});
 if (void 0) {
   (void 0).accept();
 }
+//# sourceMappingURL=index.js.map

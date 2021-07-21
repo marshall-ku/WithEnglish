@@ -1,4 +1,4 @@
-/* dist/index.css */
+/* build/dist/index.css */
 :root {
   --background-color: #121212;
   --text-color: #bbb;
@@ -248,7 +248,7 @@ h6 {
   transform: translate3d(0, 0, 0);
 }
 
-/* dist/router/FrontPage.css */
+/* build/dist/router/FrontPage.css */
 .front {
   display: flex;
   height: 100%;
@@ -276,7 +276,7 @@ h6 {
   opacity: 1;
 }
 
-/* dist/router/Memorize.css */
+/* build/dist/router/Memorize.css */
 .memorize__hidden {
   opacity: 0;
 }
@@ -315,7 +315,7 @@ html.aware .memorize__aware > svg {
   fill: greenyellow;
 }
 
-/* dist/router/Sign.css */
+/* build/dist/router/Sign.css */
 .sign {
   display: flex;
   width: clamp(0px, 18.75rem, 90vw);
@@ -365,7 +365,7 @@ html.aware .memorize__aware > svg {
   border-radius: 0.2rem;
 }
 
-/* dist/router/Test.css */
+/* build/dist/router/Test.css */
 @-webkit-keyframes vibrate-1 {
   0% {
     -webkit-transform: translate(0);
@@ -478,7 +478,7 @@ html.aware .memorize__aware > svg {
   color: #33b300;
 }
 
-/* dist/router/Words.css */
+/* build/dist/router/Words.css */
 .words {
   overflow-x: auto;
 }

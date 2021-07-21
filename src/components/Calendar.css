@@ -4,6 +4,10 @@
     line-height: 2;
 }
 
+.react-calendar__navigation {
+    padding: 15px 0;
+}
+
 .react-calendar__navigation__arrow {
     padding: 10px;
 }

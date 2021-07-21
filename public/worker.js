@@ -2,7 +2,7 @@ const CACHE_NAME = "static-cache-v1.0.0";
 const FILES_TO_CACHE = [
     "/offline.html",
     "/favicon.ico",
-    "/logo/logo-152x152.png",
+    "/logo/logo-192x192.png",
 ];
 
 self.addEventListener("install", (event) => {

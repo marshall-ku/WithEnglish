@@ -22,6 +22,12 @@
             "purpose": "any maskable"
         },
         {
+            "src": "https://withen.ga/logo/logo-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
             "src": "https://withen.ga/logo/logo-128x128.png",
             "sizes": "128x128",
             "type": "image/png",
@@ -88,14 +94,32 @@
     "shortcuts": [
         {
             "name": "Words",
+            "icons": [
+                {
+                    "src": "/logo/logo-96x96.png",
+                    "sizes": "96x96"
+                }
+            ],
             "url": "/words"
         },
         {
             "name": "Memorize",
+            "icons": [
+                {
+                    "src": "/logo/logo-96x96.png",
+                    "sizes": "96x96"
+                }
+            ],
             "url": "/memorize"
         },
         {
             "name": "Test",
+            "icons": [
+                {
+                    "src": "/logo/logo-96x96.png",
+                    "sizes": "96x96"
+                }
+            ],
             "url": "/test"
         }
     ]

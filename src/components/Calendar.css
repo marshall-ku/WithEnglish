@@ -22,11 +22,11 @@
 /* Week */
 
 .react-calendar__month-view__weekdays__weekday:nth-child(6) {
-    color: #757cff;
+    color: #a3a8ff;
 }
 
 .react-calendar__month-view__weekdays__weekday:nth-child(7) {
-    color: #ff5959;
+    color: #ff8f8f;
 }
 
 .react-calendar__month-view__weekdays__weekday > abbr {
@@ -44,7 +44,7 @@
 }
 
 .react-calendar__month-view__days__day > div.fail {
-    color: rgb(255, 121, 121);
+    color: rgb(255, 143, 143);
 }
 
 .react-calendar__month-view__days__day--neighboringMonth > abbr {

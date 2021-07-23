@@ -67,6 +67,7 @@
 .question {
     display: flex;
     width: clamp(1px, calc(100% - 20px), 700px);
+    /* height: calc(100vh - 100px); */
     height: 100vh;
     padding: 10px;
     margin: 0 auto;

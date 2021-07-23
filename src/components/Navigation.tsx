@@ -21,7 +21,7 @@ function Navigation(props: RouteComponentProps) {
         <div className="gnb-container">
             <nav className={`gnb ${current}`}>
                 <Link className="gnb__button gnb__button--home" to="/">
-                    <HomeIcon />
+                    🏠
                 </Link>
                 <Link className="gnb__button gnb__button--words" to="/words">
                     📖

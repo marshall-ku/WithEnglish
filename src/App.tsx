@@ -11,13 +11,21 @@ import SignUp from "./router/SignUp";
 import Navigation from "./components/Navigation";
 import Loader from "./components/Loader";
 
+declare global {
+    interface Window {
+        user: {
+            name?: string;
+            isAdmin?: boolean;
+        };
+    }
+}
+
 export default function App() {
     const storedToken = localStorage.getItem("token");
     const [loaded, setLoaded] = useState(false);
-    const [name, setName] = useState("");
-    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
+        window.user = {};
         if (storedToken) {
             fetch("https://api.withen.ga/auth", {
                 method: "GET",
@@ -34,10 +42,10 @@ export default function App() {
                 })
                 .then((response) => {
                     if (response.success) {
-                        setName(response.name);
+                        window.user.name = response.name;
 
                         if (response.isAdmin) {
-                            setIsAdmin(true);
+                            window.user.isAdmin = true;
                         }
                     }
                 })
@@ -53,14 +61,17 @@ export default function App() {
     if (!loaded) {
         return (
             <BrowserRouter basename="/">
-                <Loader />
-                <Navigation />
+                <div className="center-container">
+                    <Loader />
+                </div>
+                {/* <Navigation /> */}
             </BrowserRouter>
         );
     }
 
     return (
         <BrowserRouter basename="/">
+            {/* <main id="main"> */}
             <Route exact path={"/"} component={FrontPage} />
             <Route path={"/words"} component={Words} />
             <Route path={"/memorize"} component={Memorize} />
@@ -68,7 +79,8 @@ export default function App() {
             <Route path={"/admin"} component={Admin} />
             <Route path={"/login"} component={SignIn} />
             <Route path={"/signup"} component={SignUp} />
-            <Navigation />
+            {/* </main> */}
+            {/* <Navigation /> */}
         </BrowserRouter>
     );
 }

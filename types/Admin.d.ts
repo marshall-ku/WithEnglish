@@ -7,10 +7,6 @@ interface IUserWithGrade {
     }[];
 }
 
-interface GradeCalendarProps {
-    user: IUserWithGrade;
-}
-
 interface IWordsDirResponse {
     error?: boolean;
     message?: string;

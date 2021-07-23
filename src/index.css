@@ -6,6 +6,14 @@
     --primary: #86c8f7;
 }
 
+@font-face {
+    font-family: "Cafe24Oneprettynight";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
 a,
 article,
 aside,
@@ -137,6 +145,11 @@ body,
 #root,
 .center-container {
     height: 100%;
+}
+
+#main {
+    min-height: 100%;
+    padding-bottom: 100px;
 }
 
 button {

@@ -28,6 +28,7 @@
 
 .memorize__aware {
     position: fixed;
+    /* bottom: 80px; */
     bottom: 20px;
     left: 50%;
     display: inline-flex;

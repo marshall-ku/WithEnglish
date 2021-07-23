@@ -1,5 +1,13 @@
 .words {
-    overflow-x: auto;
+    max-width: 680px;
+    margin: auto;
+    padding: 10px 0 70px 0;
+}
+
+.words > h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    padding: 0 10px;
 }
 
 .table {
@@ -39,4 +47,26 @@
 .table svg {
     fill: var(--text-color);
     pointer-events: none;
+}
+
+.words__button {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
+}
+
+.words__button > svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: var(--text-color);
 }

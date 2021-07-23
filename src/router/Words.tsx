@@ -3,11 +3,14 @@ import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import SelectTable from "../components/SelectTable";
 import speak from "../speaker";
 import Loader from "../components/Loader";
-import { VolumeUpIcon, ClearIcon } from "../components/Icons";
+import { VolumeUpIcon, HomeIcon } from "../components/Icons";
 import "./Words.css";
 
 function WordsList(props: WordsListProps) {
     const { data } = props;
+    const now = new Date(
+        new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
+    );
 
     const handleClick = (e: React.MouseEvent) => {
         const target = e.target as HTMLButtonElement;
@@ -17,6 +20,9 @@ function WordsList(props: WordsListProps) {
 
     return (
         <div className="words">
+            <h1>{`${now.getFullYear()}/${
+                now.getMonth() + 1
+            }/${now.getDate()}'s Words`}</h1>
             <div className="table">
                 <div className="table__title">단어</div>
                 <div className="table__title">뜻</div>
@@ -41,6 +47,9 @@ function WordsList(props: WordsListProps) {
                     );
                 })}
             </div>
+            <Link to="/" className="words__button">
+                <HomeIcon />
+            </Link>
         </div>
     );
 }

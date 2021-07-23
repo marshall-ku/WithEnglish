@@ -20,7 +20,6 @@ function WordsList(props: WordsListProps) {
             <div className="table">
                 <div className="table__title">단어</div>
                 <div className="table__title">뜻</div>
-                <div className="table__title">예문</div>
                 {data.map((word) => {
                     return (
                         <>
@@ -38,7 +37,6 @@ function WordsList(props: WordsListProps) {
                                     return <li>{meaning}</li>;
                                 })}
                             </div>
-                            <div>{word.example || ""}</div>
                         </>
                     );
                 })}

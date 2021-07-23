@@ -3,9 +3,9 @@
 }
 
 .table {
-    display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
-    white-space: nowrap;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
 }
 
 .table__title {
@@ -15,6 +15,7 @@
 }
 
 .table > div {
+    width: 50%;
     padding: 10px;
     line-height: 2;
     border: 1px solid var(--border-color);

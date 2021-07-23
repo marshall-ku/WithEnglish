@@ -35,6 +35,7 @@ export default function SignIn() {
                         updateToken(response.token);
                     }
 
+                    window.user.name = response.name;
                     setAuthenticated(true);
                 } else {
                     toast("Something went wrong 😥");

@@ -1,29 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
-
-import FrontPage from "./router/FrontPage";
-import Words from "./router/Words";
-import Memorize from "./router/Memorize";
-import Test from "./router/Test";
-import Admin from "./router/Admin";
-import SignIn from "./router/SignIn";
-import SignUp from "./router/SignUp";
-import "./index.css";
-
+import App from "./App";
 import { initToast } from "./toast";
+import "./index.css";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter basename="/">
-            <Route exact path={"/"} component={FrontPage} />
-            <Route path={"/words"} component={Words} />
-            <Route path={"/memorize"} component={Memorize} />
-            <Route path={"/test"} component={Test} />
-            <Route path={"/admin"} component={Admin} />
-            <Route path={"/login"} component={SignIn} />
-            <Route path={"/signup"} component={SignUp} />
-        </BrowserRouter>
+        <App />
     </React.StrictMode>,
     document.getElementById("root")
 );

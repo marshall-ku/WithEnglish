@@ -15,7 +15,11 @@ function GradeCalendar(props: GradeCalendarProps) {
             grade: user.grade,
         };
     });
-    const [value, onChange] = useState(new Date());
+    const [value, onChange] = useState(
+        new Date(
+            new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
+        )
+    );
     const checkIfSameDay = (day1: Date, day2: Date) => {
         return (
             day1.getDate() === day2.getDate() &&
@@ -28,8 +32,6 @@ function GradeCalendar(props: GradeCalendarProps) {
         const filter = grades.filter((day) =>
             checkIfSameDay(day.date, currentDate)
         );
-
-        console.log(filter);
 
         if (!filter.length) return null;
 
@@ -103,9 +105,9 @@ function MangeUsers() {
         <>
             <h2>Users</h2>
             {data ? (
-                data.map((user) => {
+                data.map((user, i) => {
                     return (
-                        <details className="admin__user">
+                        <details key={i} className="admin__user">
                             <summary>{user.name}</summary>
                             <div className="admin__user__container">
                                 <h2>Last Tested</h2>
@@ -133,11 +135,81 @@ function MangeUsers() {
     );
 }
 
+function WordCalendar() {
+    const [value, onChange] = useState(
+        new Date(
+            new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
+        )
+    );
+    const [date, setDate] = useState(value);
+    const [data, setData] = useState<Date[]>([]);
+    const checkIfSameDay = (day1: Date, day2: Date) => {
+        return (
+            day1.getDate() === day2.getDate() &&
+            day1.getMonth() === day2.getMonth() &&
+            day1.getFullYear() === day2.getFullYear()
+        );
+    };
+    const Tile = (props: CalendarTileProperties) => {
+        const currentDate = new Date(props.date);
+        const filter = data.filter((day) => checkIfSameDay(day, currentDate));
+
+        if (!filter.length) return null;
+
+        return <div>*</div>;
+    };
+    const fetchDir = () => {
+        fetch(
+            `https://api.withen.ga/words/${date.getFullYear()}/${
+                date.getMonth() + 1
+            }`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response: IWordsDirResponse) => {
+                if (!response.error && response.words) {
+                    setData(
+                        response.words.map(
+                            (fileName) =>
+                                new Date(
+                                    `${date.getFullYear()}/${
+                                        date.getMonth() + 1
+                                    }/${fileName.replace(".json", "")}`
+                                )
+                        )
+                    );
+                }
+            })
+            .catch((error) => {
+                console.dir(error);
+                toast("Something went wrong 😥");
+            });
+    };
+
+    useEffect(fetchDir, [date]);
+
+    return (
+        <Calendar
+            onChange={onChange}
+            onActiveStartDateChange={({ activeStartDate }) =>
+                setDate(new Date(activeStartDate))
+            }
+            value={value}
+            tileContent={Tile}
+        />
+    );
+}
+
 function ManageWords() {
     return (
         <>
             <h2>Words</h2>
-            <Loader />
+            <WordCalendar />
         </>
     );
 }

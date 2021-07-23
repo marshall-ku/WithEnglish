@@ -38,6 +38,9 @@
 }
 
 /* Day */
+.react-calendar__tile--active {
+    background: rgba(0, 0, 0, 0.35);
+}
 
 .react-calendar__month-view__days__day > abbr {
     font-weight: 700;

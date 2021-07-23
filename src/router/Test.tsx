@@ -225,7 +225,7 @@ export default function Test() {
     }, []);
 
     if (data) {
-        return <WordTest data={data} />;
+        return <WordTest data={data.filter((word) => !word.isIdiom)} />;
     }
 
     if (signInRequired) {

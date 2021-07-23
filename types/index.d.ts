@@ -3,4 +3,5 @@ interface word {
     meaning: string[];
     example?: string;
     aware?: boolean;
+    isIdiom?: boolean;
 }

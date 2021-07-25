@@ -27,16 +27,28 @@ function WordTest(props: SpeedQuizProps) {
         return numbers;
     };
 
-    const { data } = props;
+    const { data, showCorrect, limit } = props;
+    const tmpWords = data
+        .filter((word) => !word.isIdiom)
+        .filter((_, i) => i < limit);
+    const tmpIdioms = data.filter((word) => word.isIdiom);
+    const hasIdioms = tmpIdioms.length !== 0;
+    const idioms = !hasIdioms
+        ? []
+        : tmpIdioms.length < 4
+        ? tmpIdioms.concat(tmpWords.filter((_, i) => i < 4 - tmpIdioms.length))
+        : tmpIdioms.filter((_, i) => i < 4);
+    const words = hasIdioms ? tmpWords.concat(idioms[0]) : tmpWords;
     const [index, setIndex] = useState<number>(0);
     const [randomNumbers, setRandomNumbers] = useState<number[]>(
-        generateRandomNumbers(data.length, index)
+        generateRandomNumbers(words.length, index)
     );
     const [done, setDone] = useState(false);
     const [incorrect, setIncorrect] = useState<number>(0);
     const [animating, setAnimating] = useState(true);
-    const { length: dataLength } = data;
+    const { length: dataLength } = words;
     const timeLimit = 5000;
+    const animationTime = showCorrect ? 1000 : 500;
 
     const increaseIndex = () => {
         setAnimating(false);
@@ -48,48 +60,48 @@ function WordTest(props: SpeedQuizProps) {
                 setRandomNumbers(generateRandomNumbers(dataLength, index + 1));
                 setIndex(index + 1);
                 setAnimating(true);
-            }, 1000);
+            }, animationTime);
         } else {
             setTimeout(() => {
                 setDone(true);
 
-                fetch("https://api.withen.ga/test/result", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-auth-token": localStorage.getItem("token") || "",
-                    },
-                    body: JSON.stringify({
-                        grade: (
-                            ((dataLength - incorrect) / dataLength) *
-                            100
-                        ).toFixed(2),
-                    }),
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        }
+                // fetch("https://api.withen.ga/test/result", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "x-auth-token": localStorage.getItem("token") || "",
+                //     },
+                //     body: JSON.stringify({
+                //         grade: (
+                //             ((dataLength - incorrect) / dataLength) *
+                //             100
+                //         ).toFixed(2),
+                //     }),
+                // })
+                //     .then((response) => {
+                //         if (response.ok) {
+                //             return response.json();
+                //         }
 
-                        throw new Error("Failed to fetch");
-                    })
-                    .then((response) => {
-                        if (!response.error) {
-                            if (response.freshToken) {
-                                updateToken(response.freshToken);
-                            }
+                //         throw new Error("Failed to fetch");
+                //     })
+                //     .then((response) => {
+                //         if (!response.error) {
+                //             if (response.freshToken) {
+                //                 updateToken(response.freshToken);
+                //             }
 
-                            if (response.success) {
-                                toast("Successfully submitted 🎉");
-                            } else {
-                                toast("Something went wrong 😥");
-                            }
-                        } else {
-                            toast(
-                                response.message || "Something went wrong 😥"
-                            );
-                        }
-                    });
+                //             if (response.success) {
+                //                 toast("Successfully submitted 🎉");
+                //             } else {
+                //                 toast("Something went wrong 😥");
+                //             }
+                //         } else {
+                //             toast(
+                //                 response.message || "Something went wrong 😥"
+                //             );
+                //         }
+                //     });
             }, 1000);
         }
     };
@@ -105,7 +117,7 @@ function WordTest(props: SpeedQuizProps) {
         target.classList.add("clicked");
 
         if (
-            answer.toLocaleLowerCase() !== data[index].word.toLocaleLowerCase()
+            answer.toLocaleLowerCase() !== words[index].word.toLocaleLowerCase()
         ) {
             setIncorrect(incorrect + 1);
         }
@@ -143,28 +155,36 @@ function WordTest(props: SpeedQuizProps) {
     }
 
     return (
-        <div className="question">
+        <div
+            className={`question ${
+                showCorrect ? "question--show-correct" : ""
+            }`}
+        >
             <div
                 className={`question__time-limit ${
                     animating ? "animating" : ""
                 }`}
             ></div>
             <ul className="question__meaning">
-                {data[index].meaning.map((meaning, i) => {
+                {words[index].meaning.map((meaning, i) => {
                     return <li key={i}>{meaning}</li>;
                 })}
             </ul>
             <ul className="question__words">
-                {randomNumbers.map((number) => {
+                {randomNumbers.map((number, i) => {
                     return (
                         <button
                             key={number}
                             onClick={handleSubmit}
                             className={`large-button ${
-                                !animating && number === index ? "answer" : ""
+                                !animating && showCorrect && number === index
+                                    ? "answer"
+                                    : ""
                             }`}
                         >
-                            {data[number].word}
+                            {index === dataLength - 2 && hasIdioms
+                                ? idioms[i].word
+                                : words[number].word}
                         </button>
                     );
                 })}
@@ -175,6 +195,8 @@ function WordTest(props: SpeedQuizProps) {
 
 export default function Test() {
     const [data, setData] = useState<word[]>();
+    const [limit, setLimit] = useState(0);
+    const [showCorrect, setShowCorrect] = useState<boolean>();
     const [signInRequired, setSignInRequired] = useState(false);
     const [redirect, setRedirect] = useState(false);
 
@@ -187,13 +209,6 @@ export default function Test() {
             .then((response) => {
                 try {
                     if (response.ok) {
-                        const freshToken =
-                            response.headers.get("X-Fresh-Token");
-
-                        if (freshToken) {
-                            updateToken(freshToken);
-                        }
-
                         return response.json();
                     } else {
                         throw new Error("Couldn't fetch data");
@@ -202,10 +217,18 @@ export default function Test() {
                     throw new Error("Couldn't parse data");
                 }
             })
-            .then((response: word[] | IError) => {
-                if (Array.isArray(response)) {
-                    setData(response);
+            .then((response: ITestResponse | IError) => {
+                if (response.hasOwnProperty("words")) {
+                    response = response as ITestResponse;
+                    const { words, limit, showCorrect, freshToken } = response;
+                    setData(words);
+                    setLimit(limit);
+                    setShowCorrect(showCorrect);
+                    if (freshToken) {
+                        updateToken(freshToken);
+                    }
                 } else {
+                    response = response as IError;
                     if (response.signInRequired) {
                         setSignInRequired(true);
                     } else if (response.error) {
@@ -213,10 +236,9 @@ export default function Test() {
                         setRedirect(true);
                     }
                 }
-                console.log(response);
             })
             .catch((error) => {
-                console.log(error);
+                console.dir(error);
             });
     };
 
@@ -224,8 +246,9 @@ export default function Test() {
         fetchWords();
     }, []);
 
-    if (data) {
-        return <WordTest data={data.filter((word) => !word.isIdiom)} />;
+    if (data && limit && showCorrect !== undefined) {
+        shuffleArray(data);
+        return <WordTest data={data} limit={limit} showCorrect={showCorrect} />;
     }
 
     if (signInRequired) {

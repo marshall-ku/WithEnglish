@@ -128,3 +128,13 @@
     border-color: #33b300;
     color: #33b300;
 }
+
+.question:not(.question--show-correct)
+    > .question__words
+    > .large-button.clicked,
+.question:not(.question--show-correct)
+    > .question__words
+    > .large-button.clicked::before {
+    border-color: var(--primary);
+    color: var(--primary);
+}

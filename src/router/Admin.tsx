@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Calendar, { CalendarTileProperties } from "react-calendar";
 import Loader from "../components/Loader";
 import { GradeCalendar, WordCalendar } from "../components/Calendar";
-import { GroupIcon, BookIcon } from "../components/Icons";
+import { GroupIcon, BookIcon, BorderColorIcon } from "../components/Icons";
 import { updateToken } from "../auth";
 import { toast } from "../toast";
 import "./Admin.css";
@@ -108,6 +108,125 @@ function ManageWords() {
     );
 }
 
+function ManageTest() {
+    const [showCorrect, setShowCorrect] = useState(true);
+    const [limit, setLimit] = useState(10);
+
+    const handleShowCorrectChange = (event: React.ChangeEvent) => {
+        const target = event.target as HTMLInputElement;
+
+        setShowCorrect(target.checked);
+        console.log(target.checked);
+    };
+
+    const handleLimitChange = (event: React.ChangeEvent) => {
+        const target = event.target as HTMLInputElement;
+
+        setLimit(+target.value);
+        console.log(target.value, limit);
+    };
+
+    const postConfig = () => {
+        fetch("https://api.withen.ga/test/config/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": localStorage.getItem("token") || "",
+            },
+            body: JSON.stringify({
+                limit,
+                showCorrect,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response) => {
+                if (!response.error) {
+                    if (response.freshToken) {
+                        updateToken(response.freshToken);
+                    }
+
+                    if (response.success) {
+                        toast(response.message);
+                    } else {
+                        toast("Something went wrong 😥");
+                    }
+                } else {
+                    toast(response.message || "Something went wrong 😥");
+                }
+            });
+    };
+
+    useEffect(() => {
+        fetch("https://api.withen.ga/test/config", {
+            headers: {
+                "x-auth-token": localStorage.getItem("token") || "",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response) => {
+                if (!response.error) {
+                    if (response.freshToken) {
+                        updateToken(response.freshToken);
+                    }
+
+                    if (response.success) {
+                        setShowCorrect(response.showCorrect);
+                        setLimit(response.limit);
+                    } else {
+                        toast("Something went wrong 😥");
+                    }
+                } else {
+                    toast(response.message || "Something went wrong 😥");
+                }
+            });
+    }, []);
+
+    return (
+        <>
+            <h2>Test</h2>
+            <div className="admin__options">
+                <h3>Display the correct answer onclick</h3>
+                <div>
+                    <input
+                        type="checkbox"
+                        checked={showCorrect}
+                        onChange={handleShowCorrectChange}
+                        id="showCorrect"
+                    />
+                    <label htmlFor="showCorrect">
+                        {showCorrect ? "👀 True" : "😑 False"}
+                    </label>
+                </div>
+                <h3>The number of words for test</h3>
+                <div>
+                    <input
+                        type="number"
+                        value={limit}
+                        onChange={handleLimitChange}
+                    />
+                </div>
+                <div>
+                    <button className="small-button" onClick={postConfig}>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </>
+    );
+}
+
 export default function Admin() {
     const storedToken = localStorage.getItem("token");
     const [isAdmin, setIsAdmin] = useState(false);
@@ -145,13 +264,22 @@ export default function Admin() {
 
     return (
         <div className={`admin admin--${category}`}>
-            {category === "users" ? <MangeUsers /> : <ManageWords />}
+            {category === "users" ? (
+                <MangeUsers />
+            ) : category === "words" ? (
+                <ManageWords />
+            ) : (
+                <ManageTest />
+            )}
             <nav className="admin__nav">
                 <button onClick={() => setCategory("users")}>
                     <GroupIcon />
                 </button>
                 <button onClick={() => setCategory("words")}>
                     <BookIcon />
+                </button>
+                <button onClick={() => setCategory("test")}>
+                    <BorderColorIcon />
                 </button>
             </nav>
         </div>

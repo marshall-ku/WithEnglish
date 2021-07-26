@@ -83,6 +83,24 @@
     border-radius: 5px;
 }
 
+.admin__options > h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 2;
+}
+
+.admin__options > div {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.admin__options > div > input[type="number"] {
+    display: block;
+    background: rgba(200, 200, 200, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+}
+
 /* Nav */
 .admin__nav {
     position: fixed;
@@ -112,6 +130,10 @@
 
 .admin--words > .admin__nav::before {
     transform: translate3d(54px, 0, 0);
+}
+
+.admin--test > .admin__nav::before {
+    transform: translate3d(108px, 0, 0);
 }
 
 .admin__nav > button {

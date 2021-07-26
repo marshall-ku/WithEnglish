@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Calendar, { CalendarTileProperties } from "react-calendar";
 import Loader from "../components/Loader";
 import { GradeCalendar, WordCalendar } from "../components/Calendar";
@@ -100,10 +100,124 @@ function MangeUsers() {
 }
 
 function ManageWords() {
+    const [data, setData] = useState<word[]>();
+    const [fileName, setFileName] = useState<string>();
+    const textarea = useRef<HTMLTextAreaElement>(null);
+    const parseWords = () => {
+        if (!textarea.current) return;
+        textarea.current.value = "";
+        if (!data || !data.length) return;
+        let string = "";
+        const length = data.length;
+
+        data.forEach((word, i) => {
+            let meaning = "";
+
+            if (word.meaning.length === 1) {
+                meaning = word.meaning[0];
+            } else {
+                const meaningLength = word.meaning.length;
+
+                word.meaning.forEach((string, i) => {
+                    meaning += `${string}${i === meaningLength - 1 ? "" : "."}`;
+                });
+            }
+
+            string += `${word.word}\n${meaning}${i === length - 1 ? "" : "\n"}`;
+        });
+
+        textarea.current.value = string;
+    };
+    const submitWords = () => {
+        if (!textarea.current) return;
+
+        const split = textarea.current.value.split("\n");
+        const tmpWords: word[] = [];
+        let tmpWord = {
+            word: "",
+            meaning: [""],
+        };
+
+        split.forEach((string, i) => {
+            if ((i + 1) % 2 === 0) {
+                tmpWord.meaning = string
+                    .split(".")
+                    .map((string) => string.trim());
+                tmpWords.push(tmpWord);
+                tmpWord = {
+                    word: "",
+                    meaning: [""],
+                };
+            } else {
+                tmpWord.word = string;
+            }
+        });
+
+        fetch("https://api.withen.ga/words/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": localStorage.getItem("token") || "",
+            },
+            body: JSON.stringify({
+                name: fileName,
+                words: tmpWords,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response) => {
+                if (response.freshToken) {
+                    updateToken(response.freshToken);
+                }
+
+                if (!response.error) {
+                    if (response.success) {
+                        toast(response.message);
+                    } else {
+                        toast("Something went wrong 😥");
+                    }
+                } else {
+                    toast(response.message || "Something went wrong 😥");
+                }
+            });
+    };
+    const autoGrow = () => {
+        const { current } = textarea;
+        if (!current) return;
+        const numberOfLineBreaks =
+            (current.value.match(/\n/g) || []).length + 1;
+        // min-height + lines x line-height + padding + border
+        const newHeight = numberOfLineBreaks * 32 + 20 + 0;
+
+        current.style.height = `${newHeight < 180 ? 180 : newHeight}px`;
+    };
+
+    useEffect(parseWords, [data]);
+
     return (
         <>
             <h2>Words</h2>
-            <WordCalendar />
+            <WordCalendar
+                setAdminData={setData}
+                setAdminFileName={setFileName}
+            />
+            <textarea
+                placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 단어 구분"
+                cols={30}
+                rows={5}
+                ref={textarea}
+                onKeyUp={autoGrow}
+                onChange={autoGrow}
+            ></textarea>
+            <button className="large-button" onClick={submitWords}>
+                Submit
+            </button>
         </>
     );
 }

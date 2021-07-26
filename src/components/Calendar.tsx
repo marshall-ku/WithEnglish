@@ -38,7 +38,8 @@ export function GradeCalendar(props: GradeCalendarProps) {
     return <Calendar onChange={onChange} value={value} tileContent={Tile} />;
 }
 
-export function WordCalendar() {
+export function WordCalendar(props: WordCalendarProps) {
+    const { setAdminData, setAdminFileName } = props;
     const [value, onChange] = useState(
         new Date(
             new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
@@ -92,8 +93,35 @@ export function WordCalendar() {
                 console.dir(error);
             });
     };
+    const fetchFile = () => {
+        const fileName = `${value.getFullYear()}/${
+            value.getMonth() + 1
+        }/${value.getDate()}.json`;
+
+        fetch(`https://api.withen.ga/words/${fileName}`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error("Failed to fetch");
+            })
+            .then((response: word[] | IError) => {
+                if (Array.isArray(response)) {
+                    setAdminData(response);
+                    setAdminFileName(fileName);
+                } else {
+                    setAdminData(undefined);
+                    setAdminFileName(fileName);
+                }
+            })
+            .catch((error) => {
+                console.dir(error);
+            });
+    };
 
     useEffect(fetchDir, [date]);
+    useEffect(fetchFile, [value]);
 
     return (
         <Calendar

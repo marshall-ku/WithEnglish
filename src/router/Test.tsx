@@ -38,7 +38,9 @@ function WordTest(props: SpeedQuizProps) {
         : tmpIdioms.length < 4
         ? tmpIdioms.concat(tmpWords.filter((_, i) => i < 4 - tmpIdioms.length))
         : tmpIdioms.filter((_, i) => i < 4);
-    const words = hasIdioms ? tmpWords.concat(idioms[0]) : tmpWords;
+    const words = hasIdioms
+        ? tmpWords.filter((_, i) => i < limit - 1).concat(idioms[0])
+        : tmpWords;
     const [index, setIndex] = useState<number>(0);
     const [randomNumbers, setRandomNumbers] = useState<number[]>(
         generateRandomNumbers(words.length, index)

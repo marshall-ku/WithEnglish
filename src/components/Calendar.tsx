@@ -10,11 +10,7 @@ export function GradeCalendar(props: GradeCalendarProps) {
             grade: user.grade,
         };
     });
-    const [value, onChange] = useState(
-        new Date(
-            new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
-        )
-    );
+    const [value, onChange] = useState(new Date());
     const checkIfSameDay = (day1: Date, day2: Date) => {
         return (
             day1.getDate() === day2.getDate() &&
@@ -40,11 +36,7 @@ export function GradeCalendar(props: GradeCalendarProps) {
 
 export function WordCalendar(props: WordCalendarProps) {
     const { setAdminData, setAdminFileName } = props;
-    const [value, onChange] = useState(
-        new Date(
-            new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
-        )
-    );
+    const [value, onChange] = useState(new Date());
     const [date, setDate] = useState(value);
     const [data, setData] = useState<Date[]>([]);
     const checkIfSameDay = (day1: Date, day2: Date) => {

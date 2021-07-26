@@ -36,6 +36,11 @@ export default function SignIn() {
                     }
 
                     window.user.name = response.name;
+
+                    if (window.user.isAdmin) {
+                        window.user.isAdmin = true;
+                    }
+
                     setAuthenticated(true);
                 } else {
                     toast("Something went wrong 😥");

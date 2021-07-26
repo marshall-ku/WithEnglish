@@ -106,6 +106,7 @@ function ManageWords() {
     const parseWords = () => {
         if (!textarea.current) return;
         textarea.current.value = "";
+        autoGrow();
         if (!data || !data.length) return;
         let string = "";
         const length = data.length;
@@ -123,17 +124,20 @@ function ManageWords() {
                 });
             }
 
-            string += `${word.word}\n${meaning}${i === length - 1 ? "" : "\n"}`;
+            string += `${word.word}${word.isIdiom ? "!" : ""}\n${meaning}${
+                i === length - 1 ? "" : "\n"
+            }`;
         });
 
         textarea.current.value = string;
+        autoGrow();
     };
     const submitWords = () => {
         if (!textarea.current) return;
 
         const split = textarea.current.value.split("\n");
         const tmpWords: word[] = [];
-        let tmpWord = {
+        let tmpWord: word = {
             word: "",
             meaning: [""],
         };
@@ -149,7 +153,10 @@ function ManageWords() {
                     meaning: [""],
                 };
             } else {
-                tmpWord.word = string;
+                if (string.endsWith("!")) {
+                    tmpWord.isIdiom = true;
+                }
+                tmpWord.word = string.replace("!", "");
             }
         });
 
@@ -208,7 +215,7 @@ function ManageWords() {
                 setAdminFileName={setFileName}
             />
             <textarea
-                placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 단어 구분"
+                placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 단어 구분&#13;&#10;숙어면 영단어 마지막에 ! 추가"
                 cols={30}
                 rows={5}
                 ref={textarea}

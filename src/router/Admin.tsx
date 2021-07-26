@@ -215,7 +215,7 @@ function ManageWords() {
                 setAdminFileName={setFileName}
             />
             <textarea
-                placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 단어 구분&#13;&#10;숙어면 영단어 마지막에 ! 추가"
+                placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 뜻 구분&#13;&#10;숙어면 영단어 마지막에 ! 추가"
                 cols={30}
                 rows={5}
                 ref={textarea}
@@ -339,7 +339,7 @@ function ManageTest() {
                     />
                 </div>
                 <div>
-                    <button className="small-button" onClick={postConfig}>
+                    <button className="large-button" onClick={postConfig}>
                         Submit
                     </button>
                 </div>

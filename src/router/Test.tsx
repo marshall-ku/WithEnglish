@@ -184,7 +184,7 @@ function WordTest(props: SpeedQuizProps) {
                                     : ""
                             }`}
                         >
-                            {index === dataLength - 2 && hasIdioms
+                            {index === dataLength - 1 && hasIdioms
                                 ? idioms[i].word
                                 : words[number].word}
                         </button>

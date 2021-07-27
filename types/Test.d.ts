@@ -1,7 +1,12 @@
 interface SpeedQuizProps {
-    data: word[];
-    showCorrect: boolean;
+    words: word[];
+    problems: number[];
+    answers: Set<number>;
     limit: number;
+    showCorrect: boolean;
+    hasIdioms: boolean;
+    randomIdiom: number;
+    idioms: word[];
 }
 
 interface ITestResponse {

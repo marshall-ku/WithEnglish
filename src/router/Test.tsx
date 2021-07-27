@@ -66,7 +66,6 @@ function WordTest(props: SpeedQuizProps) {
         } else {
             setTimeout(() => {
                 setDone(true);
-                return;
                 fetch("https://api.withen.ga/test/result", {
                     method: "POST",
                     headers: {

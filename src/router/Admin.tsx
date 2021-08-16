@@ -160,6 +160,8 @@ function ManageWords() {
             }
         });
 
+        setData(tmpWords);
+
         fetch("https://api.withen.ga/words/add", {
             method: "POST",
             headers: {

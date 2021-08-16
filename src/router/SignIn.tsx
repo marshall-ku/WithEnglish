@@ -37,7 +37,7 @@ export default function SignIn() {
 
                     window.user.name = response.name;
 
-                    if (window.user.isAdmin) {
+                    if (response.isAdmin) {
                         window.user.isAdmin = true;
                     }
 

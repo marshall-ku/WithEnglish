@@ -9,7 +9,7 @@ import "./Words.css";
 function WordsList(props: WordsListProps) {
     const { data } = props;
     const now = new Date();
-    if (now.getTime() > 9) {
+    if (now.getTime() > 22) {
         now.setDate(new Date().getDate() + 1);
     }
     const handleClick = (e: React.MouseEvent) => {

@@ -15,7 +15,7 @@ function MemorizeWords(props: MemorizeWordsProps) {
     const { length } = data;
 
     const wordSwapInterval = 3000;
-    const wordRevealInterval = wordSwapInterval - 1000;
+    const wordRevealInterval = 2000;
 
     const increaseIndex = () => {
         if (index === length - 1) {

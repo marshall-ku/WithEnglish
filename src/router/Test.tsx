@@ -51,7 +51,7 @@ function WordTest(props: SpeedQuizProps) {
     const timeLimit = 5000;
     const animationTime = showCorrect ? 1000 : 500;
 
-    const increaseIndex = () => {
+    const increaseIndex = (incorrect: number) => {
         setAnimating(false);
         if (index !== limit - 1) {
             setTimeout(() => {
@@ -66,6 +66,7 @@ function WordTest(props: SpeedQuizProps) {
         } else {
             setTimeout(() => {
                 setDone(true);
+
                 fetch("https://api.withen.ga/test/result", {
                     method: "POST",
                     headers: {
@@ -122,10 +123,11 @@ function WordTest(props: SpeedQuizProps) {
             submittedAnswer.toLocaleLowerCase() !==
             correctAnswer.toLocaleLowerCase()
         ) {
+            increaseIndex(incorrect + 1);
             setIncorrect(incorrect + 1);
+        } else {
+            increaseIndex(incorrect);
         }
-
-        increaseIndex();
     };
 
     useEffect(() => {
@@ -136,8 +138,8 @@ function WordTest(props: SpeedQuizProps) {
         const timer = done
             ? setTimeout(() => {}, 0)
             : setTimeout(() => {
+                  increaseIndex(incorrect + 1);
                   setIncorrect(incorrect + 1);
-                  increaseIndex();
               }, timeLimit);
 
         return () => {
@@ -254,9 +256,11 @@ export default function Test() {
                 if (response.hasOwnProperty("words")) {
                     response = response as ITestResponse;
                     const { words, limit, showCorrect, freshToken } = response;
+
                     setData(words);
                     setLimit(limit);
                     setShowCorrect(showCorrect);
+
                     if (freshToken) {
                         updateToken(freshToken);
                     }

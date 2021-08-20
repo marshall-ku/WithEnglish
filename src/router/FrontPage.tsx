@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { GradeCalendar } from "../components/Calendar";
 import Loader from "../components/Loader";
+import { resetToken } from "../auth";
 import "./FrontPage.css";
 
 export default function FrontPage() {
+    const history = useHistory();
     const [user, setUser] = useState<IUserWithGrade>();
     const { name, isAdmin } = window.user;
 
@@ -104,6 +106,17 @@ export default function FrontPage() {
                     <div>{user.lastTestDate || "Never"}</div>
                     <h2>💡 Grades</h2>
                     <GradeCalendar user={user} />
+                    <div className="front__small-text">
+                        <button
+                            onClick={() => {
+                                resetToken();
+                                history.push("/login");
+                            }}
+                            className="small-button"
+                        >
+                            Sign out
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <div className="front__loading">

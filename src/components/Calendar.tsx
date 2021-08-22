@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Calendar, { CalendarTileProperties } from "react-calendar";
+import stamp from "../assets/stamp.svg";
 import "./Calendar.css";
 
 export function GradeCalendar(props: GradeCalendarProps) {
@@ -28,7 +29,14 @@ export function GradeCalendar(props: GradeCalendarProps) {
 
         const { grade } = filter[0];
 
-        return <div className={grade < 80 ? "fail" : ""}>{grade}</div>;
+        return (
+            <div
+                className={grade === 100 ? "perfect" : grade < 80 ? "fail" : ""}
+            >
+                {grade}
+                {grade === 100 && <img src={stamp} />}
+            </div>
+        );
     };
 
     return <Calendar onChange={onChange} value={value} tileContent={Tile} />;

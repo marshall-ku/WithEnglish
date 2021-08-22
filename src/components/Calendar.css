@@ -42,6 +42,10 @@
     background: rgba(0, 0, 0, 0.35);
 }
 
+.react-calendar__month-view__days__day {
+    position: relative;
+}
+
 .react-calendar__month-view__days__day > abbr {
     font-weight: 700;
 }
@@ -52,6 +56,19 @@
 
 .react-calendar__month-view__days__day > div.fail {
     color: rgb(255, 143, 143);
+}
+
+.react-calendar__month-view__days__day > div > img {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    pointer-events: none;
+    object-fit: contain;
+    z-index: -1;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth > abbr {

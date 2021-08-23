@@ -58,7 +58,7 @@
     color: rgb(255, 143, 143);
 }
 
-.react-calendar__month-view__days__day > div > img {
+.react-calendar__month-view__days__day > div > svg {
     position: absolute;
     display: block;
     top: 0;

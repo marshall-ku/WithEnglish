@@ -127,6 +127,16 @@ a {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
 html {
     background: var(--background-color);
     color: var(--text-color);

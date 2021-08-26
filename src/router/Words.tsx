@@ -22,7 +22,7 @@ function WordsList(props: WordsListProps) {
         <div className="words">
             <h1>{`${now.getFullYear()}/${
                 now.getMonth() + 1
-            }/${now.getDate()}'s Words`}</h1>
+            }/${now.getDate()}`}</h1>
             <div className="table">
                 <div className="table__title">단어</div>
                 <div className="table__title">뜻</div>
@@ -38,11 +38,11 @@ function WordsList(props: WordsListProps) {
                                     <VolumeUpIcon />
                                 </button>
                             </div>
-                            <div>
+                            <ul>
                                 {word.meaning.map((meaning) => {
                                     return <li>{meaning}</li>;
                                 })}
-                            </div>
+                            </ul>
                         </>
                     );
                 })}

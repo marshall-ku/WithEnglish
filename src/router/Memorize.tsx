@@ -68,7 +68,7 @@ function MemorizeWords(props: MemorizeWordsProps) {
                 <h2 className="memorize__word">
                     <div>{currentWord.word}</div>
                 </h2>
-                <ol
+                <ul
                     className={`memorize__meaning memorize__hidden${
                         reveal ? " reveal" : ""
                     }`}
@@ -76,7 +76,7 @@ function MemorizeWords(props: MemorizeWordsProps) {
                     {currentWord.meaning.map((meaning, index) => {
                         return <li key={index}>{meaning}</li>;
                     })}
-                </ol>
+                </ul>
                 <button className="memorize__aware" onClick={increaseIndex}>
                     <DoneIcon /> I know this
                 </button>

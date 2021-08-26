@@ -7,7 +7,7 @@
 .words > h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
-    padding: 0 10px;
+    text-align: center;
 }
 
 .table {
@@ -22,7 +22,8 @@
     font-weight: bold;
 }
 
-.table > div {
+.table > div,
+.table > ul {
     width: 50%;
     padding: 10px;
     line-height: 2;
@@ -34,7 +35,7 @@
 }
 
 .table li {
-    list-style: inside decimal;
+    list-style: inside disc;
 }
 
 .table button {

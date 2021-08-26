@@ -100,7 +100,7 @@
 }
 
 .question__meaning > li {
-    list-style: inside decimal;
+    list-style: inside disc;
     word-break: keep-all;
 }
 

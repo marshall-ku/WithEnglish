@@ -27,7 +27,7 @@ export default function App() {
     useEffect(() => {
         window.user = {};
         if (storedToken) {
-            fetch("https://api.withen.ga/auth", {
+            fetch("https://words-api.marshall-ku.com/auth", {
                 method: "GET",
                 headers: {
                     "x-auth-token": storedToken,

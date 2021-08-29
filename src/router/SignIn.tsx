@@ -12,7 +12,7 @@ export default function SignIn() {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        fetch("https://api.withen.ga/auth/login", {
+        fetch("https://words-api.marshall-ku.com/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function SignIn() {
     if (!authenticated) {
         return (
             <form
-                action="https://api.withen.ga/auth/login"
+                action="https://words-api.marshall-ku.com/auth/login"
                 method="post"
                 className="sign sign--in"
                 onSubmit={handleSubmit}

@@ -16,7 +16,7 @@ export default function SignUp() {
         if (password.current?.value !== confirm.current?.value)
             return toast("Check your password again!");
 
-        fetch("https://api.withen.ga/users/user/add", {
+        fetch("https://words-api.marshall-ku.com/users/user/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function SignUp() {
     if (!authenticated) {
         return (
             <form
-                action="https://api.withen.ga/auth/login"
+                action="https://words-api.marshall-ku.com/auth/login"
                 method="post"
                 className="sign sign--in"
                 onSubmit={handleSubmit}

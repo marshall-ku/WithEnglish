@@ -67,7 +67,7 @@ function WordTest(props: SpeedQuizProps) {
             setTimeout(() => {
                 setDone(true);
 
-                fetch("https://api.withen.ga/test/result", {
+                fetch("https://words-api.marshall-ku.com/test/result", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -236,7 +236,7 @@ export default function Test() {
     const answers: Set<number> = new Set([]);
 
     const fetchWords = () => {
-        fetch("https://api.withen.ga/test", {
+        fetch("https://words-api.marshall-ku.com/test", {
             headers: {
                 "x-auth-token": localStorage.getItem("token") || "",
             },

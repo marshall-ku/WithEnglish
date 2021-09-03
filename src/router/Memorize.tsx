@@ -89,7 +89,7 @@ export default function Memorize() {
     const [data, setData] = useState<word[]>();
 
     const fetchWords = () => {
-        fetch("https://api.withen.ga/words/today")
+        fetch("https://words-api.marshall-ku.com/words/today")
             .then((response) => {
                 try {
                     if (response.ok) {

@@ -10,7 +10,7 @@ import "./Admin.css";
 function MangeUsers() {
     const [data, setData] = useState<IUserWithGrade[]>();
     const resetLastTestDate = (targetUserName: string) => {
-        fetch("https://api.withen.ga/test/reset", {
+        fetch("https://words-api.marshall-ku.com/test/reset", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function MangeUsers() {
     };
 
     useEffect(() => {
-        fetch("https://api.withen.ga/users", {
+        fetch("https://words-api.marshall-ku.com/users", {
             method: "GET",
         })
             .then((response) => {
@@ -162,7 +162,7 @@ function ManageWords() {
 
         setData(tmpWords);
 
-        fetch("https://api.withen.ga/words/add", {
+        fetch("https://words-api.marshall-ku.com/words/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -250,7 +250,7 @@ function ManageTest() {
     };
 
     const postConfig = () => {
-        fetch("https://api.withen.ga/test/config/update", {
+        fetch("https://words-api.marshall-ku.com/test/config/update", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -286,7 +286,7 @@ function ManageTest() {
     };
 
     useEffect(() => {
-        fetch("https://api.withen.ga/test/config", {
+        fetch("https://words-api.marshall-ku.com/test/config", {
             headers: {
                 "x-auth-token": localStorage.getItem("token") || "",
             },
@@ -357,7 +357,7 @@ export default function Admin() {
 
     useEffect(() => {
         if (storedToken) {
-            fetch("https://api.withen.ga/auth", {
+            fetch("https://words-api.marshall-ku.com/auth", {
                 method: "GET",
                 headers: {
                     "x-auth-token": storedToken,

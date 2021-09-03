@@ -64,7 +64,7 @@ export function WordCalendar(props: WordCalendarProps) {
     };
     const fetchDir = () => {
         fetch(
-            `https://api.withen.ga/words/${date.getFullYear()}/${
+            `https://words-api.marshall-ku.com/words/${date.getFullYear()}/${
                 date.getMonth() + 1
             }`
         )
@@ -98,7 +98,7 @@ export function WordCalendar(props: WordCalendarProps) {
             value.getMonth() + 1
         }/${value.getDate()}.json`;
 
-        fetch(`https://api.withen.ga/words/${fileName}`)
+        fetch(`https://words-api.marshall-ku.com/words/${fileName}`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();

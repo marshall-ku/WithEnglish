@@ -34,7 +34,7 @@ export default function FrontPage() {
 
     useEffect(() => {
         if (name) {
-            fetch(`https://api.withen.ga/users/user/${name}`)
+            fetch(`https://words-api.marshall-ku.com/users/user/${name}`)
                 .then((response) => {
                     if (response.ok) {
                         return response.json();

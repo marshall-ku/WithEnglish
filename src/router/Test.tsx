@@ -290,7 +290,10 @@ export default function Test() {
         const tmpWords = wordsWithoutIdioms.filter((_, i) => i < limit);
         const tmpIdioms = data.filter((word) => word.isIdiom);
         const hasIdioms = tmpIdioms.length !== 0;
-        const randomIdiom = Math.floor(Math.random() * tmpIdioms.length);
+        const randomIdiom = Math.max(
+            Math.floor(Math.random() * tmpIdioms.length),
+            3
+        );
         const idioms = !hasIdioms
             ? []
             : tmpIdioms.length < 4

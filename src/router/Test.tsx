@@ -300,7 +300,7 @@ export default function Test() {
             ? tmpIdioms.concat(
                   tmpWords.filter((_, i) => i < 4 - tmpIdioms.length)
               )
-            : tmpIdioms.filter((_, i) => i < 4);
+            : tmpIdioms;
         // const words = hasIdioms
         //     ? tmpWords
         //           .filter((_, i) => i < limit - 1)

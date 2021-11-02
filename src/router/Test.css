@@ -99,6 +99,26 @@
     line-height: 2;
 }
 
+.question__sentence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+}
+
+.question__sentence span:not(:last-child) {
+    margin-right: 5px;
+}
+
+.question__sentence .blank {
+    display: inline-block;
+    width: 4.5rem;
+    height: 1.7rem;
+    border-bottom: 2px solid var(--text-color);
+}
+
 .question__meaning > li {
     list-style: inside disc;
     word-break: keep-all;

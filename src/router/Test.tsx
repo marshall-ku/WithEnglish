@@ -130,6 +130,36 @@ function WordTest(props: SpeedQuizProps) {
         }
     };
 
+    const Buttons = () => {
+        return (
+            <ul className="question__words">
+                {randomNumbers.map((number, i) => {
+                    return (
+                        <button
+                            key={number}
+                            onClick={handleSubmit}
+                            className={`large-button ${
+                                !animating &&
+                                showCorrect &&
+                                (hasIdioms
+                                    ? index === limit - 1
+                                        ? i === randomIdiom
+                                        : number === problems[index]
+                                    : number === problems[index])
+                                    ? "answer"
+                                    : ""
+                            }`}
+                        >
+                            {hasIdioms && index === limit - 1
+                                ? idioms[i].word
+                                : words[number].word}
+                        </button>
+                    );
+                })}
+            </ul>
+        );
+    };
+
     useEffect(() => {
         answers.add(problems[index]);
     }, []);
@@ -163,6 +193,36 @@ function WordTest(props: SpeedQuizProps) {
         );
     }
 
+    if (props.type === "sentence") {
+        const currentWord =
+            hasIdioms && index === limit - 1
+                ? idioms[randomIdiom]
+                : words[problems[index]];
+        return (
+            <div
+                className={`question ${
+                    showCorrect ? "question--show-correct" : ""
+                }`}
+            >
+                <div
+                    className={`question__time-limit ${
+                        animating ? "animating" : ""
+                    }`}
+                ></div>
+                <div className="question__sentence">
+                    <div>
+                        {currentWord.example?.split(" ").map((word, i) => {
+                            if (word === currentWord.word)
+                                return <span className="blank" key={i}></span>;
+                            return <span key={i}>{word}</span>;
+                        })}
+                    </div>
+                </div>
+                <Buttons />
+            </div>
+        );
+    }
+
     return (
         <div
             className={`question ${
@@ -182,31 +242,7 @@ function WordTest(props: SpeedQuizProps) {
                     return <li key={i}>{meaning}</li>;
                 })}
             </ul>
-            <ul className="question__words">
-                {randomNumbers.map((number, i) => {
-                    return (
-                        <button
-                            key={number}
-                            onClick={handleSubmit}
-                            className={`large-button ${
-                                !animating &&
-                                showCorrect &&
-                                (hasIdioms
-                                    ? index === limit - 1
-                                        ? i === randomIdiom
-                                        : number === problems[index]
-                                    : number === problems[index])
-                                    ? "answer"
-                                    : ""
-                            }`}
-                        >
-                            {hasIdioms && index === limit - 1
-                                ? idioms[i].word
-                                : words[number].word}
-                        </button>
-                    );
-                })}
-            </ul>
+            <Buttons />
         </div>
     );
 }
@@ -230,6 +266,7 @@ export default function Test() {
 
     const [data, setData] = useState<word[]>();
     const [limit, setLimit] = useState(0);
+    const [testType, setTestType] = useState<"sentence" | "word">();
     const [showCorrect, setShowCorrect] = useState<boolean>();
     const [signInRequired, setSignInRequired] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -255,10 +292,12 @@ export default function Test() {
             .then((response: ITestResponse | IError) => {
                 if (response.hasOwnProperty("words")) {
                     response = response as ITestResponse;
-                    const { words, limit, showCorrect, freshToken } = response;
+                    const { words, limit, type, showCorrect, freshToken } =
+                        response;
 
                     setData(words);
                     setLimit(limit);
+                    setTestType(type);
                     setShowCorrect(showCorrect);
 
                     if (freshToken) {
@@ -283,7 +322,7 @@ export default function Test() {
         fetchWords();
     }, []);
 
-    if (data && limit && showCorrect !== undefined) {
+    if (data && testType && limit && showCorrect !== undefined) {
         shuffleArray(data);
 
         const wordsWithoutIdioms = data.filter((word) => !word.isIdiom);
@@ -313,6 +352,7 @@ export default function Test() {
 
         return (
             <WordTest
+                type={testType}
                 words={wordsWithoutIdioms}
                 idioms={idioms}
                 problems={problems}

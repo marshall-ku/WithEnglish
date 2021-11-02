@@ -229,12 +229,11 @@ function ManageWords() {
     const autoGrow = () => {
         const { current } = textarea;
         if (!current) return;
-        const numberOfLineBreaks =
-            (current.value.match(/\n/g) || []).length + 1;
-        // min-height + lines x line-height + padding + border
-        const newHeight = numberOfLineBreaks * 32 + 20 + 0;
+        const { scrollY } = window;
 
-        current.style.height = `${newHeight < 180 ? 180 : newHeight}px`;
+        current.style.height = "auto";
+        current.style.height = `calc(${current.scrollHeight}px + 1.2rem)`;
+        window.scrollTo(0, scrollY);
     };
 
     useEffect(parseWords, [data]);

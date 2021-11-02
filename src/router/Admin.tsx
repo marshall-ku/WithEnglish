@@ -126,8 +126,8 @@ function ManageWords() {
             }
 
             string += `${word.word}${word.isIdiom ? "!" : ""}\n${meaning}${
-                i === length - 1 ? "" : "\n"
-            }`;
+                word.example ? `\n${word.example}` : ""
+            }${i === length - 1 ? "" : "\n"}`;
         });
 
         textarea.current.value = string;

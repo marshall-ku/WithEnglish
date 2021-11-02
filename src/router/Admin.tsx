@@ -160,14 +160,14 @@ function ManageWords() {
                         example: "",
                     };
                 } else if ((i + 1) % 3 === 1) {
-                    tmpWord.meaning = string
-                        .split(".")
-                        .map((string) => string.trim());
-                } else {
                     if (string.endsWith("!")) {
                         tmpWord.isIdiom = true;
                     }
                     tmpWord.word = string.replace("!", "");
+                } else {
+                    tmpWord.meaning = string
+                        .split(".")
+                        .map((string) => string.trim());
                 }
             });
         } else {

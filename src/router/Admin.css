@@ -83,6 +83,10 @@
     border-radius: 5px;
 }
 
+.admin--words > div {
+    margin: 10px 0;
+}
+
 .admin--words > textarea {
     display: block;
     width: 100%;

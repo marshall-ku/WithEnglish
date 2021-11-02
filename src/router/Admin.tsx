@@ -102,6 +102,7 @@ function MangeUsers() {
 function ManageWords() {
     const [data, setData] = useState<word[]>();
     const [fileName, setFileName] = useState<string>();
+    const [includeExample, setIncludeExample] = useState(false);
     const textarea = useRef<HTMLTextAreaElement>(null);
     const parseWords = () => {
         if (!textarea.current) return;
@@ -137,28 +138,57 @@ function ManageWords() {
 
         const split = textarea.current.value.split("\n");
         const tmpWords: word[] = [];
-        let tmpWord: word = {
-            word: "",
-            meaning: [""],
-        };
+        let tmpWord: word = includeExample
+            ? {
+                  word: "",
+                  meaning: [""],
+                  example: "",
+              }
+            : {
+                  word: "",
+                  meaning: [""],
+              };
 
-        split.forEach((string, i) => {
-            if ((i + 1) % 2 === 0) {
-                tmpWord.meaning = string
-                    .split(".")
-                    .map((string) => string.trim());
-                tmpWords.push(tmpWord);
-                tmpWord = {
-                    word: "",
-                    meaning: [""],
-                };
-            } else {
-                if (string.endsWith("!")) {
-                    tmpWord.isIdiom = true;
+        if (includeExample) {
+            split.forEach((string, i) => {
+                if ((i + 1) % 3 === 0) {
+                    tmpWord.example = string;
+                    tmpWords.push(tmpWord);
+                    tmpWord = {
+                        word: "",
+                        meaning: [""],
+                        example: "",
+                    };
+                } else if ((i + 1) % 3 === 1) {
+                    tmpWord.meaning = string
+                        .split(".")
+                        .map((string) => string.trim());
+                } else {
+                    if (string.endsWith("!")) {
+                        tmpWord.isIdiom = true;
+                    }
+                    tmpWord.word = string.replace("!", "");
                 }
-                tmpWord.word = string.replace("!", "");
-            }
-        });
+            });
+        } else {
+            split.forEach((string, i) => {
+                if ((i + 1) % 2 === 0) {
+                    tmpWord.meaning = string
+                        .split(".")
+                        .map((string) => string.trim());
+                    tmpWords.push(tmpWord);
+                    tmpWord = {
+                        word: "",
+                        meaning: [""],
+                    };
+                } else {
+                    if (string.endsWith("!")) {
+                        tmpWord.isIdiom = true;
+                    }
+                    tmpWord.word = string.replace("!", "");
+                }
+            });
+        }
 
         setData(tmpWords);
 
@@ -216,6 +246,16 @@ function ManageWords() {
                 setAdminData={setData}
                 setAdminFileName={setFileName}
             />
+            <div>
+                <input
+                    type="checkbox"
+                    id="include-example"
+                    onChange={(event) => {
+                        setIncludeExample(event.target.checked);
+                    }}
+                />
+                <label htmlFor="include-example">예문 포함</label>
+            </div>
             <textarea
                 placeholder="영단어, 뜻 순으로 입력&#13;&#10;뜻 여러개인 단어는 .으로 뜻 구분&#13;&#10;숙어면 영단어 마지막에 ! 추가"
                 cols={30}
